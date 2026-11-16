@@ -332,6 +332,16 @@ for a change that is not there. That is not hypothetical — it is how the
   comments and strings before counting. The same confusion inflated onyx's
   require count from 184 to 282.
 
+  There is a fourth case that needs no test at all to go wrong. While this work
+  was running, a command printed `M src/glue.js` and the line directly below it
+  announced that the repository was clean. The label won, and a broken loader
+  was committed and pushed. **Evidence and summary were adjacent and
+  contradicted each other, and only the summary was read.** It is the same
+  disease one level up: an assertion whose truth the surrounding output already
+  disproved. The habit that follows is dull and worth it — read `git status`
+  before every commit, and never `git add -A` without looking at what it swept
+  up.
+
   The pattern behind all of these, and behind the warm-registry bug above, is
   the same: **the check asserted something the harness itself guaranteed** — its
   own successful link, its own warm module registry, its own import. It is worth
