@@ -239,4 +239,4 @@ var ViewPreloadSupport = {
 
 };
 
-module.exports = ViewPreloadSupport;
+export default ViewPreloadSupport;

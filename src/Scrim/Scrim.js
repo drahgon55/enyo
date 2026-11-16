@@ -28,7 +28,7 @@ import Control from '../Control/Control.js';
 * @ui
 * @public
 */
-var Scrim = module.exports = kind(
+var Scrim = kind(
 	/** @lends module:enyo/Scrim~Scrim.prototype */ {
 
 	/**
@@ -209,3 +209,5 @@ var ScrimSingleton = kind(
 new ScrimSingleton(Scrim, 'scrim', {floating: true, classes: 'enyo-scrim-translucent'});
 new ScrimSingleton(Scrim, 'scrimTransparent', {floating: true, classes: 'enyo-scrim-transparent'});
 Scrim.ScrimSingleton = ScrimSingleton;
+
+export default Scrim;

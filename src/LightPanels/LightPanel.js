@@ -36,7 +36,7 @@ var States = {
 * @wip
 * @public
 */
-module.exports = kind(
+var LightPanel = kind(
 	/** @lends module:enyo/LightPanels~LightPanel.prototype */ {
 
 	/**
@@ -74,4 +74,6 @@ module.exports = kind(
 
 });
 
-module.exports.States = States;
+LightPanel.States = States;
+
+export default LightPanel;

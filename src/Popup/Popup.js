@@ -69,7 +69,7 @@ import Dom from '../dom.js';
 * @ui
 * @public
 */
-var Popup = module.exports = kind(
+var Popup = kind(
 	/** @lends module:enyo/Popup~Popup.prototype */ {
 
 	/**
@@ -342,10 +342,10 @@ var Popup = module.exports = kind(
 	* @private
 	*/
 	calcViewportSize: function () {
-		if (global.innerWidth) {
+		if (globalThis.innerWidth) {
 			return {
-				width: global.innerWidth,
-				height: global.innerHeight
+				width: globalThis.innerWidth,
+				height: globalThis.innerHeight
 			};
 		} else {
 			var e = document.documentElement;
@@ -756,3 +756,5 @@ Popup.concat = function (ctor, props, instance) {
 	proto.eventsToCapture = evts ? utils.mixin({}, [evts, props.eventsToCapture]) : props.eventsToCapture;
 	delete props.eventsToCapture;
 };
+
+export default Popup;

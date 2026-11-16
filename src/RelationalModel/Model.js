@@ -28,7 +28,7 @@ var
 * @extends module:enyo/Model~Model
 * @public
 */
-var RelationalModel = module.exports = kind(
+var RelationalModel = kind(
 	/** @lends module:enyo/RelationalModel~RelationalModel.prototype */ {
 	
 	name: 'enyo.RelationalModel',
@@ -353,3 +353,5 @@ RelationalModel.concat = function (ctor, props) {
 	// apply our modified relations array to the prototype
 	proto.relations = rels;
 };
+
+export default RelationalModel;

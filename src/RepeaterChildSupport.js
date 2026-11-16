@@ -212,4 +212,4 @@ var RepeaterChildSupport = {
 	_selectionBindingId: null
 };
 
-module.exports = RepeaterChildSupport;
+export default RepeaterChildSupport;

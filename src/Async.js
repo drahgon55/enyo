@@ -21,7 +21,7 @@ import CoreObject from './CoreObject.js';
 * @extends module:enyo/CoreObject~Object
 * @public
 */
-var Async = module.exports = kind(
+var Async = kind(
 	/** @lends module:enyo/Async~Async.prototype */ {
 	
 	name: 'enyo.Async',
@@ -299,3 +299,5 @@ var Async = module.exports = kind(
 		return this;
 	}
 });
+
+export default Async;

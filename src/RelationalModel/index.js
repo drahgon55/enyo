@@ -17,4 +17,4 @@ Model.defineRelationType('manyToMany', manyToMany);
 Relation.relationDefaults.model = Model;
 Relation.relationDefaults.type = toOne;
 
-module.exports = Model;
+export default Model;

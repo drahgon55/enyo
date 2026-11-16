@@ -29,7 +29,7 @@ import path from './pathResolver.js';
 * @private
 */
 
-module.exports = {
+export default {
 	
 	/**
 	* Internally-used method to execute XHR requests.
@@ -113,7 +113,7 @@ module.exports = {
 	* @private
 	*/
 	makeReadyStateHandler: function (inXhr, inCallback) {
-		if (global.XDomainRequest && inXhr instanceof global.XDomainRequest) {
+		if (globalThis.XDomainRequest && inXhr instanceof globalThis.XDomainRequest) {
 			inXhr.onload = function() {
 				var data;
 				if (inXhr.responseType === 'arraybuffer') {
@@ -148,10 +148,10 @@ module.exports = {
 		a.href = url;
 		// protocol is ':' for relative URLs
 		if (a.protocol === ':' ||
-				(a.protocol === global.location.protocol &&
-					a.hostname === global.location.hostname &&
-					a.port === (global.location.port ||
-						(global.location.protocol === 'https:' ? '443' : '80')))) {
+				(a.protocol === globalThis.location.protocol &&
+					a.hostname === globalThis.location.hostname &&
+					a.port === (globalThis.location.port ||
+						(globalThis.location.protocol === 'https:' ? '443' : '80')))) {
 			result = true;
 		}
 		return result;
@@ -165,15 +165,15 @@ module.exports = {
 		a.href = url;
 		// protocol is ':' for relative URLs
 		if (a.protocol === 'file:' ||
-			a.protocol === ':' && global.location.protocol === 'file:') {
+			a.protocol === ':' && globalThis.location.protocol === 'file:') {
 			// leave off search and hash parts of the URL
 			// and work around a bug in webOS 3 where the app's host has a domain string
 			// in it that isn't resolved as a path
 			var host = (platform.webos < 4) ? '' : a.host;
 			return a.protocol + '//' + host + a.pathname;
-		} else if (a.protocol === ':' && global.location.protocol === 'x-wmapp0:') {
+		} else if (a.protocol === ':' && globalThis.location.protocol === 'x-wmapp0:') {
 			// explicitly return absolute URL for Windows Phone 8, as an absolute path is required for local files
-			return global.location.protocol + '//' + global.location.pathname.split('/')[0] + '/' + a.host + a.pathname;
+			return globalThis.location.protocol + '//' + globalThis.location.pathname.split('/')[0] + '/' + a.host + a.pathname;
 		} else {
 			return url;
 		}
@@ -186,9 +186,9 @@ module.exports = {
 		try {
 			// only use XDomainRequest when it exists, no extra headers were set, and the
 			// target URL maps to a domain other than the document origin.
-			if (platform.ie < 10 && global.XDomainRequest && !params.headers &&
-				!this.inOrigin(params.url) && !/^file:\/\//.test(global.location.href)) {
-				return new global.XDomainRequest();
+			if (platform.ie < 10 && globalThis.XDomainRequest && !params.headers &&
+				!this.inOrigin(params.url) && !/^file:\/\//.test(globalThis.location.href)) {
+				return new globalThis.XDomainRequest();
 			}
 		} catch(e) {}
 		try {

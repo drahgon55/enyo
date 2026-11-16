@@ -8,7 +8,7 @@ import utils from '../utils.js';
 * @module enyo/gesture/util
 * @private
 */
-module.exports = {
+export default {
 
 	/**
 	* @private
@@ -49,13 +49,13 @@ module.exports = {
 		// Note that while 'which' works in IE9, it is broken for mousemove. Therefore,
 		// in IE, use global.event.button
 		if (platform.ie < 10) {
-			var b = global.event && global.event.button;
+			var b = globalThis.event && globalThis.event.button;
 			if (b) {
 				// multi-button not supported, priority: left, right, middle
 				// (note: IE bitmask is 1=left, 2=right, 4=center);
 				e.which = b & 1 ? 1 : (b & 2 ? 2 : (b & 4 ? 3 : 0));
 			}
-		} else if (platform.webos || global.PalmSystem) {
+		} else if (platform.webos || globalThis.PalmSystem) {
 			// Temporary fix for owos: it does not currently supply 'which' on move events
 			// and the user agent string doesn't identify itself so we test for PalmSystem
 			if (e.which === 0) {

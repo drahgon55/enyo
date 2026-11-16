@@ -113,7 +113,7 @@ import Component from './Component.js';
 * @extends module:enyo/Component~Component
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Selection~Selection.prototype */ {
 
 	/**

@@ -44,7 +44,7 @@ import Control from '../Control/Control.js';
 * @wip
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/NewThumb~NewThumb.prototype */ {
 
 	/**

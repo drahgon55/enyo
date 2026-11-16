@@ -37,12 +37,12 @@ import Signals from './Signals.js';
 * @private
 */
 var 
-	doc = global.document,
+	doc = globalThis.document,
 	hidden = 'hidden',
 	visibilityState = 'visibilityState',
 	hiddenMap = {};
 
-var pageVisibility = module.exports = {
+var pageVisibility = {
 	// set inital values for enyo.hidden and enyo.visibilityState it's probably save to assume
 	// that the current document is visible when loading the page
 	/**
@@ -71,7 +71,7 @@ hiddenMap.blur = hiddenMap.focusout = hiddenMap.pagehide = true;
 hiddenMap.focus = hiddenMap.focusin = hiddenMap.pageshow = false;
 
 function onchange (event) {
-	event = event || global.event;
+	event = event || globalThis.event;
 	pageVisibility.hidden = (event.type in hiddenMap) ? hiddenMap[event.type] : doc[hidden];
 	pageVisibility.visibilityState = (event.type in hiddenMap) ? (hiddenMap[event.type] ? 'hidden' : 'visible' ) : doc[visibilityState];
 	Signals.send('onvisibilitychange', utils.mixin(event, {hidden: pageVisibility.hidden}));
@@ -92,5 +92,7 @@ if (hidden in doc) {
 } else if ('onfocusin' in doc) { // IE 9 and lower:
 	doc.onfocusin = doc.onfocusout = onchange;
 } else { // All others:
-	global.onpageshow = global.onpagehide = global.onfocus = global.onblur = onchange;
+	globalThis.onpageshow = globalThis.onpagehide = globalThis.onfocus = globalThis.onblur = onchange;
 }
+
+export default pageVisibility;

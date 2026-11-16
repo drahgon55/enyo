@@ -15,7 +15,7 @@ import Binding from './Binding.js';
 * @extends module:enyo/Binding~Binding
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/StringBinding~StringBinding.prototype */ {
 	
 	name: 'enyo.StringBinding',

@@ -29,7 +29,7 @@ import Component from './Component.js';
 * @extends module:enyo/Component~Component
 * @public
 */
-var UiComponent = module.exports = kind(
+var UiComponent = kind(
 	/** @lends module:enyo/UiComponent~UiComponent.prototype */ {
 
 	name: 'enyo.UiComponent',
@@ -716,3 +716,5 @@ var UiComponent = module.exports = kind(
 		}
 	}
 });
+
+export default UiComponent;

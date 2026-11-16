@@ -15,7 +15,7 @@ import Source from './Source.js';
 * @extends module:enyo/Source~Source
 * @public
 */
-var XhrSource = module.exports = kind(
+var XhrSource = kind(
 	/** @lends module:enyo/XhrSource~XhrSource.prototype */ {
 	
 	name: 'enyo.XhrSource',
@@ -203,3 +203,5 @@ function urlRoot () {
 function normalize (url) {
 	return url.replace(/([^:]\/)(\/+)/g, '$1');
 }
+
+export default XhrSource;

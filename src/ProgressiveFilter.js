@@ -19,7 +19,7 @@ import ModelList from './ModelList.js';
 * @extends module:enyo/Filter~Filter
 * @public
 */
-var ProgressiveFilter = module.exports = kind(
+var ProgressiveFilter = kind(
 	/** @lends module:enyo/ProgressiveFilter~ProgressiveFilter.prototype */ {
 	
 	name: 'enyo.ProgressiveFilter',
@@ -234,3 +234,5 @@ var ProgressiveFilter = module.exports = kind(
 
 // by default, only other ProgressiveFilters can be children of ProgressiveFilters
 ProgressiveFilter.prototype.defaultProps.kind = ProgressiveFilter;
+
+export default ProgressiveFilter;

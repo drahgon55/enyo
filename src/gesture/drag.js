@@ -30,7 +30,7 @@ import gestureUtil from './util.js';
 * @module enyo/gesture/drag
 * @public
 */
-module.exports = {
+export default {
 
 	/**
 	* @private

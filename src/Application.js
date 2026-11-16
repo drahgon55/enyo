@@ -26,7 +26,7 @@ var
 * @extends module:enyo/ViewController~ViewController
 * @public
 */
-exports = module.exports = kind(
+var Application = kind(
 	/** @lends module:enyo/Application~Application.prototype */ {
 	
 	name: 'enyo.Application',
@@ -189,4 +189,6 @@ exports = module.exports = kind(
 * @type {Object}
 * @default {}
 */
-exports.applications = applications;
+Application.applications = applications;
+
+export default Application;

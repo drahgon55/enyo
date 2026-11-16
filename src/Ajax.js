@@ -43,7 +43,7 @@ import Xhr from './xhr.js';
 * @extends module:enyo/Async~Async
 * @public
 */
-var Ajax = module.exports = kind(
+var Ajax = kind(
 	/** @lends module:enyo/Ajax~Ajax.prototype */ {
 	
 	name: 'enyo.Ajax',
@@ -397,3 +397,5 @@ var Ajax = module.exports = kind(
 		}
 	}
 });
+
+export default Ajax;

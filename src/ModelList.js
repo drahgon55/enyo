@@ -18,7 +18,7 @@ function ModelList (args) {
 
 ModelList.prototype = Object.create(Array.prototype);
 
-module.exports = ModelList;
+export default ModelList;
 
 /**
 * Adds [models]{@link module:enyo/Model~Model} to the [list]{@link module:enyo/ModelList~ModelList}, updating an

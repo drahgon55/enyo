@@ -14,7 +14,7 @@ import Control from './Control/Control.js';
 * @class Style
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Style~Style.prototype */ {
 	
 	name: 'enyo.Style',

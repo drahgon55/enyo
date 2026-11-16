@@ -32,7 +32,7 @@ import Dom from './dom.js';
 * @extends module:enyo/Controller~Controller
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ViewController~ViewController.prototype */ {
 
 	name: 'enyo.ViewController',

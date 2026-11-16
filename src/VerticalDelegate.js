@@ -10,7 +10,7 @@ import Dom from './dom.js';
 * @module enyo/VerticalDelegate
 * @private
 */
-module.exports = {
+export default {
 
 	/**
 	* Used to determine the minimum size of the page. The page size will be at least this

@@ -7,6 +7,8 @@
 import platform from './platform.js';
 import utils from './utils.js';
 
+var animation = {};
+
 var ms = Math.round(1000/60),
 	prefix = ['', 'webkit', 'moz', 'ms', 'o'],
 	rAF = 'requestAnimationFrame',
@@ -21,7 +23,7 @@ var ms = Math.round(1000/60),
 * @private
 */
 _requestFrame = function(callback) {
-	return global.setTimeout(callback, ms);
+	return globalThis.setTimeout(callback, ms);
 };
 
 /*
@@ -30,7 +32,7 @@ _requestFrame = function(callback) {
 * @private
 */
 _cancelFrame = function(id) {
-	return global.clearTimeout(id);
+	return globalThis.clearTimeout(id);
 };
 
 for (i = 0, pl = prefix.length; (p = prefix[i]) || i < pl; i++) {
@@ -45,10 +47,10 @@ for (i = 0, pl = prefix.length; (p = prefix[i]) || i < pl; i++) {
 	wcAF = p ? (p + utils.cap(cAF)) : cAF;
 
 	// Test for cancelRequestAnimationFrame, because some browsers (Firefix 4-10) have a request without a cancel
-	cancelFrame = global[wcAF] || global[wcRAF];
+	cancelFrame = globalThis[wcAF] || globalThis[wcRAF];
 	if (cancelFrame) {
 		_cancelFrame = cancelFrame;
-		_requestFrame = global[wrAF];
+		_requestFrame = globalThis[wrAF];
 		if (p == 'webkit') {
 			/*
 				Note: In Chrome, the first return value of webkitRequestAnimationFrame is 0.
@@ -74,7 +76,7 @@ for (i = 0, pl = prefix.length; (p = prefix[i]) || i < pl; i++) {
 *                     {@link module:enyo/animation#cancelRequestAnimationFrame}.
 * @public
 */
-exports.requestAnimationFrame = function(callback, node) {
+animation.requestAnimationFrame = function(callback, node) {
 	return _requestFrame(callback, node);
 };
 /**
@@ -84,7 +86,7 @@ exports.requestAnimationFrame = function(callback, node) {
 * @deprecated since 2.7.0
 * @public
 */
-exports.cancelRequestAnimationFrame = function(id) {
+animation.cancelRequestAnimationFrame = function(id) {
 	return _cancelFrame(id);
 };
 /**
@@ -93,7 +95,7 @@ exports.cancelRequestAnimationFrame = function(id) {
 * @param {Number} id - The identifier of an animation request we wish to cancel.
 * @public
 */
-exports.cancelAnimationFrame = function(id) {
+animation.cancelAnimationFrame = function(id) {
 	return _cancelFrame(id);
 };
 
@@ -107,7 +109,7 @@ exports.cancelAnimationFrame = function(id) {
 *
 * @public
 */
-exports.easing = /** @lends module:enyo/animation~easing.prototype */ {
+animation.easing = /** @lends module:enyo/animation~easing.prototype */ {
 	/**
 	* cubicIn
 	*
@@ -169,7 +171,7 @@ exports.easing = /** @lends module:enyo/animation~easing.prototype */ {
 * @returns {Number} The resulting position, capped at a maximum of 100%.
 * @public
 */
-exports.easedLerp = function(t0, duration, easing, reverse) {
+animation.easedLerp = function(t0, duration, easing, reverse) {
 	var lerp = (utils.perfNow() - t0) / duration;
 	if (reverse) {
 		return lerp >= 1 ? 0 : (1 - easing(1 - lerp));
@@ -196,7 +198,7 @@ exports.easedLerp = function(t0, duration, easing, reverse) {
 * @returns {Number} The resulting position, capped at a maximum of 100%.
 * @public
 */
-exports.easedComplexLerp = function(t0, duration, easing, reverse, time, startValue, valueChange) {
+animation.easedComplexLerp = function(t0, duration, easing, reverse, time, startValue, valueChange) {
 	var lerp = (utils.perfNow() - t0) / duration;
 	if (reverse) {
 		return easing(1 - lerp, time, startValue, valueChange, duration);
@@ -204,3 +206,5 @@ exports.easedComplexLerp = function(t0, duration, easing, reverse, time, startVa
 		return easing(lerp, time, startValue, valueChange, duration);
 	}
 };
+
+export default animation;

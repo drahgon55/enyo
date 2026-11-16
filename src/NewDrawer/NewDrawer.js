@@ -26,7 +26,7 @@ import NewAnimator from '../NewAnimator.js';
 * @private
 * @ui
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/NewDrawer~NewDrawer.prototype */ {
 	name: 'enyo.NewDrawer',
 	kind: Control,

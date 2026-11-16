@@ -19,7 +19,7 @@ import Option from './Option.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/OptionGroup~OptionGroup.prototype */ {
 
 	/**

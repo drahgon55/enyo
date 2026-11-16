@@ -241,4 +241,4 @@ var ShowingTransitionSupport = {
 	}
 };
 
-module.exports = ShowingTransitionSupport;
+export default ShowingTransitionSupport;

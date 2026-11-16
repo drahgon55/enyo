@@ -6,7 +6,7 @@
 import kind from '../kind.js';
 import platform from '../platform.js';
 
-module.exports = function (Control) {
+export default function (Control) {
 	/**
 	* {@link module:enyo/Control/floatingLayer~FloatingLayer} is a
 	* [control]{@link module:enyo/Control~Control} that provides a layer for controls that should be

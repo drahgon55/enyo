@@ -19,7 +19,7 @@ import ToolDecorator from '../ToolDecorator/ToolDecorator.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Button~Button.prototype */ {
 
 	/**

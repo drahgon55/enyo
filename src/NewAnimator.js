@@ -20,7 +20,7 @@ import Loop from './Loop.js';
 * @wip
 * @private
 */
-module.exports = kind.singleton(
+export default kind.singleton(
 	/** @lends module:enyo/NewAnimator~NewAnimator.prototype */ {
 	name: 'enyo.NewAnimator',
 	kind: CoreObject,

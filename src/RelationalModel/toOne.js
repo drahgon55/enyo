@@ -20,7 +20,7 @@ import Relation from './Relation.js';
 * @extends module:enyo/RelationalModel~Relation
 * @private
 */
-var toOne = module.exports = kind(
+var toOne = kind(
 	/** @lends module:enyo/RelationalModel~toOne.prototype */ {
 
 	/**
@@ -288,3 +288,5 @@ var toOne = module.exports = kind(
 });
 
 toOne.prototype.options.inverseType = toOne;
+
+export default toOne;

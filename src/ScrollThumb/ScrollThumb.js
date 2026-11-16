@@ -18,7 +18,7 @@ import Dom from '../dom.js';
 * @class ScrollThumb
 * @protected
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ScrollThumb~ScrollThumb.prototype */ {
 	
 	name: 'enyo.ScrollThumb',

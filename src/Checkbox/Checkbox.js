@@ -27,7 +27,7 @@ import Input from '../Input/Input.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Checkbox~Checkbox.prototype */ {
 
 	/**

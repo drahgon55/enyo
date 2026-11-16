@@ -19,7 +19,7 @@ var dumbConsole = Boolean(platform.android || platform.ios || platform.webos);
 * @module enyo/logger
 * @public
 */
-exports = module.exports = {
+var logger = {
 
 	/**
 	* The log level to use. Can be a value from -1 to 99, where -1 disables all
@@ -70,7 +70,7 @@ exports = module.exports = {
 	_log: function (fn, args) {
 		// avoid trying to use console on IE instances where the object hasn't been
 		// created due to the developer tools being unopened
-		var console = global.console;
+		var console = globalThis.console;
 		if (typeof console === 'undefined') {
             return;
         }
@@ -109,7 +109,7 @@ exports = module.exports = {
 			fn = 'log';
 		}
 
-		var console = global.console;
+		var console = globalThis.console;
 		if (typeof console !== 'undefined') {
 			if (this.shouldLog(fn)) {
 				this._log(fn, args);
@@ -130,7 +130,7 @@ exports = module.exports = {
 * @see module:enyo/logger#error
 * @param {Number} level - The level to set logging to.
 */
-exports.setLogLevel = function (level) {
+logger.setLogLevel = function (level) {
 	var ll = parseInt(level, 0);
 	if (isFinite(ll)) {
 		this.level = ll;
@@ -162,7 +162,7 @@ exports.setLogLevel = function (level) {
 * @param {...*} - The arguments to be logged.
 * @public
 */
-exports.warn = function () {
+logger.warn = function () {
 	this.log('warn', arguments);
 };
 
@@ -178,6 +178,8 @@ exports.warn = function () {
 * @param {...*} - The arguments to be logged.
 * @public
 */
-exports.error = function () {
+logger.error = function () {
 	this.log('error', arguments);
 };
+
+export default logger;

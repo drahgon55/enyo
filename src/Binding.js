@@ -41,7 +41,7 @@ function ready (binding) {
 				// this means we're reaching for a global
 				var fromParts = from.split('.');
 				from = fromParts.pop();
-				source = utils.getPath.call(global, fromParts.join('.').slice(1));
+				source = utils.getPath.call(globalThis, fromParts.join('.').slice(1));
 				
 			} else {
 				source = owner;
@@ -58,7 +58,7 @@ function ready (binding) {
 				// this means we're reaching for a global
 				var toParts = to.split('.');
 				to = toParts.pop();
-				target = utils.getPath.call(global, toParts.join('.').slice(1));
+				target = utils.getPath.call(globalThis, toParts.join('.').slice(1));
 			} else {
 				target = owner;
 			}
@@ -305,7 +305,7 @@ var PassiveBinding = kind(
 					} else if (owner && owner[xform]) {
 						xform = owner[xform];
 					} else {
-						xform = utils.getPath.call(global, xform);
+						xform = utils.getPath.call(globalThis, xform);
 					}
 				}
 				
@@ -362,7 +362,7 @@ var PassiveBinding = kind(
 * @class Binding
 * @public
 */
-exports = module.exports = kind(
+var Binding = kind(
 	/** @lends module:enyo/Binding~Binding.prototype */ {
 	
 	name: 'enyo.Binding',
@@ -639,7 +639,7 @@ exports = module.exports = kind(
 * @static
 * @public
 */
-exports.find = function (euid) {
+Binding.find = function (euid) {
 	return bindings.find(function (ln) {
 		return ln.euid == euid;
 	});
@@ -653,7 +653,7 @@ exports.find = function (euid) {
 * @default []
 * @public
 */
-exports.bindings = bindings;
+Binding.bindings = bindings;
 
 /**
 * Possible value of the [dirty]{@link module:enyo/Binding~Binding#dirty} property, indicating that the value 
@@ -662,7 +662,7 @@ exports.bindings = bindings;
 * @static
 * @public
 */
-exports.DIRTY_FROM = DIRTY_FROM;
+Binding.DIRTY_FROM = DIRTY_FROM;
 
 /**
 * Possible value of the [dirty]{@link module:enyo/Binding~Binding#dirty} property, indicating that the value
@@ -671,7 +671,7 @@ exports.DIRTY_FROM = DIRTY_FROM;
 * @static
 * @public
 */
-exports.DIRTY_TO = DIRTY_TO;
+Binding.DIRTY_TO = DIRTY_TO;
 
 /**
 * The default [kind]{@glossary kind} that provides [binding]{@link module:enyo/Binding~Binding} 
@@ -680,10 +680,12 @@ exports.DIRTY_TO = DIRTY_TO;
 * @static
 * @public
 */
-exports.defaultBindingKind = exports;
+Binding.defaultBindingKind = Binding;
 
 /**
 * The kind declaration for the [PassiveBinding]{@link module:enyo/Binding~PassiveBinding} kind
 * @public
 */
-exports.PassiveBinding = PassiveBinding;
+Binding.PassiveBinding = PassiveBinding;
+
+export default Binding;

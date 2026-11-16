@@ -2,11 +2,13 @@
 * @module enyo/roots
 */
 
+var roots = {};
+
 /**
 * @private
 */
 var callbacks = [],
-	roots = [];
+	rootList = [];
 
 /**
 * Registers a single callback to be executed whenever a root view is rendered.
@@ -17,14 +19,14 @@ var callbacks = [],
 * @param {Object} [context=enyo.global] The context under which to execute the callback.
 * @public
 */
-exports.rendered = function (method, context) {
-	callbacks.push({method: method, context: context || global});
+roots.rendered = function (method, context) {
+	callbacks.push({method: method, context: context || globalThis});
 };
 
 /**
 * @private
 */
-exports.roots = roots;
+roots.roots = rootList;
 
 /**
 * Invokes all known callbacks (if any) against the root view once it has been rendered.
@@ -41,15 +43,15 @@ function invoke (root) {
 /**
 * @private
 */
-exports.addToRoots = function (view) {
+roots.addToRoots = function (view) {
 	var rendered,
 		destroy;
 	
 	// since it is possible to call renderInto more than once on a given view we ensure we
 	// don't register it twice unnecessarily
-	if (roots.indexOf(view) === -1) {
+	if (rootList.indexOf(view) === -1) {
 		
-		roots.push(view);
+		rootList.push(view);
 		
 		// hijack the rendered method
 		rendered = view.rendered;
@@ -68,13 +70,15 @@ exports.addToRoots = function (view) {
 		
 		// supply our destroy hook
 		view.destroy = function () {
-			var idx = roots.indexOf(this);
+			var idx = rootList.indexOf(this);
 			
 			// remove it from the roots array
-			if (idx > -1) roots.splice(idx, 1);
+			if (idx > -1) rootList.splice(idx, 1);
 			
 			// now we can call the original
 			destroy.apply(this, arguments);
 		};
 	}
 };
+
+export default roots;

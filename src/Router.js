@@ -52,7 +52,7 @@ var prepare = function (str) {
 * @private
 */
 ready(function () {
-	dispatcher.listen(global, 'hashchange', hashDidChange);
+	dispatcher.listen(globalThis, 'hashchange', hashDidChange);
 });
 
 /**
@@ -103,7 +103,7 @@ ready(function () {
 * @extends module:enyo/Controller~Controller
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Router~Router.prototype */ {
 
 	name: 'enyo.Router',
@@ -300,7 +300,7 @@ module.exports = kind(
 					this.addHistory(loc);
 					this._hashChanged(loc);
 				} else {
-					global.location.hash = loc;
+					globalThis.location.hash = loc;
 				}
 			} else {
 				this._hashChanged(loc);
@@ -468,7 +468,7 @@ module.exports = kind(
 			if (!utils.isString(prop)) {
 				// some browsers do not support the newUrl property
 				// so we're forced to look at the current hash
-				prop = prop.newUrl || global.location.hash;
+				prop = prop.newUrl || globalThis.location.hash;
 			}
 			return prepare(prop);
 		})(hash);

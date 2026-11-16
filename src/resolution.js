@@ -3,7 +3,7 @@ import Dom from './dom.js';
 var _baseScreenType = 'standard',
 	_riRatio,
 	_screenType,
-	_screenTypes = [ {name: 'standard', pxPerRem: 16, width: global.innerWidth,  height: global.innerHeight, aspectRatioName: 'standard'} ],	// Assign one sane value in case defineScreenTypes is never run.
+	_screenTypes = [ {name: 'standard', pxPerRem: 16, width: globalThis.innerWidth,  height: globalThis.innerHeight, aspectRatioName: 'standard'} ],	// Assign one sane value in case defineScreenTypes is never run.
 	_screenTypeObject,
 	_oldScreenType;
 
@@ -21,7 +21,7 @@ var getScreenTypeObject = function (type) {
 * Resolution independence methods
 * @module enyo/resolution
 */
-var ri = module.exports = {
+var ri = {
 	/**
 	* Sets up screen resolution scaling capabilities by defining an array of all the screens
 	* being used. These should be listed in order from smallest to largest, according to
@@ -69,8 +69,8 @@ var ri = module.exports = {
 	*/
 	getScreenType: function (rez) {
 		rez = rez || {
-			height: global.innerHeight,
-			width: global.innerWidth
+			height: globalThis.innerHeight,
+			width: globalThis.innerWidth
 		};
 		var i,
 			types = _screenTypes,
@@ -256,3 +256,5 @@ var ri = module.exports = {
 };
 
 ri.init();
+
+export default ri;

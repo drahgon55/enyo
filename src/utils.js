@@ -3,6 +3,8 @@
 * @module enyo/utils
 */
 
+var utils = {};
+
 /**
 * A polyfill for platforms that don't yet support
 * [bind()]{@glossary Function.prototype.bind}. As explained in the linked article, this
@@ -69,7 +71,7 @@ if (!Function.prototype.bind) {
 *
 * @public
 */
-exports.Extensible = function Extensible (fn) {
+utils.Extensible = function Extensible (fn) {
 	if (!(this instanceof Extensible)) return new Extensible(fn);
 
 	this.fn = fn;
@@ -87,17 +89,17 @@ exports.Extensible = function Extensible (fn) {
 /**
 * @private
 */
-exports.nop = function () {};
+utils.nop = function () {};
 
 /**
 * @private
 */
-exports.nob = {};
+utils.nob = {};
 
 /**
 * @private
 */
-exports.nar = [];
+utils.nar = [];
 
 /**
 * This name is reported in inspectors as the type of objects created via delegate;
@@ -105,12 +107,12 @@ exports.nar = [];
 *
 * @private
 */
-var Instance = exports.instance = function () {};
+var Instance = utils.instance = function () {};
 
 /**
 * @private
 */
-var setPrototype = exports.setPrototype = function (ctor, proto) {
+var setPrototype = utils.setPrototype = function (ctor, proto) {
 	ctor.prototype = proto;
 };
 
@@ -119,7 +121,7 @@ var setPrototype = exports.setPrototype = function (ctor, proto) {
 *
 * @private
 */
-exports.delegate = function (proto) {
+utils.delegate = function (proto) {
 	setPrototype(Instance, proto);
 	return new Instance();
 };
@@ -135,7 +137,7 @@ exports.delegate = function (proto) {
 * @returns {Boolean} `true` if defined, `false` otherwise.
 * @public
 */
-var exists = exports.exists = function (target) {
+var exists = utils.exists = function (target) {
 	return (target !== undefined);
 };
 
@@ -148,7 +150,7 @@ var uidCounter = 0;
 * @returns {String} An optionally-prefixed identifier.
 * @public
 */
-exports.uid = function (prefix) {
+utils.uid = function (prefix) {
 	return String((prefix? prefix: '') + uidCounter++);
 };
 
@@ -158,7 +160,7 @@ exports.uid = function (prefix) {
 * @returns {String} An [RFC4122]{@glossary UUID}-compliant, universally unique identifier.
 * @public
 */
-exports.uuid = function () {
+utils.uuid = function () {
 	// @TODO: Could possibly be faster
 	var t, p = (
 		(Math.random().toString(16).substr(2,8)) + '-' +
@@ -178,7 +180,7 @@ exports.uuid = function () {
 * @returns {Number} A random number.
 * @public
 */
-exports.irand = function (bound) {
+utils.irand = function (bound) {
 	return Math.floor(Math.random() * bound);
 };
 
@@ -192,7 +194,7 @@ var toString = Object.prototype.toString;
 * otherwise, `false`.
 * @public
 */
-exports.isString = function (it) {
+utils.isString = function (it) {
 	return toString.call(it) === '[object String]';
 };
 
@@ -204,7 +206,7 @@ exports.isString = function (it) {
 * otherwise, `false`.
 * @public
 */
-exports.isFunction = function (it) {
+utils.isFunction = function (it) {
 	return toString.call(it) === '[object Function]';
 };
 
@@ -217,7 +219,7 @@ exports.isFunction = function (it) {
 * @method
 * @public
 */
-var isArray = exports.isArray = Array.isArray || function (it) {
+var isArray = utils.isArray = Array.isArray || function (it) {
 	return toString.call(it) === '[object Array]';
 };
 
@@ -230,7 +232,7 @@ var isArray = exports.isArray = Array.isArray || function (it) {
 * @method
 * @public
 */
-exports.isObject = Object.isObject || function (it) {
+utils.isObject = Object.isObject || function (it) {
 	return toString.call(it) === '[object Object]';
 };
 
@@ -242,7 +244,7 @@ exports.isObject = Object.isObject || function (it) {
 * `false`.
 * @public
 */
-exports.isTrue = function (it) {
+utils.isTrue = function (it) {
 	return !(it === 'false' || it === false || it === 0 || it === null || it === undefined);
 };
 
@@ -254,7 +256,7 @@ exports.isTrue = function (it) {
 * `false`.
 * @public
 */
-exports.isNumeric = function (it) {
+utils.isNumeric = function (it) {
 	// borrowed from jQuery
 	return !isArray(it) && (it - parseFloat(it) + 1) >= 0;
 };
@@ -270,12 +272,12 @@ exports.isNumeric = function (it) {
 * @returns {Function} The bound method/closure.
 * @public
 */
-var bind = exports.bind = function (scope, method) {
+var bind = utils.bind = function (scope, method) {
 	if (!method) {
 		method = scope;
 		scope = null;
 	}
-	scope = scope || global;
+	scope = scope || globalThis;
 	if (typeof method == 'string') {
 		if (scope[method]) {
 			method = scope[method];
@@ -312,7 +314,7 @@ var bind = exports.bind = function (scope, method) {
 * @returns {Function} The bound method/closure.
 * @public
 */
-exports.bindSafely = function (scope, method) {
+utils.bindSafely = function (scope, method) {
 	if (typeof method == 'string') {
 		if (scope[method]) {
 			method = scope[method];
@@ -352,7 +354,7 @@ exports.bindSafely = function (scope, method) {
 * @returns {Number} The `setTimeout` id.
 * @public
 */
-exports.asyncMethod = function (scope, method) {
+utils.asyncMethod = function (scope, method) {
 	if (!method) {
 		// passed just a single argument
 		return setTimeout(scope, 1);
@@ -375,7 +377,7 @@ exports.asyncMethod = function (scope, method) {
 * @returns {*} The return value of the method.
 * @public
 */
-exports.call = function (scope, method, args) {
+utils.call = function (scope, method, args) {
 	var context = scope || this;
 	if (method) {
 		var fn = context[method] || method;
@@ -395,7 +397,7 @@ exports.call = function (scope, method, args) {
 * @public
 */
 
-var now = exports.now = Date.now || function () {
+var now = utils.now = Date.now || function () {
 	return new Date().getTime();
 };
 
@@ -411,7 +413,7 @@ var now = exports.now = Date.now || function () {
 * @method
 * @public
 */
-exports.perfNow = (function () {
+utils.perfNow = (function () {
 	// we have to check whether or not the browser has supplied a valid
 	// method to use
 	var perf = window.performance || {};
@@ -436,7 +438,7 @@ exports.perfNow = (function () {
 * @method enyo.getPath
 * @public
 */
-var getPath = exports.getPath = function (path) {
+var getPath = utils.getPath = function (path) {
 	// we're trying to catch only null/undefined not empty string or 0 cases
 	if (!path && path !== null && path !== undefined) return path;
 
@@ -506,7 +508,7 @@ getPath.fast = function (path) {
 * @method enyo.setPath
 * @public
 */
-var setPath = exports.setPath = function (path, is, opts) {
+var setPath = utils.setPath = function (path, is, opts) {
 	// we're trying to catch only null/undefined not empty string or 0 cases
 	if (!path || (!path && path !== null && path !== undefined)) return this;
 
@@ -617,7 +619,7 @@ setPath.fast = function (path, value) {
 * @returns {String} The uppercased string.
 * @public
 */
-exports.toUpperCase = new exports.Extensible(function (str) {
+utils.toUpperCase = new utils.Extensible(function (str) {
 	if (str != null) {
 		return str.toString().toUpperCase();
 	}
@@ -632,7 +634,7 @@ exports.toUpperCase = new exports.Extensible(function (str) {
 * @returns {String} The lowercased string.
 * @public
 */
-exports.toLowerCase = new exports.Extensible(function (str) {
+utils.toLowerCase = new utils.Extensible(function (str) {
 	if (str != null) {
 		return str.toString().toLowerCase();
 	}
@@ -646,7 +648,7 @@ exports.toLowerCase = new exports.Extensible(function (str) {
 * @returns {String} The capitalized string.
 * @public
 */
-exports.cap = function (str) {
+utils.cap = function (str) {
 	return str.slice(0, 1).toUpperCase() + str.slice(1);
 };
 
@@ -657,7 +659,7 @@ exports.cap = function (str) {
 * @returns {String} The un-capitalized string.
 * @public
 */
-exports.uncap = function (str) {
+utils.uncap = function (str) {
 	return str.slice(0, 1).toLowerCase() + str.slice(1);
 };
 
@@ -670,7 +672,7 @@ exports.uncap = function (str) {
 * @returns {String} A copy of the template populated with values.
 * @public
 */
-exports.format = function (template) {
+utils.format = function (template) {
 	var pattern = /\%./g,
 		arg = 0,
 		tmp = template,
@@ -699,7 +701,7 @@ String.prototype.trim = String.prototype.trim || function () {
 * @returns {String} The trimmed string.
 * @public
 */
-exports.trim = function (str) {
+utils.trim = function (str) {
 	return (typeof str == 'string' && str.trim()) || str;
 };
 
@@ -744,7 +746,7 @@ Object.keys = Object.keys || function (obj) {
 * @method enyo.keys
 * @public
 */
-exports.keys = Object.keys;
+utils.keys = Object.keys;
 
 /**
 * Convenience method that takes an [array]{@glossary Array} of properties
@@ -759,7 +761,7 @@ exports.keys = Object.keys;
 *                     the given object.
 * @public
 */
-exports.only = function (properties, object, ignore) {
+utils.only = function (properties, object, ignore) {
 	var ret = {},
 		prop,
 		len,
@@ -792,7 +794,7 @@ exports.only = function (properties, object, ignore) {
 * @returns {Object} A new object whose properties have been mapped.
 * @public
 */
-exports.remap = function (map, obj, pass) {
+utils.remap = function (map, obj, pass) {
 	var ret = pass ? clone(obj) : {},
 		key;
 
@@ -816,7 +818,7 @@ exports.remap = function (map, obj, pass) {
 * @returns {Object} A hash (object) indexed by the `property` argument
 * @public
 */
-exports.indexBy = function (property, array, filter) {
+utils.indexBy = function (property, array, filter) {
 	// the return value - indexed map from the given array
 	var map = {},
 		value,
@@ -870,7 +872,7 @@ exports.indexBy = function (property, array, filter) {
 *              returns `base` as it was passed in.
 * @public
 */
-var clone = exports.clone = function (base, quick) {
+var clone = utils.clone = function (base, quick) {
 	if (base) {
 
 		// avoid the overhead of calling yet another internal function to do type-checking
@@ -924,7 +926,7 @@ var mixinDefaults = {
 * @method enyo.mixin
 * @public
 */
-var mixin = exports.mixin = function () {
+var mixin = utils.mixin = function () {
 	var ret = arguments[0],
 		src = arguments[1],
 		opts = arguments[2],
@@ -968,7 +970,7 @@ var mixin = exports.mixin = function () {
 * @returns {Array} An [array]{@glossary Array} with the values from the `obj`.
 * @public
 */
-exports.values = function (obj) {
+utils.values = function (obj) {
 	var ret = [];
 	for (var key in obj) {
 		if (obj.hasOwnProperty(key)) ret.push(obj[key]);
@@ -1014,7 +1016,7 @@ Array.prototype.find = Array.prototype.find || function (fn, ctx) {
 *
 * @public
 */
-exports.indexOf = function (array, el, offset) {
+utils.indexOf = function (array, el, offset) {
 	if (!(array instanceof Array)) return el.indexOf(array, offset);
 	return array.indexOf(el, offset);
 };
@@ -1032,7 +1034,7 @@ exports.indexOf = function (array, el, offset) {
 *
 * @public
 */
-exports.lastIndexOf = function (array, el, offset) {
+utils.lastIndexOf = function (array, el, offset) {
 	if (!(array instanceof Array)) return el.lastIndexOf(array, offset);
 	return array.lastIndexOf(el, offset);
 };
@@ -1047,7 +1049,7 @@ exports.lastIndexOf = function (array, el, offset) {
 *
 * @public
 */
-exports.findIndex = function (array, fn, ctx) {
+utils.findIndex = function (array, fn, ctx) {
 	return array.findIndex(fn, ctx);
 };
 
@@ -1062,7 +1064,7 @@ exports.findIndex = function (array, fn, ctx) {
 * @method enyo.find
 * @public
 */
-var find = exports.find = function (array, fn, ctx) {
+var find = utils.find = function (array, fn, ctx) {
 	return array.find(fn, ctx);
 };
 
@@ -1071,7 +1073,7 @@ var find = exports.find = function (array, fn, ctx) {
 * @method enyo.where
 * @public
 */
-exports.where = find;
+utils.where = find;
 
 /**
 * An Enyo convenience method reference to [Array.forEach()]{@glossary Array.forEach}.
@@ -1083,7 +1085,7 @@ exports.where = find;
 *
 * @public
 */
-exports.forEach = function (array, fn, ctx) {
+utils.forEach = function (array, fn, ctx) {
 	return array.forEach(fn, ctx);
 };
 
@@ -1097,7 +1099,7 @@ exports.forEach = function (array, fn, ctx) {
 *
 * @public
 */
-exports.map = function (array, fn, ctx) {
+utils.map = function (array, fn, ctx) {
 	return array.map(fn, ctx);
 };
 
@@ -1111,7 +1113,7 @@ exports.map = function (array, fn, ctx) {
 *
 * @public
 */
-exports.filter = function (array, fn, ctx) {
+utils.filter = function (array, fn, ctx) {
 	return array.filter(fn, ctx);
 };
 
@@ -1130,7 +1132,7 @@ exports.filter = function (array, fn, ctx) {
 *                     objects contained in the `array`.
 * @public
 */
-exports.pluck = function (array, prop) {
+utils.pluck = function (array, prop) {
 	if (!(array instanceof Array)) {
 		var tmp = array;
 		array = prop;
@@ -1151,7 +1153,7 @@ exports.pluck = function (array, prop) {
 * @returns {Array} The unique values from all [arrays]{@glossary Array}.
 * @public
 */
-exports.merge = function (/* _arrays_ */) {
+utils.merge = function (/* _arrays_ */) {
 	var ret = [],
 		values = Array.prototype.concat.apply([], arguments);
 	for (var i=0, len=values.length >>> 0; i<len; ++i) {
@@ -1177,7 +1179,7 @@ exports.merge = function (/* _arrays_ */) {
 *
 * @public
 */
-var cloneArray = exports.cloneArray = function (array, offset, initialArray) {
+var cloneArray = utils.cloneArray = function (array, offset, initialArray) {
 	var ret = initialArray || [];
 	for(var i = offset || 0, l = array.length; i<l; i++){
 		ret.push(array[i]);
@@ -1194,7 +1196,7 @@ var cloneArray = exports.cloneArray = function (array, offset, initialArray) {
 * @method enyo.toArray
 * @public
 */
-exports.toArray = cloneArray;
+utils.toArray = cloneArray;
 
 /**
 * Within a given [array]{@glossary Array}, removes the first
@@ -1205,7 +1207,7 @@ exports.toArray = cloneArray;
 * @param {*} el - The element to search for and remove.
 * @public
 */
-exports.remove = function (array, el) {
+utils.remove = function (array, el) {
 	if (!(array instanceof Array)) {
 		var tmp = array;
 		array = el;
@@ -1234,6 +1236,8 @@ var rtlPattern = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\u
 * @return {Boolean} `true` if `str` should be RTL; `false` if not.
 * @public
 */
-exports.isRtl = function (str) {
+utils.isRtl = function (str) {
 	return rtlPattern.test(str);
 };
+
+export default utils;

@@ -27,10 +27,10 @@ var _jobs = {};
 * @function
 * @public
 */
-exports = module.exports = function (nom, job, wait) {
-	exports.stop(nom);
+var Job = function (nom, job, wait) {
+	Job.stop(nom);
 	_jobs[nom] = setTimeout(function() {
-		exports.stop(nom);
+		Job.stop(nom);
 		job();
 	}, wait);
 };
@@ -42,7 +42,7 @@ exports = module.exports = function (nom, job, wait) {
 * @static
 * @public
 */
-exports.stop = function (nom) {
+Job.stop = function (nom) {
 	if (_jobs[nom]) {
 		clearTimeout(_jobs[nom]);
 		delete _jobs[nom];
@@ -51,7 +51,7 @@ exports.stop = function (nom) {
 
 /**
 * Immediately invokes the job and prevents any other calls
-* to `exports.throttle()` with the same job name from running for the
+* to `Job.throttle()` with the same job name from running for the
 * specified amount of time.
 * 
 * This is used for throttling user events when you want to provide an
@@ -66,13 +66,15 @@ exports.stop = function (nom) {
 * @static
 * @public
 */
-exports.throttle = function (nom, job, wait) {
+Job.throttle = function (nom, job, wait) {
 	// if we still have a job with this name pending, return immediately
 	if (_jobs[nom]) {
 		return;
 	}
 	job();
 	_jobs[nom] = setTimeout(function() {
-		exports.stop(nom);
+		Job.stop(nom);
 	}, wait);
 };
+
+export default Job;

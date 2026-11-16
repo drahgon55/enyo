@@ -22,7 +22,7 @@ import Dom from './dom.js';
 * @extends module:enyo/TouchScrollStrategy~TouchScrollStrategy
 * @protected
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/TranslateScrollStrategy~TranslateScrollStrategy.prototype */ {
 
 	name: 'enyo.TranslateScrollStrategy',

@@ -20,7 +20,7 @@ function get (base, prop) {
 * @extends module:enyo/LinkedListNode~LinkedListNode
 * @private
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ObserverChainNode~ObserverChainNode.prototype */ {
 
 	/**

@@ -48,7 +48,7 @@ var Priorities = {
 * @wip
 * @public
 */
-module.exports = exports = kind(
+var PriorityQueue = kind(
 	/** @lends module:enyo/PriorityQueue~PriorityQueue */ {
 
 	/**
@@ -333,4 +333,7 @@ module.exports = exports = kind(
 
 });
 
-exports.Priorities = Priorities;
+PriorityQueue.Priorities = Priorities;
+
+export default PriorityQueue;
+export { Priorities };

@@ -14,7 +14,7 @@ import EventEmitter from './EventEmitter.js';
 import CoreObject from './CoreObject.js';
 import Loop from './Loop.js';
 
-module.exports = kind.singleton(
+export default kind.singleton(
 	/** @lends module:enyo/SystemMonitor */ {
 
 	/**

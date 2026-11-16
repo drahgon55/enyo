@@ -114,4 +114,4 @@ var MixinSupport = {
 	})
 };
 
-module.exports = MixinSupport;
+export default MixinSupport;

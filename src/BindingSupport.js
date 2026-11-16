@@ -150,7 +150,7 @@ var BindingSupport = {
 	})
 };
 
-module.exports = BindingSupport;
+export default BindingSupport;
 
 /**
 	Hijack the original so we can add additional default behavior.

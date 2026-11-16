@@ -20,7 +20,7 @@ import MultipleDispatchSupport from './MultipleDispatchSupport.js';
 * @mixes module:enyo/MultipleDispatchSupport~MultipleDispatchSupport
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/MultipleDispatchComponent~MultipleDispatchComponent */ {
 
 	/**

@@ -19,7 +19,7 @@ import Control from './Control/Control.js';
 * @class ScrollStrategy
 * @protected
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ScrollStrategy~ScrollStrategy.prototype */ {
 
 	name: 'enyo.ScrollStrategy',

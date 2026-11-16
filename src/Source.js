@@ -17,7 +17,7 @@ var sources = {};
 * @class Source
 * @public
 */
-var Source = module.exports = kind(
+var Source = kind(
 	/** @lends module:enyo/Source~Source.prototype */ {
 
 	name: 'enyo.Source',
@@ -284,3 +284,5 @@ Source.execute = function (action, model, opts) {
 */
 Source.sources = sources;
 
+
+export default Source;

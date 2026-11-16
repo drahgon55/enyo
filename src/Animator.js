@@ -69,7 +69,7 @@ import Jobs from './jobs.js';
 * @extends module:enyo/Component~Component
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Animator~Animator.prototype */ {
 
 	/**
@@ -331,7 +331,7 @@ module.exports = kind(
 		if (utils.isString(fn)) {
 			this.bubble(nom);
 		} else if (fn) {
-			fn.call(this.context || global, this);
+			fn.call(this.context || globalThis, this);
 		}
 	}
 });

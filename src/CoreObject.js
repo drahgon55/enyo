@@ -26,8 +26,9 @@ function log (method, args) {
 		try {
 			throw new Error();
 		} catch(err) {
-			logger._log(method, [args.callee.caller.displayName + ': ']
-				.concat(utils.cloneArray(args)));
+			// ES modules are always strict mode, where `arguments.callee` is not
+			// accessible, so the calling method's name can no longer be prefixed here.
+			logger._log(method, utils.cloneArray(args));
 			logger.log(err.stack);
 		}
 	}
@@ -46,7 +47,7 @@ function log (method, args) {
 * @mixes module:enyo/BindingSupport
 * @public
 */
-var CoreObject = module.exports = kind(
+var CoreObject = kind(
 	/** @lends module:enyo/CoreObject~Object.prototype */ {
 
 	/**
@@ -157,8 +158,9 @@ var CoreObject = module.exports = kind(
 	* @public
 	*/
 	log: function () {
-		var acc = arguments.callee.caller,
-			nom = ((acc ? acc.displayName : '') || '(instance method)') + ':',
+		// ES modules are always strict mode, where `arguments.callee` is not
+		// accessible, so the calling method's displayName is no longer available.
+		var nom = '(instance method):',
 			args = Array.prototype.slice.call(arguments);
 		args.unshift(nom);
 		logger.log('log', args);
@@ -316,3 +318,5 @@ function addGetterSetter (prop, value, proto) {
 		fn.generated = true;
 	} else if (fn && typeof fn == 'function' && !fn.generated) setters[prop] = setName;
 }
+
+export default CoreObject;

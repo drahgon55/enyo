@@ -13,7 +13,7 @@ import LinkedListNode from './LinkedListNode.js';
 * @class LinkedList
 * @private
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/LinkedList~LinkedList.prototype */ {
 
 	/**

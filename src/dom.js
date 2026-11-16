@@ -7,7 +7,7 @@ import roots from './roots.js';
 import utils from './utils.js';
 import platform from './platform.js';
 
-var dom = module.exports = {
+var dom = {
 
 	/**
 	* Shortcut for `document.getElementById()` if `id` is a string; otherwise,
@@ -72,7 +72,7 @@ var dom = module.exports = {
 	* @private
 	*/
 	getComputedStyle: function(node) {
-		return global.getComputedStyle && node && global.getComputedStyle(node, null);
+		return globalThis.getComputedStyle && node && globalThis.getComputedStyle(node, null);
 	},
 
 	/**
@@ -134,8 +134,8 @@ var dom = module.exports = {
 	* @private
 	*/
 	getWindowWidth: function() {
-		if (global.innerWidth) {
-			return global.innerWidth;
+		if (globalThis.innerWidth) {
+			return globalThis.innerWidth;
 		}
 		if (document.body && document.body.offsetWidth) {
 			return document.body.offsetWidth;
@@ -152,8 +152,8 @@ var dom = module.exports = {
 	* @private
 	*/
 	getWindowHeight: function() {
-		if (global.innerHeight) {
-			return global.innerHeight;
+		if (globalThis.innerHeight) {
+			return globalThis.innerHeight;
 		}
 		if (document.body && document.body.offsetHeight) {
 			return document.body.offsetHeight;
@@ -291,9 +291,9 @@ var dom = module.exports = {
 				}
 				// Need to correct for borders if any exist on parent elements
 				if (node !== targetNode) {
-					if (global.getComputedStyle) {
-						borderLeft = parseInt(global.getComputedStyle(node, '').getPropertyValue('border-left-width'), 10);
-						borderTop = parseInt(global.getComputedStyle(node, '').getPropertyValue('border-top-width'), 10);
+					if (globalThis.getComputedStyle) {
+						borderLeft = parseInt(globalThis.getComputedStyle(node, '').getPropertyValue('border-left-width'), 10);
+						borderTop = parseInt(globalThis.getComputedStyle(node, '').getPropertyValue('border-top-width'), 10);
 					} else {
 						// No computed style options, so try the normal style object (much less robust)
 						borderLeft = parseInt(node.style.borderLeftWidth, 10);
@@ -484,9 +484,9 @@ var dom = module.exports = {
 };
 
 // override setInnerHtml for Windows 8 HTML applications
-if (typeof global.MSApp !== 'undefined' && typeof global.MSApp.execUnsafeLocalFunction !== 'undefined') {
+if (typeof globalThis.MSApp !== 'undefined' && typeof globalThis.MSApp.execUnsafeLocalFunction !== 'undefined') {
 	dom.setInnerHtml = function(node, html) {
-		global.MSApp.execUnsafeLocalFunction(function() {
+		globalThis.MSApp.execUnsafeLocalFunction(function() {
 			node.innerHTML = html;
 		});
 	};
@@ -725,3 +725,5 @@ dom.transition = (platform.ios || platform.android || platform.chrome || platfor
 	: (platform.firefox || platform.firefoxOS || platform.androidFirefox)
 		? '-moz-transition'
 		: 'transition';
+
+export default dom;

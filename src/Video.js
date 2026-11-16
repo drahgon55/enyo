@@ -124,7 +124,7 @@ import Job from './job.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Video~Video.prototype */ {
 
 	/**
@@ -761,7 +761,7 @@ module.exports = kind(
 		// Set native playback rate
 		node.playbackRate = pbNumber;
 
-		if (!(platform.webos || global.PalmSystem)) {
+		if (!(platform.webos || globalThis.PalmSystem)) {
 			// For supporting cross browser behavior
 			if (pbNumber < 0) {
 				this.beginRewind();

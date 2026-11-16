@@ -32,7 +32,7 @@ import DataRepeater from './DataRepeater.js';
 * @wip
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/VirtualDataRepeater~VirtualDataRepeater.prototype */ {
 	name: 'enyo.VirtualDataRepeater',
 	kind: DataRepeater,

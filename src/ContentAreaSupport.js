@@ -148,7 +148,7 @@ var ContentAreaSupport = {
 	})
 };
 
-module.exports = ContentAreaSupport;
+export default ContentAreaSupport;
 
 var sup = kind.concatHandler;
 kind.concatHandler = function (ctor, props, instance) {

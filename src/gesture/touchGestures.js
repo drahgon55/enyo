@@ -16,7 +16,7 @@ import utils from '../utils.js';
 * @module enyo/gesture/touchGestures
 * @private
 */
-module.exports = {
+export default {
 
 	/**
 	* @private

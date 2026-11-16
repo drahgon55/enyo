@@ -15,7 +15,7 @@ import TableCell from '../TableCell/TableCell.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/TableRow~TableRow.prototype */ {
 
 	/**

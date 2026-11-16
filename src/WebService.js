@@ -75,7 +75,7 @@ var AjaxComponent = kind({
 * @extends module:enyo/Component~Component
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/WebService~WebService.prototype */ {
 	
 	name: 'enyo.WebService',

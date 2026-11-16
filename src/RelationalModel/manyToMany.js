@@ -17,7 +17,7 @@ import toMany from './toMany.js';
 * @extends module:enyo/RelationalModel~toMany
 * @private
 */
-var manyToMany = module.exports = kind(
+var manyToMany = kind(
 	/** @lends module:enyo/RelationalModel~manyToMany.prototype */ {
 
 	/**
@@ -150,3 +150,5 @@ var manyToMany = module.exports = kind(
 });
 
 manyToMany.prototype.options.inverseType = manyToMany;
+
+export default manyToMany;

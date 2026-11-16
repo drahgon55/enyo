@@ -28,7 +28,7 @@ import Component from './Component.js';
 * @extends module:enyo/Component~Component
 * @public
 */
-var Signals = module.exports = kind(
+var Signals = kind(
 	/** @lends module:enyo/Signals~Signals.prototype */ {
 
 	name: 'enyo.Signals',
@@ -110,3 +110,5 @@ var Signals = module.exports = kind(
 		}
 	}
 });
+
+export default Signals;

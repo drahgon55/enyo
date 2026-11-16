@@ -31,4 +31,4 @@ var ComponentBindingSupport = {
 	})
 };
 
-module.exports = ComponentBindingSupport;
+export default ComponentBindingSupport;

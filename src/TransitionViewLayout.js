@@ -30,7 +30,7 @@ import ViewLayout from './ViewLayout/ViewLayout.js';
 * @public
 * @wip
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/TransitionViewLayout~TransitionViewLayout.prototype */ {
 	/**
 	* @private

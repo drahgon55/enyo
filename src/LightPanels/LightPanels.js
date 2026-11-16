@@ -68,7 +68,7 @@ var Orientation = {
 * @ui
 * @public
 */
-module.exports = kind(
+var LightPanels = kind(
 	/** @lends module:enyo/LightPanels~LightPanels.prototype */ {
 
 	/**
@@ -645,7 +645,7 @@ module.exports = kind(
 
 		if (this.transitioning && (!ev || ev.originator === this.$.client)) {
 			if (this._fallbackTimeout) {
-				global.clearTimeout(this._fallbackTimeout);
+				globalThis.clearTimeout(this._fallbackTimeout);
 				this._fallbackTimeout = null;
 			}
 
@@ -898,7 +898,7 @@ module.exports = kind(
 	* @private
 	*/
 	setupFallback: function () {
-		this._fallbackTimeout = global.setTimeout(this.bindSafely('transitionFinished'), this.duration);
+		this._fallbackTimeout = globalThis.setTimeout(this.bindSafely('transitionFinished'), this.duration);
 	}
 });
 
@@ -906,6 +906,8 @@ module.exports = kind(
 * The {@link module:enyo/LightPanels~LightPanel} kind export.
 * @public
 */
-module.exports.Panel = LightPanel;
-module.exports.Direction = Direction;
-module.exports.Orientation = Orientation;
+LightPanels.Panel = LightPanel;
+LightPanels.Direction = Direction;
+LightPanels.Orientation = Orientation;
+
+export default LightPanels;

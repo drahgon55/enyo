@@ -155,7 +155,7 @@ var
 * @mixes module:enyo/ComponentBindingSupport~ComponentBindingSupport
 * @public
 */
-var Component = module.exports = kind(
+var Component = kind(
 	/** @lends module:enyo/Component~Component.prototype */ {
 
 	name: 'enyo.Component',
@@ -1190,3 +1190,5 @@ function prefixFromKindName (nom) {
 
 	return pre;
 }
+
+export default Component;

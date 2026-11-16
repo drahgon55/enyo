@@ -57,7 +57,7 @@ var relationDefaults = {
 * @name module:enyo/RelationalModel~Relation
 * @private
 */
-var Relation = module.exports = kind(
+var Relation = kind(
 	/** @lends module:enyo/RelationalModel~Relation.prototype */ {
 
 	/**
@@ -167,3 +167,5 @@ Relation.concat = function (ctor, props) {
 };
 
 Relation.relationDefaults = relationDefaults;
+
+export default Relation;

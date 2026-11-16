@@ -17,7 +17,7 @@ import GroupItem from '../GroupItem.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ToolDecorator~ToolDecorator.prototype */ {
 
 	/**

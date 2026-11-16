@@ -49,7 +49,7 @@
 * @public
 * @see module:enyo/StateSupport~StateSupport
 */
-module.exports = {
+export default {
 	
 	/**
 	* Only exists in the client and was created during the runtime of the

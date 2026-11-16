@@ -89,4 +89,4 @@ kind.extendMethods(p, {
 	})
 }, true);
 
-module.exports = p;
+export default p;

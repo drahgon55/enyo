@@ -56,7 +56,7 @@ import Component from './Component.js';
 * @class ScrollMath
 * @protected
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ScrollMath~ScrollMath.prototype */ {
 
 	name: 'enyo.ScrollMath',

@@ -11,6 +11,10 @@ import Source from './Source.js';
 import Collection from './Collection.js';
 import Model from './Model.js';
 
+// Exports an empty object on platforms without localStorage, as the CommonJS
+// version did; `export` cannot appear inside the feature test.
+var LocalStorageSource = {};
+
 if (typeof localStorage != 'undefined') {
 		
 	var CODES = {
@@ -36,7 +40,7 @@ if (typeof localStorage != 'undefined') {
 	* @extends module:enyo/Source~Source
 	* @public
 	*/
-	module.exports = kind(
+	LocalStorageSource = kind(
 		/** @lends module:enyo/LocalStorageSource~LocalStorageSource.prototype */ {
 		
 		name: 'enyo.LocalStorageSource',
@@ -232,3 +236,5 @@ if (typeof localStorage != 'undefined') {
 	});
 
 }
+
+export default LocalStorageSource;

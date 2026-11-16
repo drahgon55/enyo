@@ -41,7 +41,7 @@ function update (node, src) {
 * @extends module:enyo/CoreObject~Object
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/FluxStore~FluxStore.prototype */ {
 	name: 'enyo.FluxStore',
 

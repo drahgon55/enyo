@@ -106,4 +106,4 @@ var MultipleDispatchSupport = {
 	_dispatchDefaultPath: false
 };
 
-module.exports = MultipleDispatchSupport;
+export default MultipleDispatchSupport;

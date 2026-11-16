@@ -99,4 +99,4 @@ var StylesheetSupport = {
 	}
 };
 
-module.exports = StylesheetSupport;
+export default StylesheetSupport;

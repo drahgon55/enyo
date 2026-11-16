@@ -7,17 +7,17 @@
 
 import utils from './utils.js';
 
-exports = null;
+var BlobCtor = null;
 
 if (typeof Blob != 'undefined') {
 	try {
 		new Blob();
-		exports = module.exports = Blob;
+		BlobCtor = Blob;
 	} catch (e) {}
 }
 
-if (!exports) {
-	module.exports = _Blob;
+if (!BlobCtor) {
+	BlobCtor = _Blob;
 }
 
 function _Blob(inBufs, inOpts) {
@@ -37,3 +37,5 @@ _Blob.prototype.getAsBinary = function() {
 		content = empty.concat.apply(empty, this._bufs);
 	return content;
 };
+
+export default BlobCtor;

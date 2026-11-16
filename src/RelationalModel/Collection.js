@@ -18,7 +18,7 @@ import Model from './Model.js';
 * @extends module:enyo/Collection~Collection
 * @private
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/RelationalModel~Collection.prototype */ {
 		
 	/**

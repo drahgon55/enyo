@@ -32,7 +32,7 @@ import TransitionViewLayout from '../TransitionViewLayout.js';
 * @wip
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/SlideViewLayout~SlideViewLayout.prototype */ {
 	/**
 	* @private

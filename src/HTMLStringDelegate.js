@@ -12,7 +12,7 @@ var selfClosing = {img: 1, hr: 1, br: 1, area: 1, base: 1, basefont: 1, input: 1
 * @module enyo/HTMLStringDelegate
 * @public
 */
-module.exports = {
+export default {
 	
 	/**
 	* @private

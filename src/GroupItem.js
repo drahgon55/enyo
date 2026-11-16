@@ -36,7 +36,7 @@ import Control from './Control/Control.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Groupitem~Groupitem.prototype */ {
 
 	/**

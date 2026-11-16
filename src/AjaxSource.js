@@ -18,7 +18,7 @@ import AjaxProperties from './AjaxProperties.js';
 * @extends module:enyo/XhrSource~XhrSource
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/AjaxSource~AjaxSource.prototype */ {
 	
 	name: 'enyo.AjaxSource',

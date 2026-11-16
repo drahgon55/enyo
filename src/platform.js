@@ -34,7 +34,7 @@ import utils from './utils.js';
 *
 * @module enyo/platform
 */
-exports = module.exports = {
+var platform = {
 	/**
 	* `true` if the platform has native single-finger [events]{@glossary event}.
 	* @public
@@ -57,7 +57,7 @@ exports = module.exports = {
 };
 
 var ua = navigator.userAgent;
-var ep = exports;
+var ep = platform;
 var platforms = [
 	// Windows Phone 7 - 10
 	{platform: 'windowsPhone', regex: /Windows Phone (?:OS )?(\d+)[.\d]+/},
@@ -120,3 +120,5 @@ for (var i = 0, p, m, v; (p = platforms[i]); i++) {
 		break;
 	}
 }
+
+export default platform;

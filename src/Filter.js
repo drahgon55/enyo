@@ -35,7 +35,7 @@ function alwaysTrue () {
 * @extends module:enyo/Collection~Collection
 * @protected
 */
-var Filter = module.exports = kind(
+var Filter = kind(
 	/** @lends module:enyo/Filter~Filter.prototype */ {
 
 	name: 'enyo.Filter',
@@ -483,3 +483,5 @@ var Filter = module.exports = kind(
 });
 
 Filter.prototype.defaultProps.kind = Filter;
+
+export default Filter;

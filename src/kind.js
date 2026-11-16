@@ -27,7 +27,7 @@ var defaultCtor = null;
 * @public
 */
 /*jshint -W120*/
-var kind = exports = module.exports = function (props) {
+var kind = function (props) {
 /*jshint +W120*/
 	// extract 'name' property
 	var name = props.name || '';
@@ -84,18 +84,18 @@ var kind = exports = module.exports = function (props) {
 	return ctor;
 };
 
-exports.setDefaultCtor = function (ctor) {
+kind.setDefaultCtor = function (ctor) {
 	defaultCtor = ctor;
 };
 
-var getDefaultCtor = exports.getDefaultCtor = function () {
+var getDefaultCtor = kind.getDefaultCtor = function () {
 	return defaultCtor;
 };
 
 /**
 * @private
 */
-var concatenated = exports.concatenated = [];
+var concatenated = kind.concatenated = [];
 
 /**
 * Creates a singleton of a given {@glossary kind} with a given
@@ -124,7 +124,7 @@ var concatenated = exports.concatenated = [];
 *
 * @public
 */
-exports.singleton = function (conf) {
+kind.singleton = function (conf) {
 	// extract 'name' property (the name of our singleton)
 	delete(conf.name);
 	// create an unnamed kind and save its constructor's function
@@ -283,14 +283,14 @@ var Inherited = function (fn) {
 *   super-call.
 * @public
 */
-exports.inherit = function (fn) {
+kind.inherit = function (fn) {
 	return new Inherited(fn);
 };
 
 /**
 * @private
 */
-var isInherited = exports.isInherited = function (fn) {
+var isInherited = kind.isInherited = function (fn) {
 	return fn && (fn instanceof Inherited);
 };
 
@@ -416,7 +416,7 @@ kind.statics = {
 * @method
 * @private
 */
-exports.concatHandler = function (ctor, props, instance) {
+kind.concatHandler = function (ctor, props, instance) {
 	var proto = ctor.prototype || ctor
 		, base = proto.ctor;
 
@@ -434,13 +434,13 @@ var kindCtors =
 * @deprecated Since 2.6.0
 * @private
 */
-	exports._kindCtors = {};
+	kind._kindCtors = {};
 
 /**
 * @method
 * @private
 */
-var constructorForKind = exports.constructorForKind = function (kind) {
+var constructorForKind = kind.constructorForKind = function (kind) {
 	if (kind === null) {
 		return kind;
 	} else if (kind === undefined) {
@@ -463,7 +463,7 @@ var constructorForKind = exports.constructorForKind = function (kind) {
 	//
 	// Note that kind "Foo" will resolve to enyo.Foo before resolving to global "Foo".
 	// This is important so "Image" will map to built-in Image object, instead of enyo.Image control.
-	ctor = Theme[kind] || (global.enyo && global.enyo[kind]) || utils.getPath.call(global, 'enyo.' + kind) || global[kind] || utils.getPath.call(global, kind);
+	ctor = Theme[kind] || (globalThis.enyo && globalThis.enyo[kind]) || utils.getPath.call(globalThis, 'enyo.' + kind) || globalThis[kind] || utils.getPath.call(globalThis, kind);
 
 	// If what we found at this namespace isn't a function, it's definitely not a kind constructor
 	if (!utils.isFunction(ctor)) {
@@ -480,14 +480,14 @@ var constructorForKind = exports.constructorForKind = function (kind) {
 * @deprecated Since 2.6.0
 * @private
 */
-var Theme = exports.Theme = {};
+var Theme = kind.Theme = {};
 
 /**
 * @method
 * @deprecated Since 2.6.0
 * @private
 */
-exports.registerTheme = function (ns) {
+kind.registerTheme = function (ns) {
 	utils.mixin(Theme, ns);
 };
 
@@ -495,9 +495,11 @@ exports.registerTheme = function (ns) {
 * @method
 * @private
 */
-exports.createFromKind = function (nom, param) {
+kind.createFromKind = function (nom, param) {
 	var Ctor = nom && constructorForKind(nom);
 	if (Ctor) {
 		return new Ctor(param);
 	}
 };
+
+export default kind;

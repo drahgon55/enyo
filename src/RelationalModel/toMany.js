@@ -22,7 +22,7 @@ import toOne from './toOne.js';
 * @extends module:enyo/RelationalModel~Relation
 * @private
 */
-var toMany = module.exports = kind(
+var toMany = kind(
 	/** @lends module:enyo/RelationalModel~toMany.prototype */ {
 	
 	/**
@@ -277,3 +277,5 @@ toMany.concat = function (ctor, props) {
 		delete props.collectionOptions;
 	}
 };
+
+export default toMany;

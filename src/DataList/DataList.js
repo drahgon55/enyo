@@ -68,7 +68,7 @@ import Scroller from '../Scroller/Scroller.js';
 * @ui
 * @public
 */
-var DataList = module.exports = kind(
+var DataList = kind(
 	/** @lends module:enyo/DataList~DataList.prototype */ {
 
 	/**
@@ -664,3 +664,5 @@ var DataList = module.exports = kind(
 DataList.subclass = function (ctor) {
 	ctor.delegates = utils.clone(ctor.prototype.base.delegates || this.delegates);
 };
+
+export default DataList;

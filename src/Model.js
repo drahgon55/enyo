@@ -115,7 +115,7 @@ var BaseModel = kind({
 * @mixes module:enyo/StateSupport~StateSupport
 * @public
 */
-var Model = module.exports = kind(
+var Model = kind(
 	/** @lends module:enyo/Model~Model.prototype */ {
 
 	name: 'enyo.Model',
@@ -922,3 +922,5 @@ kind.features.push(function (ctor) {
 		!Store.models[ctor.prototype.kindName] && (Store.models[ctor.prototype.kindName] = new ModelList());
 	}
 });
+
+export default Model;

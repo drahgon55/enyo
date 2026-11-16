@@ -12,7 +12,7 @@ import Signals from './Signals.js';
 * @module enyo/master
 * @private
 */
-var master = module.exports = new Component({
+var master = new Component({
 	name: 'master',
 	notInstanceOwner: true,
 	eventFlags: {showingOnly: true}, // don't waterfall these events into hidden controls
@@ -35,3 +35,5 @@ var master = module.exports = new Component({
 		}
 	}
 });
+
+export default master;

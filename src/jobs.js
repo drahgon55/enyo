@@ -21,7 +21,7 @@ import CoreObject from './CoreObject.js';
 * @module enyo/jobs
 * @public
 */
-module.exports = kind.singleton(
+export default kind.singleton(
 	/** @lends module:enyo/jobs */ {
 	
 	kind: CoreObject,

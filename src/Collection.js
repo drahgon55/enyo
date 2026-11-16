@@ -253,7 +253,7 @@ var BaseCollection = kind({
 * @mixes module:enyo/EventEmitter~EventEmitter
 * @public
 */
-exports = module.exports = kind(
+var Collection = kind(
 	/** @lends module:enyo/Collection~Collection.prototype */ {
 
 	name: 'enyo.Collection',
@@ -1333,7 +1333,7 @@ exports = module.exports = kind(
 * @static
 * @private
 */
-exports.concat = function (ctor, props) {
+Collection.concat = function (ctor, props) {
 	var proto = ctor.prototype || ctor;
 
 	if (props.options) {
@@ -1341,3 +1341,5 @@ exports.concat = function (ctor, props) {
 		delete props.options;
 	}
 };
+
+export default Collection;

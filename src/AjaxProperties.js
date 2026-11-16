@@ -5,7 +5,7 @@
 * @module enyo/AjaxProperties
 * @public
 */
-module.exports = {
+export default {
 	
 	/**
 	* When `true`, appends a random number as a parameter for `GET` requests to try to

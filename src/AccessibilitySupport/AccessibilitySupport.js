@@ -324,4 +324,4 @@ kind.concatHandler = function (ctor, props, instance) {
 	proto._ariaObservers = ariaObservers;
 };
 
-module.exports = AccessibilitySupport;
+export default AccessibilitySupport;

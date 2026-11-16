@@ -17,7 +17,7 @@ import TableRow from './TableRow/TableRow.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/DataTable~DataTable.prototype */ {
 
 	/**

@@ -20,7 +20,7 @@ import Ajax from './Ajax.js';
 * @extends module:enyo/Async~Async
 * @public
 */
-var JsonpRequest = module.exports = kind(
+var JsonpRequest = kind(
 	/** @lends module:enyo/Jsonp~JsonpRequest.prototype */ {
 	
 	name: 'enyo.JsonpRequest',
@@ -168,12 +168,12 @@ var JsonpRequest = module.exports = kind(
 		this.src = this.buildUrl(params, callbackFunctionName);
 		this.addScriptElement();
 		//
-		global[callbackFunctionName] = this.bindSafely(this.respond);
+		globalThis[callbackFunctionName] = this.bindSafely(this.respond);
 		//
 		// setup cleanup handlers for JSONP completion and failure
 		var cleanup = this.bindSafely(function() {
 			this.removeScriptElement();
-			global[callbackFunctionName] = null;
+			globalThis[callbackFunctionName] = null;
 		});
 		this.response(cleanup);
 		this.error(cleanup);
@@ -215,3 +215,5 @@ var JsonpRequest = module.exports = kind(
 		}
 	}
 });
+
+export default JsonpRequest;

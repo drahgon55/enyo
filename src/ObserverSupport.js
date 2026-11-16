@@ -521,7 +521,7 @@ var ObserverSupport = {
 	
 };
 
-module.exports = ObserverSupport;
+export default ObserverSupport;
 
 /**
 * Hijack the original so we can add additional default behavior.

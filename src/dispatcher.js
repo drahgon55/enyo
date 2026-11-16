@@ -30,7 +30,7 @@ import Dom from './dom.js';
 /**
 * @private
 */
-var dispatcher = module.exports = dispatcher = {
+var dispatcher = dispatcher = {
 
 	$: {},
 
@@ -69,8 +69,8 @@ var dispatcher = module.exports = dispatcher = {
 		for (i=0; (n=d.windowEvents[i]); i++) {
 			// Chrome Packaged Apps don't like "unload"
 			if(n === 'unload' &&
-				(typeof global.chrome === 'object') &&
-				global.chrome.app) {
+				(typeof globalThis.chrome === 'object') &&
+				globalThis.chrome.app) {
 				continue;
 			}
 
@@ -497,3 +497,5 @@ utils.mixin(dispatcher, {
 
 	dispatcher.features.push(preview.feature);
 })();
+
+export default dispatcher;

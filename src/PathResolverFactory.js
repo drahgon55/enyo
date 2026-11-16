@@ -1,4 +1,4 @@
-var PathResolverFactory = module.exports = function() {
+var PathResolverFactory = function() {
 	this.paths = {};
 	this.pathNames = [];
 };
@@ -40,3 +40,5 @@ PathResolverFactory.prototype = {
 		return result;
 	}
 };
+
+export default PathResolverFactory;

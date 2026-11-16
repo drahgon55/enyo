@@ -3,7 +3,7 @@
 // client code is only going to execute at the
 // appropriate time
 
-var doc = global.document;
+var doc = globalThis.document;
 var queue = [];
 var ready = ("complete" === doc.readyState);
 var run;
@@ -26,7 +26,7 @@ var flushScheduled = false;
 *	callback method.
 * @public
 */
-module.exports = function (fn, context) {
+export default function (fn, context) {
 	queue.push([fn, context]);
 	// schedule another queue flush if needed to run new ready calls
 	if (ready && !flushScheduled) {
@@ -39,7 +39,7 @@ module.exports = function (fn, context) {
 * @private
 */
 run = function (fn, context) {
-	fn.call(context || global);
+	fn.call(context || globalThis);
 };
 
 /**
@@ -81,7 +81,7 @@ remove = function (event, fn) {
 flush = function () {
 	if (ready && queue.length) {
 		while (queue.length) {
-			run.apply(global, queue.shift());
+			run.apply(globalThis, queue.shift());
 		}
 	}
 	flushScheduled = false;

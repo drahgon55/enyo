@@ -21,7 +21,7 @@ import kind from './kind.js';
 * @class Layout
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Layout~Layout.prototype */ {
 
 	name: 'enyo.Layout',

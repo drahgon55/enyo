@@ -9,7 +9,7 @@ import utils from './utils.js';
 * @module enyo/ProxyObject
 * @public
 */
-module.exports = {
+export default {
 	
 	/**
 	* @private

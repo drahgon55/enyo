@@ -21,7 +21,7 @@ function get (base, prop) {
 * @extends module:enyo/LinkedList~LinkedList
 * @private
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ObserverChain~ObserverChain.prototype */ {
 
 	/**

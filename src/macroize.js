@@ -41,8 +41,8 @@ import utils from './utils.js';
 * @returns {String} The modified `text` value.
 * @public
 */
-exports = module.exports = function (text, map, regex) {
-	var v, working, result = text, pattern = regex || exports.pattern;
+var macroize = function (text, map, regex) {
+	var v, working, result = text, pattern = regex || macroize.pattern;
 	var fn = function(macro, name) {
 		v = utils.getPath.call(map, name);
 		if (v === undefined || v === null) {
@@ -78,8 +78,8 @@ exports = module.exports = function (text, map, regex) {
 * @returns {String} The modified `text` value.
 * @public
 */
-module.exports.quickReplace = function (text, map, pattern) {
-	pattern = pattern || exports.pattern;
+macroize.quickReplace = function (text, map, pattern) {
+	pattern = pattern || macroize.pattern;
 	var fn = function (token) {
 		var r = map[token];
 		return r || token;
@@ -101,8 +101,8 @@ module.exports.quickReplace = function (text, map, pattern) {
 * @returns {String} The modified `text` value.
 * @public
 */
-module.exports.quickMacroize = function(text, map, regex) {
-	var v, result = text, pattern = regex || exports.pattern;
+macroize.quickMacroize = function(text, map, regex) {
+	var v, result = text, pattern = regex || macroize.pattern;
 	var fn = function(macro, name) {
 		if (name in map) {
 			v = map[name];
@@ -125,4 +125,6 @@ module.exports.quickMacroize = function(text, map, regex) {
 * @default '/\{\$([^{}]*)\}/g'
 * @public
 */
-module.exports.pattern = /\{\$([^{}]*)\}/g;
+macroize.pattern = /\{\$([^{}]*)\}/g;
+
+export default macroize;

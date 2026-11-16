@@ -57,7 +57,7 @@ var Avatar = kind({
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/DragAvatar~DragAvatar.prototype */ {
 
 	/**

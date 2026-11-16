@@ -6,4 +6,4 @@
 * @module enyo/options
 */
 
-module.exports = (global.enyo && global.enyo.options) || {};
+export default (globalThis.enyo && globalThis.enyo.options) || {};

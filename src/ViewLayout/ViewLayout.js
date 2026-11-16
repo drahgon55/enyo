@@ -43,7 +43,7 @@ var ViewLayoutSupport = {
 * @public
 * @wip
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ViewLayout~ViewLayout.prototype */ {
 
 	/**

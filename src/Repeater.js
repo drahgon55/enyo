@@ -114,7 +114,7 @@ var OwnerProxy = kind(
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Repeater~Repeater.prototype */ {
 
 	/**

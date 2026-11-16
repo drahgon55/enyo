@@ -24,7 +24,7 @@ import gestureUtil from './util.js';
 *
 * @public
 */
-var gesture = module.exports = {
+var gesture = {
 	/**
 	* Handles "down" [events]{@glossary event}, including `mousedown` and `keydown`. This is
 	* responsible for the press-and-hold key repeater.
@@ -270,7 +270,7 @@ var gesture = module.exports = {
 * @type {object}
 * @public
 */
-module.exports.events = {
+gesture.events = {
 	/**
 	* Shortcut to [gesture.down()]{@link module:enyo/gesture#down}.
 	*
@@ -374,3 +374,5 @@ dispatcher.features.push(function (e) {
 		drag[type](e);
 	}
 });
+
+export default gesture;

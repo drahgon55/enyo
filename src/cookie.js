@@ -3,6 +3,8 @@
 * @module enyo/cookie
 */
 
+var cookie = {};
+
 
 /**
 * Available additional attributes that may be set with a [cookie]{@glossary cookie}.
@@ -28,7 +30,7 @@
 *	`undefined` if it could not be retrieved.
 * @public
 */
-exports.getCookie = function(nom) {
+cookie.getCookie = function(nom) {
 	var matches = document.cookie.match(new RegExp("(?:^|; )" + nom + "=([^;]*)"));
 	return matches ? decodeURIComponent(matches[1]) : undefined;
 };
@@ -50,7 +52,7 @@ exports.getCookie = function(nom) {
 *	the cookie.
 * @public
 */
-exports.setCookie = function(nom, value, props) {
+cookie.setCookie = function(nom, value, props) {
 	var cookie = nom + "=" + encodeURIComponent(value);
 	var p = props || {};
 	//
@@ -76,3 +78,5 @@ exports.setCookie = function(nom, value, props) {
 	//
 	document.cookie = cookie;
 };
+
+export default cookie;

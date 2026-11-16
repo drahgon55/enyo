@@ -8,7 +8,7 @@ import kind from './kind.js';
 import CoreObject from './CoreObject.js';
 import animation from './animation.js';
 
-module.exports = kind.singleton({
+export default kind.singleton({
 	/** @lends module:enyo/Loop */
 
 	/**

@@ -4,7 +4,7 @@
 * @module enyo/json
 * @public
 */
-module.exports = {
+export default {
 	
 	/**
 	* Wrapper for [JSON.stringify()]{@glossary JSON.stringify}. Creates a

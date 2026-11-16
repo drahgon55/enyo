@@ -1,3 +1,3 @@
 import PathResolverFactory from './PathResolverFactory.js';
 
-module.exports = new PathResolverFactory();
+export default new PathResolverFactory();

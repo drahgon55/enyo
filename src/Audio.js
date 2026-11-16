@@ -29,7 +29,7 @@ import Media from './Media.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Audio~Audio.prototype */ {
 
 	/**

@@ -81,7 +81,7 @@ var calc = function (numbers) {
 * @module enyo/dev
 * @public
 */
-exports = module.exports = {
+var dev = {
 
 	/**
 	* Can be set to `false` to disable all benchmarking code.
@@ -173,7 +173,7 @@ exports = module.exports = {
 * @class Benchmark
 * @protected
 */
-var Benchmark = exports.Benchmark = kind(/** @lends module:enyo/dev~Benchmark.prototype */ {
+var Benchmark = dev.Benchmark = kind(/** @lends module:enyo/dev~Benchmark.prototype */ {
 	
 	/**
 	* @private
@@ -318,3 +318,5 @@ var Benchmark = exports.Benchmark = kind(/** @lends module:enyo/dev~Benchmark.pr
 * @method
 * @public
 */
+
+export default dev;

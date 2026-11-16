@@ -49,7 +49,7 @@ var BaseModelController = kind({
 * @mixes module:enyo/ProxyObject~ProxyObject
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/ModelController~ModelController.prototype */ {
 
 	name: 'enyo.ModelController',

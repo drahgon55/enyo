@@ -10,7 +10,7 @@ import Signals from '../Signals.js';
 * @module enyo/Control/fullscreen
 * @public
 */
-module.exports = function (Control) {
+export default function (Control) {
 	var floatingLayer = Control.floatingLayer;
 	var fullscreen = {
 		

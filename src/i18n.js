@@ -8,6 +8,8 @@ import dispatcher from './dispatcher.js';
 import utils from './utils.js';
 import Signals from './Signals.js';
 
+var i18n = {};
+
 /**
 * Provides a stub function for i18n string translation. This allows strings to
 * be wrapped in preparation for localization. If an i18n library is not loaded,
@@ -25,7 +27,7 @@ import Signals from './Signals.js';
 * @returns {String} The translated {@glossary String}.
 * @public
 */
-exports.$L = new utils.Extensible(function (str) {
+i18n.$L = new utils.Extensible(function (str) {
 	return str;
 });
 
@@ -44,11 +46,13 @@ exports.$L = new utils.Extensible(function (str) {
 *
 * @private
 */
-exports.updateLocale = new utils.Extensible(function () {
+i18n.updateLocale = new utils.Extensible(function () {
 	// This is a stub, to be implemented by a i18n library as needed
 	Signals.send('onlocalechange');
 });
 
 dispatcher.listen(document, 'localechange', function (e) {
-	exports.updateLocale();
+	i18n.updateLocale();
 });
+
+export default i18n;

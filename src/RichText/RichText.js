@@ -49,7 +49,7 @@ import Input from '../Input/Input.js';
 * @ui
 * @public
 */
-var RichText = module.exports = kind(
+var RichText = kind(
 	/** @lends module:enyo/RichText~RichText.prototype */ {
 
 	/**
@@ -246,7 +246,7 @@ var RichText = module.exports = kind(
 	*/
 	getSelection: function () {
 		if (this.hasFocus()) {
-			return global.getSelection();
+			return globalThis.getSelection();
 		}
 	},
 
@@ -349,3 +349,5 @@ var RichText = module.exports = kind(
 		{to: 'aria-multiline', value: true}
 	]
 });
+
+export default RichText;

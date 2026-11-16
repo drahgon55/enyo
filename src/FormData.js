@@ -22,18 +22,18 @@ import utils from './utils.js';
 * @module enyo/FormData
 * @public
 */
-exports = null;
+var FormDataCtor = null;
 
 if (typeof FormData != 'undefined') {
 	try {
 		new FormData();
 		
-		exports = module.exports = FormData;
+		FormDataCtor = FormData;
 	// Android Chrome 18 will throw an error trying to create this
 	} catch (e) {}
 }
 
-if (!exports) {
+if (!FormDataCtor) {
 
 	/*jshint -W082 */
 	function FormData() {
@@ -75,5 +75,7 @@ if (!exports) {
 	};
 	/*jshint +W082 */
 	
-	module.exports = FormData;
+	FormDataCtor = FormData;
 }
+
+export default FormDataCtor;

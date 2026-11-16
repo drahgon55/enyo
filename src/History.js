@@ -63,9 +63,9 @@ var
 	_abortQueueProcessing = false,
 
 	// `true` if the platform support the HTML5 History API
-	_supports = !!global.history.pushState;
+	_supports = !!globalThis.history.pushState;
 
-var EnyoHistory = module.exports = kind.singleton(
+var EnyoHistory = kind.singleton(
 	/** @lends module:enyo/History~History.prototype */ {
 
 	/**
@@ -330,7 +330,7 @@ var EnyoHistory = module.exports = kind.singleton(
 				// If we are able to and supposed to update history and there are pending pops
 				if (this.updateHistory && _popQueueCount > 0) {
 					// go back that many entries
-					global.history.go(-_popQueueCount);
+					globalThis.history.go(-_popQueueCount);
 				} else {
 					// otherwise we'll start the processing
 					this.handlePop({
@@ -383,7 +383,7 @@ var EnyoHistory = module.exports = kind.singleton(
 			location = entry.location || '';
 		_history.push(entry);
 		if (this.updateHistory && !silenced) {
-			global.history.pushState({id: id}, '', location);
+			globalThis.history.pushState({id: id}, '', location);
 		}
 	},
 
@@ -413,4 +413,6 @@ var EnyoHistory = module.exports = kind.singleton(
 
 });
 
-dispatcher.listen(global, 'popstate', EnyoHistory.handlePop.bind(EnyoHistory));
+dispatcher.listen(globalThis, 'popstate', EnyoHistory.handlePop.bind(EnyoHistory));
+
+export default EnyoHistory;

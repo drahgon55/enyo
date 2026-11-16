@@ -1141,11 +1141,12 @@ var ViewMgr = kind(
 	}
 });
 
-module.exports = ViewMgr;
 
 /**
 * The {@link module:enyo/ViewManager~ScrimSupport} mixin
 *
 * @private
 */
-module.exports.ScrimSupport = ScrimSupport;
+ViewMgr.ScrimSupport = ScrimSupport;
+
+export default ViewMgr;

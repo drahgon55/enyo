@@ -12,7 +12,7 @@ import utils from './utils.js';
 * @class LinkedListNode
 * @private
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/LinkedListNode~LinkedListNode.prototype */ {
 	
 	/**

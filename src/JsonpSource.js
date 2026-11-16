@@ -16,7 +16,7 @@ import JsonpRequest from './Jsonp.js';
 * @extends module:enyo/XhrSource~XhrSource
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/JsonpSource~JsonpSource.prototype */ {
 	
 	name: 'enyo.JsonpSource',

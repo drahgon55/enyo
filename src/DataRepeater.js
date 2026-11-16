@@ -34,7 +34,7 @@ function modelFilter (record) {
 * @ui
 * @public
 */
-var DataRepeater = module.exports = kind(
+var DataRepeater = kind(
 	/** @lends module:enyo/DataRepeater~DataRepeater.prototype */ {
 
 	/**
@@ -447,7 +447,7 @@ var DataRepeater = module.exports = kind(
 	collectionChanged: function (p) {
 		var c = this.collection;
 		if (typeof c == 'string') {
-			c = this.collection = utils.getPath.call(global, c);
+			c = this.collection = utils.getPath.call(globalThis, c);
 		}
 		if (c) {
 			this.initCollection(c, p);
@@ -830,3 +830,5 @@ DataRepeater.concat = function (ctor, props) {
 		delete props.childMixins;
 	}
 };
+
+export default DataRepeater;

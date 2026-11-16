@@ -18,7 +18,7 @@ import MultipleDispatchComponent from './MultipleDispatchComponent.js';
 * @extends module:enyo/MultipleDispatchComponent~MultipleDispatchComponent
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/Controller~Controller.prototype */ {
 
 	name: 'enyo.Controller',
@@ -61,7 +61,7 @@ module.exports = kind(
 			sup.apply(this, arguments);
 			// don't attempt to set a controller globally without a name
 			if (this.global && this.name) {
-				utils.setPath.call(global, this.name, this);
+				utils.setPath.call(globalThis, this.name, this);
 			}
 		};
 	}),

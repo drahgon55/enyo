@@ -92,7 +92,7 @@ function getNodePurgatory () {
 * @ui
 * @public
 */
-var Control = module.exports = kind(
+var Control = kind(
 	/** @lends module:enyo/Control~Control.prototype */ {
 
 	name: 'enyo.Control',
@@ -1734,3 +1734,5 @@ Control.floatingLayer = new Control.FloatingLayer({id: 'floatingLayer'});
 * @public
 */
 Control.Fullscreen = fullscreen(Control);
+
+export default Control;

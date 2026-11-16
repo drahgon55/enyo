@@ -303,4 +303,4 @@ var Store = kind(
 * @type module:enyo/Store~Store
 * @public
 */
-module.exports = new Store();
+export default new Store();

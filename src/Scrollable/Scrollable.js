@@ -1167,4 +1167,4 @@ var Scrollable = {
 	}
 };
 
-module.exports = Scrollable;
+export default Scrollable;

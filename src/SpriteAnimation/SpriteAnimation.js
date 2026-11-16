@@ -4,7 +4,7 @@
 */
 
 import kind from '../kind.js';
-var scope = window || global;
+var scope = window || globalThis;
 
 import Control from '../Control/Control.js';
 import EnyoImage from '../Image/Image.js';
@@ -20,7 +20,7 @@ import StylesheetSupport from '../StylesheetSupport.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/SpriteAnimation~SpriteAnimation.prototype */ {
 
 	/**

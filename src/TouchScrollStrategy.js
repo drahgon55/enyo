@@ -41,7 +41,7 @@ import Dom from './dom.js';
 * @extends module:enyo/ScrollStrategy~ScrollStrategy
 * @protected
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/TouchScrollStrategy~TouchScrollStrategy.prototype */ {
 
 	name: 'enyo.TouchScrollStrategy',

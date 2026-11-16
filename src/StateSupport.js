@@ -84,4 +84,4 @@ var StateSupport = {
 	}
 };
 
-module.exports = StateSupport;
+export default StateSupport;

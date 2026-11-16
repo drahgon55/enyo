@@ -25,7 +25,7 @@ import VerticalGridDelegate from '../VerticalGridDelegate.js';
 * @ui
 * @public
 */
-var DataGridList = module.exports = kind(
+var DataGridList = kind(
 	/** @lends module:enyo/DataGridList~DataGridList.prototype */ {
 
 	/**
@@ -153,3 +153,5 @@ var DataGridList = module.exports = kind(
 });
 
 DataGridList.delegates.verticalGrid = VerticalGridDelegate;
+
+export default DataGridList;

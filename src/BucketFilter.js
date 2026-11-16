@@ -18,7 +18,7 @@ import Filter from './Filter.js';
 * @extends module:enyo/Filter~Filter
 * @public
 */
-var BucketFilter = module.exports = kind(
+var BucketFilter = kind(
 	/** @lends module:enyo/BucketFilter~BucketFilter.prototype */ {
 	
 	name: 'enyo.BucketFilter',
@@ -233,3 +233,5 @@ var BucketFilter = module.exports = kind(
 });
 
 BucketFilter.prototype.defaultProps.kind = BucketFilter;
+
+export default BucketFilter;

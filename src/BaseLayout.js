@@ -20,7 +20,7 @@ import Layout from './Layout.js';
 * @extends module:enyo/Layout~Layout
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/BaseLayout~BaseLayout.prototype */ {
 
 	name: 'enyo.BaseLayout',

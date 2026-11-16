@@ -35,4 +35,4 @@ var ScrimSupport = {
 	})
 };
 
-module.exports = ScrimSupport;
+export default ScrimSupport;

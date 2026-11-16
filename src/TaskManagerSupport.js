@@ -194,4 +194,4 @@ var TaskManagerSupport = {
 
 };
 
-module.exports = TaskManagerSupport;
+export default TaskManagerSupport;

@@ -60,7 +60,7 @@ import Dom from './dom.js';
 * @wip
 * @protected
 */
-var TransitionScrollStrategy = module.exports = kind(
+var TransitionScrollStrategy = kind(
 	/** @lends module:enyo/TransitionScrollStrategy~TransitionScrollStrategy.prototype */ {
 
 	name: 'enyo.TransitionScrollStrategy',
@@ -513,7 +513,7 @@ var TransitionScrollStrategy = module.exports = kind(
 	* @private
 	*/
 	updateX: function () {
-		var x = global.getComputedStyle(this.$.client.node,null).getPropertyValue(Dom.getCssTransformProp()).split('(')[1];
+		var x = globalThis.getComputedStyle(this.$.client.node,null).getPropertyValue(Dom.getCssTransformProp()).split('(')[1];
 		x = (x === undefined) ? 0 : x.split(')')[0].split(',')[4];
 		if(-1*parseFloat(x) === this.scrollLeft) {
 			return false;
@@ -528,7 +528,7 @@ var TransitionScrollStrategy = module.exports = kind(
 	* @private
 	*/
 	updateY: function () {
-		var y = global.getComputedStyle(this.$.client.node,null).getPropertyValue(Dom.getCssTransformProp()).split('(')[1];
+		var y = globalThis.getComputedStyle(this.$.client.node,null).getPropertyValue(Dom.getCssTransformProp()).split('(')[1];
 		y = (y === undefined) ? 0 : y.split(')')[0].split(',')[5];
 		if(-1*parseFloat(y) === this.scrollTop) {
 			return false;
@@ -998,7 +998,7 @@ var TransitionScrollStrategy = module.exports = kind(
 	*/
 	resetCSSTranslationVals: function () {
 		var prop = Dom.getCssTransformProp();
-		var transformStyle = global.getComputedStyle(this.$.client.node,null).getPropertyValue(prop).split('(')[1].split(')')[0].split(',');
+		var transformStyle = globalThis.getComputedStyle(this.$.client.node,null).getPropertyValue(prop).split('(')[1].split(')')[0].split(',');
 		this.applyTransition("none");
 		this.scrollLeft = -1*transformStyle[4];
 		this.scrollTop = -1*transformStyle[5];
@@ -1081,3 +1081,5 @@ var TransitionScrollStrategy = module.exports = kind(
 		};
 	}
 });
+
+export default TransitionScrollStrategy;

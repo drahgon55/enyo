@@ -46,4 +46,4 @@ var ApplicationSupport = {
 
 };
 
-module.exports = ApplicationSupport;
+export default ApplicationSupport;

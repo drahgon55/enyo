@@ -11,7 +11,7 @@ import SystemMonitor from './SystemMonitor.js';
 import Loop from './Loop.js';
 import { Priorities } from './PriorityQueue.js';
 
-module.exports = kind.singleton(
+export default kind.singleton(
 	/** @lends module:enyo/BackgroundTaskManager */ {
 
 	/**

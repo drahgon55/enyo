@@ -42,7 +42,7 @@ import VirtualDataRepeater from './VirtualDataRepeater.js';
 * @ui
 * @public
 */
-module.exports = kind(
+export default kind(
 	/** @lends module:enyo/NewDataList~NewDataList.prototype */ {
 	name: 'enyo.NewDataList',
 	kind: VirtualDataRepeater,

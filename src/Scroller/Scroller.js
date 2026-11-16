@@ -104,7 +104,7 @@ import TranslateScrollStrategy from '../TranslateScrollStrategy.js';
 * @class Scroller
 * @public
 */
-var Scroller = module.exports = kind(
+var Scroller = kind(
 	/** @lends module:enyo/Scroller~Scroller.prototype */ {
 
 	name: 'enyo.Scroller',
@@ -822,3 +822,5 @@ var Scroller = module.exports = kind(
 if (Scroller.hasTouchScrolling()) {
 	Scroller.prototype.strategyKind = Scroller.getTouchStrategy();
 }
+
+export default Scroller;

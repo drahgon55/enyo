@@ -154,7 +154,7 @@ var ComputedSupport = {
 	}
 };
 
-module.exports = ComputedSupport;
+export default ComputedSupport;
 
 /*
 * Hijack the original so we can add additional default behavior.
