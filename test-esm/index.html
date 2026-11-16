@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enyo ESM</title>
+<!--
+	Enyo's stylesheet is linked by hand. The 2.5 runtime loader injected
+	stylesheets with document.write, which modern Chrome discards; there is no
+	loader here at all, so the page links what it needs.
+-->
+<link rel="stylesheet" href="../css/enyo.css">
+<style>
+	body { font: 14px/1.4 system-ui, sans-serif; margin: 2rem; }
+	.panel { border: 1px solid #ccc; border-radius: 6px; padding: 1rem; max-width: 30rem; }
+	.hit { background: #e8f0fe; cursor: pointer; padding: .5rem; border-radius: 4px; }
+	#log { white-space: pre-wrap; font-family: ui-monospace, monospace; color: #444; }
+</style>
+</head>
+<body>
+
+<h1>Enyo 2.7.0 as native ES modules</h1>
+<p>No bundler, no build step &mdash; the modules below are imported straight from
+<code>../src/</code> by the browser.</p>
+
+<div id="app"></div>
+
+<h2>Checks</h2>
+<div id="log"></div>
+
+<script type="module">
+// Imported straight from source. Every specifier carries its .js extension,
+// which is what the browser's module resolver requires.
+import kind     from '../src/kind.js';
+import Control  from '../src/Control/Control.js';
+import ready    from '../src/ready.js';
+import utils    from '../src/utils.js';
+import enyo     from '../index.js';
+
+var results = [];
+function check (name, pass, detail) {
+	results.push((pass ? 'PASS  ' : 'FAIL  ') + name + (detail ? '  — ' + detail : ''));
+	document.getElementById('log').textContent = results.join('\n');
+	if (!pass) { console.error('FAIL: ' + name + (detail ? ' — ' + detail : '')); }
+}
+
+check('enyo version is 2.7.0', enyo.version === '2.7.0', 'got ' + enyo.version);
+check('kind is a function', typeof kind === 'function');
+check('utils.mixin is a function', typeof utils.mixin === 'function');
+
+// A plain Control, created and rendered.
+// A kind with a click/tap handler.
+var clicks = 0;
+
+var Clicker = kind({
+	name: 'Clicker',
+	kind: Control,
+	classes: 'hit',
+	content: 'Click me',
+	handlers: {
+		ontap: 'handleTap'
+	},
+	handleTap: function () {
+		clicks++;
+		this.set('content', 'Clicked ' + clicks + (clicks === 1 ? ' time' : ' times'));
+		this.bubble('onClicked', {count: clicks});
+		return true;
+	}
+});
+
+var Panel = kind({
+	name: 'Panel',
+	kind: Control,
+	classes: 'panel',
+	components: [
+		{name: 'title', tag: 'h3', content: 'A Control tree'},
+		{name: 'body', content: 'This paragraph is an enyo/Control.'},
+		{name: 'clicker', kind: Clicker}
+	]
+});
+
+ready(function () {
+	var panel = new Panel();
+	panel.renderInto(document.getElementById('app'));
+
+	check('Control rendered a node', !!panel.hasNode());
+	check('child Controls rendered', !!panel.$.title.hasNode() && !!panel.$.body.hasNode());
+	check('kind inheritance works', panel.$.clicker instanceof Control);
+	check('classes applied', panel.hasNode().className.indexOf('panel') > -1);
+	check('content rendered into DOM',
+		panel.$.title.hasNode().textContent === 'A Control tree');
+
+	// Drive the handler the same way a user would.
+	panel.$.clicker.hasNode().click();
+
+	check('ontap handler fired', clicks === 1, 'clicks=' + clicks);
+	check('set() re-rendered content',
+		panel.$.clicker.hasNode().textContent === 'Clicked 1 time',
+		JSON.stringify(panel.$.clicker.hasNode().textContent));
+
+	// Expose for manual poking in the console.
+	window.testApp = panel;
+
+	var failed = results.filter(function (r) { return r.indexOf('FAIL') === 0; });
+	document.title = failed.length ? 'FAIL (' + failed.length + ')' : 'ALL PASS';
+	window.enyoEsmTest = {results: results, failed: failed.length};
+	console.log(failed.length ? 'TESTS FAILED: ' + failed.length : 'ALL TESTS PASSED');
+});
+</script>
+</body>
+</html>
