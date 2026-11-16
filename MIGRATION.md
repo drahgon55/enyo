@@ -255,7 +255,21 @@ correctly, and a super that itself calls `this.inherited(arguments)` walks the
 chain as before. Replacement arguments (`this.inherited(arguments, [...])`)
 work unchanged. `test-esm/index.html` covers a three-deep chain, replacement
 arguments, the missing-super warning, and that methods not using the idiom are
-left unwrapped; reverting `kind.js` turns those red.
+left unwrapped. `test-esm/inherited.node.mjs` runs the same five headlessly
+(`node test-esm/inherited.node.mjs`, non-zero on failure) — the machinery is
+independent of the DOM, and a check that needs no browser is one that actually
+gets run.
+
+Disabling the mechanism (`usesInherited` returning `false`) turns all five red.
+That is worth stating precisely, because **the failure is silent**: nothing
+throws. The super simply is not called, so a chain quietly loses a level and
+returns `undefined` where a value was expected. An earlier version of the
+missing-super check asserted only that the call did not throw, and it passed
+with the mechanism completely disabled — a broken mechanism also warns and
+returns `undefined`. It now asserts that the warning names the method
+(`InhBase.orphan()` rather than `(unknown method)`), which is only possible if
+the executing method was identified. Same lens as the vacuous checks above:
+assert the observed effect, not the absence of an exception.
 
 ## Verification
 

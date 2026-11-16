@@ -328,13 +328,20 @@ ready(function () {
 		'Base.greet wrapped=' + !!Base.prototype.greet._inheritedWrapped +
 		' Middle.greet wrapped=' + !!Middle.prototype.greet._inheritedWrapped);
 
-	// Calling up from a method with no super warns rather than throwing. This
-	// deliberately logs one warning to the console -- it is expected.
+	// The old form of this check asserted only "did not throw". With the
+	// recording mechanism broken it still passed, because a broken mechanism
+	// also warns and returns undefined. Assert the observed effect instead:
+	// the warning must name the method, which needs the method identified.
+	var warnings = [], realWarn = console.warn;
+	console.warn = function () { warnings.push(Array.prototype.join.call(arguments, ' ')); };
 	var orphanThrew = null, orphanResult;
 	try { orphanResult = new Base().orphan(); }
 	catch (e) { orphanThrew = String(e); }
-	check('missing super warns instead of throwing',
-		!orphanThrew && orphanResult === undefined, orphanThrew || 'returned ' + orphanResult);
+	finally { console.warn = realWarn; }
+	check('missing super warns, naming the method',
+		!orphanThrew && orphanResult === undefined &&
+		warnings.some(function (w) { return w.indexOf('InhBase.orphan()') > -1; }),
+		orphanThrew || JSON.stringify(warnings));
 
 	check('harness ran to completion', true);
   } catch (e) {
