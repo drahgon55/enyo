@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phone stack</title>
+
+<!--
+	The whole phone stack in one page: enyo + layout + onyx + enyo-ilib, from
+	four separate checkouts, resolved by one import map and nothing else.
+
+	Each package has its own harness and each passes alone. That does not show
+	they compose -- the seams between packages are exactly where a conversion
+	goes wrong, because every cross-package specifier was a bundler's job and
+	is now the browser's. This page is about the seams.
+-->
+<script type="importmap">
+{ "imports": {
+	"enyo":      "/enyo/index.js",
+	"enyo/":     "/enyo/",
+	"layout":    "/layout/index.js",
+	"layout/":   "/layout/",
+	"onyx":      "/onyx/index.js",
+	"onyx/":     "/onyx/",
+	"enyo-ilib": "/enyo-ilib/index.js",
+	"enyo-ilib/": "/enyo-ilib/"
+} }
+</script>
+
+<link rel="stylesheet" href="/enyo/css/enyo.css">
+<link rel="stylesheet" href="/layout/css/layout.css">
+<link rel="stylesheet" href="/onyx/css/onyx.css">
+<style>
+	body { font: 14px/1.5 system-ui, sans-serif; margin: 1.5rem; }
+	#log { white-space: pre-wrap; font-family: ui-monospace, monospace; color: #444; }
+	#app { border: 1px solid #ccc; border-radius: 6px; padding: 1rem; max-width: 34rem; margin-bottom: 1rem; }
+	h2 { margin-top: 1.5rem; }
+</style>
+
+<script>
+// Classic script: a link-time failure means the module script never runs at
+// all, and "produced no result" must not read the same as "passed".
+(function () {
+	var settled = false;
+	function fail (why) {
+		if (settled) return;
+		settled = true;
+		document.title = 'FAIL (load)';
+		window.stackTest = {results: ['FAIL  ' + why], failed: 1};
+		var log = document.getElementById('log');
+		if (log) log.textContent = 'FAIL  ' + why;
+		console.error('STACK HARNESS FAILED: ' + why);
+	}
+	window.__settled = function () { settled = true; };
+	window.addEventListener('error', function (e) {
+		fail('module graph failed to load — ' + ((e && e.message) || 'error'));
+	}, true);
+	setTimeout(function () { fail('harness did not finish'); }, 30000);
+	window.__xhr = [];
+	var open = XMLHttpRequest.prototype.open, send = XMLHttpRequest.prototype.send;
+	XMLHttpRequest.prototype.open = function (m, url) { this.__url = url; return open.apply(this, arguments); };
+	XMLHttpRequest.prototype.send = function () {
+		var self = this;
+		function rec () { if (self.readyState === 4) window.__xhr.push({url: self.__url, status: self.status}); }
+		this.addEventListener('readystatechange', rec);
+		try { return send.apply(this, arguments); } finally { rec(); }
+	};
+})();
+</script>
+</head>
+<body>
+
+<h1>The phone stack, composed</h1>
+<p>enyo + layout + onyx + enyo-ilib, four checkouts, one import map, no build step.</p>
+
+<div id="app"></div>
+
+<h2>Checks</h2>
+<div id="log">running…</div>
+
+<script type="module">
+import kind      from 'enyo/src/kind.js';
+import Control   from 'enyo/src/Control/Control.js';
+import ready     from 'enyo/src/ready.js';
+
+import 'onyx';
+import OnyxButton   from 'onyx/src/Button/Button.js';
+import OnyxCheckbox from 'onyx/src/Checkbox/Checkbox.js';
+import OnyxToolbar  from 'onyx/src/Toolbar/Toolbar.js';
+import OnyxItem     from 'onyx/src/Item/Item.js';
+
+import FittableRows    from 'layout/src/FittableRows.js';
+import FittableColumns from 'layout/src/FittableColumns.js';
+
+import 'enyo-ilib';
+import DateFmt     from 'enyo-ilib/ilib/lib/DateFmt.js';
+import DateFactory from 'enyo-ilib/ilib/lib/DateFactory.js';
+
+var results = [];
+function check (name, pass, detail) {
+	results.push((pass ? 'PASS  ' : 'FAIL  ') + name + (detail ? '  — ' + detail : ''));
+	document.getElementById('log').textContent = results.join('\n');
+	if (!pass) console.error('FAIL: ' + name + (detail ? ' — ' + detail : ''));
+}
+function report () {
+	window.__settled();
+	var failed = results.filter(function (r) { return r.indexOf('FAIL') === 0; });
+	document.title = failed.length ? 'FAIL (' + failed.length + ')' : 'ALL PASS';
+	window.stackTest = {results: results, failed: failed.length};
+	console.log(failed.length ? 'STACK TESTS FAILED: ' + failed.length : 'STACK: ALL TESTS PASSED');
+}
+
+ready(function () {
+try {
+	// Every import above crossed a package boundary that used to be a bundler's
+	// job. That they all linked is the first result, and it is a real one.
+	check('all four packages linked across checkouts',
+		typeof kind === 'function' && typeof OnyxButton === 'function' &&
+		typeof FittableRows === 'function' && typeof DateFmt === 'function');
+
+	var taps = 0, checked = null, fmt = null;
+	var App = kind({
+		name: 'StackApp',
+		kind: FittableRows,
+		components: [
+			{kind: OnyxToolbar, components: [{content: 'Phone stack'}]},
+			{name: 'row', kind: FittableColumns, components: [
+				{name: 'btn', kind: OnyxButton, content: 'Tap me', ontap: 'tapped'},
+				{name: 'cb', kind: OnyxCheckbox, onchange: 'toggled'}
+			]},
+			{name: 'item', kind: OnyxItem, content: 'date goes here'}
+		],
+		tapped: function () { taps++; this.$.btn.set('content', 'Tapped ' + taps); },
+		toggled: function (sender, ev) { checked = this.$.cb.get('checked'); }
+	});
+
+	var app = new App();
+	app.renderInto(document.getElementById('app'));
+
+	// onyx's index.js is a side-effecting module and the body class is what
+	// every onyx stylesheet keys off.
+	//
+	// Two things about this check are worth stating rather than leaving to be
+	// rediscovered. First, the effect is DEFERRED: enyo's dom.addBodyClass
+	// queues until a root view exists and Control.renderInto flushes it, so
+	// checking before the render sees an empty className and reads as a broken
+	// import. That is how this check first failed, wrongly.
+	//
+	// Second, and more important: THIS PAGE CANNOT BREAK IT. Commenting out the
+	// `import 'onyx'` above leaves it passing, because every onyx widget module
+	// begins `import '../../index.js'` -- the converted `require('onyx')` -- so
+	// the side effect happens transitively via Button, Checkbox, Toolbar and
+	// Item. The break that targets it is dropping those statements inside the
+	// onyx repository, which the session that converted onyx did: FAIL on the
+	// body class and the .onyx font rules. So this assertion is real at the
+	// stack level, but it is verified over there, not here.
+	check('onyx index.js applied its body class',
+		document.body.className.indexOf('onyx') > -1,
+		JSON.stringify(document.body.className));
+
+	check('onyx widgets render inside a layout fittable',
+		!!app.hasNode() && !!app.$.btn.hasNode() && !!app.$.cb.hasNode() && !!app.$.item.hasNode());
+
+	// A computed style, not a 200. The stylesheet could load with its variables
+	// unresolved and every selector still match nothing.
+	var btnStyle = getComputedStyle(app.$.btn.hasNode());
+	check('onyx CSS actually styles an onyx widget',
+		btnStyle.borderTopLeftRadius !== '0px' || btnStyle.backgroundImage !== 'none',
+		'radius=' + btnStyle.borderTopLeftRadius + ' bg=' + btnStyle.backgroundImage.slice(0, 40));
+
+	var rowStyle = getComputedStyle(app.$.row.hasNode());
+	check('layout CSS actually styles a fittable',
+		rowStyle.display !== 'inline' && app.$.row.hasNode().className.indexOf('enyo-fittable') > -1,
+		'display=' + rowStyle.display + ' class=' + app.$.row.hasNode().className);
+
+	// behaviour across the seam: an onyx widget's handler running in an
+	// enyo kind nested in a layout kind
+	app.$.btn.hasNode().click();
+	check('onyx widget handler fires through the layout kind',
+		taps === 1 && app.$.btn.hasNode().textContent.indexOf('Tapped 1') > -1,
+		'taps=' + taps + ' text=' + JSON.stringify(app.$.btn.hasNode().textContent));
+
+	// enyo-ilib feeding a rendered onyx widget: data fetched at runtime, then
+	// used by a widget from a different package again
+	fmt = new DateFmt({locale: 'en-US', type: 'date', length: 'long'});
+	var text = fmt.format(DateFactory({type: 'gregorian', year: 2026, month: 11, day: 16}));
+	app.$.item.set('content', text);
+	check('enyo-ilib formats real locale data into an onyx widget',
+		/\d/.test(text) && app.$.item.hasNode().textContent === text,
+		JSON.stringify(text));
+
+	var locale = window.__xhr.filter(function (r) { return r.url.indexOf('/enyo-ilib/ilib/locale/') > -1; });
+	check('locale JSON fetched across the package boundary',
+		locale.length > 0 && locale.every(function (r) { return r.status === 200 || r.status === 0; }),
+		locale.length + ' requests');
+
+	var other = window.__xhr.filter(function (r) {
+		return r.status >= 400 && r.url.indexOf('resources/') !== 0 && r.url.indexOf('/resources/') === -1;
+	});
+	check('no failing requests beyond the app-resources probe',
+		other.length === 0,
+		other.map(function (r) { return r.status + ' ' + r.url; }).join(', '));
+
+	window.stackApp = app;
+	check('harness ran to completion', true);
+} catch (e) {
+	check('harness ran to completion', false, String(e && e.stack || e));
+}
+report();
+});
+</script>
+</body>
+</html>

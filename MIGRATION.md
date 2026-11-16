@@ -376,6 +376,41 @@ Regenerate the module list after adding or removing a file in `src/`:
 node -e "const fs=require('fs'),path=require('path');function w(d,o=[]){for(const e of fs.readdirSync(d,{withFileTypes:true}).sort((a,b)=>a.name<b.name?-1:1)){const p=path.join(d,e.name);e.isDirectory()?w(p,o):e.name.endsWith('.js')&&o.push(p)}return o};fs.writeFileSync('test-esm/modules.js','export default '+JSON.stringify(w('src').map(f=>'../'+f),null,1)+';\n')"
 ```
 
+## The phone stack, composed
+
+Each package has its own harness and each passes alone. That does not show they
+compose, and the seams between packages are exactly where this kind of
+conversion goes wrong — every cross-package specifier used to be the bundler's
+job and is now the browser's.
+
+`test-esm/stack.html` puts all four in one page — enyo, layout, onyx and
+enyo-ilib, four separate checkouts, one import map, no build step — and renders
+onyx widgets inside a layout fittable with a date formatted from real locale
+data. **10/10.** It asserts computed styles rather than HTTP 200s, because a
+stylesheet can return 200 with its variables unresolved and every selector
+matching nothing.
+
+Two things it found immediately:
+
+- **A bare specifier needs its own import-map entry.** `"onyx/": "/onyx/"` is a
+  *prefix* mapping and does not resolve `import 'onyx'`. The page failed to
+  link on exactly that the first time it ran. Every package that can be
+  imported bare needs both entries — the same trap the onyx session found for
+  `enyo-ilib`, which turns out to be general rather than specific to that
+  package.
+- **onyx's body-class effect is deferred.** `dom.addBodyClass` queues until a
+  root view exists and `Control.renderInto` flushes it, so a check that runs
+  before the first render sees an empty `className` and reads as a broken
+  import. Assert that effect *after* the render, which is also when it has to
+  be true.
+
+And one limitation stated rather than hidden: **that body-class check cannot be
+broken from this page.** Commenting out `import 'onyx'` leaves it passing,
+because every onyx widget module begins `import '../../index.js'`, so the side
+effect arrives transitively through Button, Checkbox, Toolbar and Item. The
+break that targets it belongs in the onyx repository, where it was run. The
+check is real at the stack level; it is simply verified elsewhere.
+
 ## Still outstanding
 
 **Onyx is converted, on its own branch.** `drahgon55/onyx` branch `esm` is the
