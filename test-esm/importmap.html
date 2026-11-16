@@ -33,6 +33,28 @@
 JSDoc examples are written &mdash; <code>enyo/src/kind.js</code> &mdash; resolved by the
 import map above instead of by a relative path.</p>
 
+<script>
+// Classic script, deliberately not a module: it runs even when the module
+// script never does. A missing export or an unresolvable specifier is a
+// LINK-time error, so the module script is not executed at all -- without
+// this, the page just looks unfinished instead of failed.
+(function () {
+	var settled = false;
+	function fail (why) {
+		if (settled) return;
+		settled = true;
+		document.title = 'FAIL (load)';
+		window.__harnessLoadFailure = why;
+		console.error('HARNESS FAILED: ' + why);
+	}
+	window.__harnessSettled = function () { settled = true; };
+	window.addEventListener('error', function (e) {
+		fail('module graph failed to load — ' + ((e && e.message) || 'error'));
+	}, true);
+	setTimeout(function () { fail('harness did not finish'); }, 60000);
+})();
+</script>
+
 <div id="app"></div>
 <h2>Checks</h2>
 <div id="log"></div>
@@ -77,6 +99,7 @@ ready(function () {
 
 	var failed = results.filter(function (r) { return r.indexOf('FAIL') === 0; });
 	document.title = failed.length ? 'FAIL (' + failed.length + ')' : 'ALL PASS';
+	window.__harnessSettled();
 	window.enyoImportMapTest = {results: results, failed: failed.length};
 	console.log(failed.length ? 'IMPORT MAP TESTS FAILED' : 'IMPORT MAP TESTS PASSED');
 });

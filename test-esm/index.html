@@ -23,6 +23,33 @@
 <p>No bundler, no build step &mdash; the modules below are imported straight from
 <code>../src/</code> by the browser.</p>
 
+<script>
+// A classic script, deliberately not a module: it runs even when the module
+// script below never does. A missing export or an unresolvable specifier is a
+// LINK-time error, and the module script is then not executed at all -- no
+// check runs, no result object appears, and the title stays unchanged. That
+// failure was previously invisible here; the page just looked unfinished.
+(function () {
+	var settled = false;
+	function fail (why) {
+		if (settled) return;
+		settled = true;
+		document.title = 'FAIL (load)';
+		window.enyoEsmTest = {results: ['FAIL  ' + why], failed: 1};
+		var log = document.getElementById('log');
+		if (log) log.textContent = 'FAIL  ' + why;
+		console.error('HARNESS FAILED: ' + why);
+	}
+	window.__harnessSettled = function () { settled = true; };
+	// a module that fails to link surfaces here
+	window.addEventListener('error', function (e) {
+		fail('module graph failed to load — ' + ((e && e.message) || 'error'));
+	}, true);
+	// and if it fails some other way, it still must not look like a pass
+	setTimeout(function () { fail('harness did not finish'); }, 15000);
+})();
+</script>
+
 <div id="app"></div>
 <div id="app2"></div>
 
@@ -115,6 +142,22 @@ check('Application.applications preserved', typeof Application.applications === 
 check('PriorityQueue default + named Priorities agree',
 	typeof PriorityQueue === 'function' && Priorities &&
 	PriorityQueue.Priorities === Priorities && 'SOMETIME' in Priorities);
+// A default export can be present and still carry the wrong value --
+// `export default kind` instead of `export default kind(...)` is a plausible
+// codemod slip, and every `typeof x === 'function'` check passes on it.
+// kindName comes from the kind's own definition, so it pins the value.
+[['Control', Control, 'enyo.Control'],
+ ['Popup', Popup, 'enyo.Popup'],
+ ['Collection', Collection, 'enyo.Collection'],
+ ['Application', Application, 'enyo.Application'],
+ ['CoreObject', CoreObject, 'enyo.Object'],
+ ['PriorityQueue', PriorityQueue, 'enyo.PriorityQueue']
+].forEach(function (row) {
+	check(row[0] + ' default export is the kind itself',
+		!!row[1] && !!row[1].prototype && row[1].prototype.kindName === row[2],
+		'kindName = ' + (row[1] && row[1].prototype && row[1].prototype.kindName));
+});
+
 // `typeof LocalStorageSource !== 'undefined'` would have been vacuous — an
 // import binding is always defined if the module resolved at all. In a browser
 // the feature test inside the module passes, so it must be a real kind.
@@ -155,6 +198,7 @@ var Panel = kind({
 });
 
 function report () {
+	window.__harnessSettled();
 	var failed = results.filter(function (r) { return r.indexOf('FAIL') === 0; });
 	document.title = failed.length ? 'FAIL (' + failed.length + ')' : 'ALL PASS';
 	window.enyoEsmTest = {results: results, failed: failed.length};

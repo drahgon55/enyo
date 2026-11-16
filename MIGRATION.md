@@ -276,7 +276,7 @@ for a change that is not there. That is not hypothetical — it is how the
 `Scrim.js` fix above first appeared to need no test. `serve.py` sends
 `Cache-Control: no-store`.
 
-- `test-esm/index.html` — 31 checks, all passing. It builds a three-deep Control
+- `test-esm/index.html` — 43 checks, all passing. It builds a three-deep Control
   tree, renders it into the page, dispatches a real DOM click at a kind with an
   `ontap` handler, checks that `set('content', ...)` re-rendered, and drives a
   `bindings:` declaration end to end (initial delivery plus propagation of an
@@ -294,6 +294,26 @@ for a change that is not there. That is not hypothetical — it is how the
   import binding is always defined if the module resolved — and now asserts it
   is a real kind. A throw part-way through the suite is also reported as a
   failed check rather than leaving no result at all.
+
+  Three classes of silent failure are now guarded, each verified by causing it:
+
+  | broken on purpose | before | now |
+  | --- | --- | --- |
+  | removed a module's `export default` | page never ran, title unchanged, no result object | `FAIL (load)`, naming the module and the missing export |
+  | `export default kind` instead of `export default kind(...)` | passed every `typeof x === 'function'` check | `FAIL`, `kindName = undefined` |
+  | a module under `src/` with no default export | footnote on a passing run | counted as a failure |
+
+  A missing export or unresolvable specifier is a *link*-time error: the module
+  script never executes, so nothing inside it can report. A classic (non-module)
+  script now watches for that and for the suite never finishing, because
+  "produced no result" and "passed" looked identical from the outside.
+
+  The pattern behind all of these, and behind the warm-registry bug above, is
+  the same: **the check asserted something the harness itself guaranteed** — its
+  own successful link, its own warm module registry, its own import. It is worth
+  asking of any check here what part of it is already guaranteed by the page
+  running at all. (The onyx session found the same three shapes independently;
+  two of these came from its review.)
 - `test-esm/all-modules.html` — loads each of the 164 modules under `src/`
   **in a document of its own**, via an iframe, so the module and its whole
   subgraph evaluate cold. 164/164, in about three seconds; only `touch.js` has

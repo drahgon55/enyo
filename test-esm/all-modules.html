@@ -18,6 +18,28 @@ subgraph are evaluated from scratch. That is what makes this a real test for
 circular-import errors: importing everything into one page shares the module
 registry, and after the first import the graph is already warm, so a cycle that
 breaks a cold load passes silently.</p>
+<script>
+// Classic script, deliberately not a module: it runs even when the module
+// script never does. A missing export or an unresolvable specifier is a
+// LINK-time error, so the module script is not executed at all -- without
+// this, the page just looks unfinished instead of failed.
+(function () {
+	var settled = false;
+	function fail (why) {
+		if (settled) return;
+		settled = true;
+		document.title = 'FAIL (load)';
+		window.__harnessLoadFailure = why;
+		console.error('HARNESS FAILED: ' + why);
+	}
+	window.__harnessSettled = function () { settled = true; };
+	window.addEventListener('error', function (e) {
+		fail('module graph failed to load — ' + ((e && e.message) || 'error'));
+	}, true);
+	setTimeout(function () { fail('harness did not finish'); }, 60000);
+})();
+</script>
+
 <div id="summary">running…</div>
 <div id="out"></div>
 <iframe id="frame"></iframe>
@@ -28,6 +50,8 @@ import modules from './modules.js';
 const out = document.getElementById('out');
 const frame = document.getElementById('frame');
 const failures = [];
+// touch.js only extends enyo/gesture; it never exported anything.
+const NO_DEFAULT_EXPECTED = ['../src/touch.js'];
 
 function loadOne (spec) {
 	return new Promise(function (resolve) {
@@ -48,9 +72,18 @@ function loadOne (spec) {
 
 for (const m of modules) {
 	const r = await loadOne(m);
-	if (r.ok) {
+	// A module with no default export used to be reported as a footnote on a
+	// pass. Every module under src/ exports something except touch.js, which
+	// is purely a side-effecting module, so anything else missing one is a
+	// failure -- that is exactly what a bad export rewrite looks like.
+	if (r.ok && !r.hasDefault && NO_DEFAULT_EXPECTED.indexOf(m) === -1) {
+		failures.push([m, 'no default export']);
 		out.insertAdjacentHTML('beforeend',
-			'<div class="ok">ok    ' + m + (r.hasDefault ? '' : '   (no default export)') + '</div>');
+			'<div class="bad">FAIL  ' + m + '   no default export</div>');
+	} else if (r.ok) {
+		out.insertAdjacentHTML('beforeend',
+			'<div class="ok">ok    ' + m +
+			(r.hasDefault ? '' : '   (no default export, expected)') + '</div>');
 	} else {
 		failures.push([m, r.error]);
 		out.insertAdjacentHTML('beforeend',
@@ -61,6 +94,7 @@ for (const m of modules) {
 document.getElementById('summary').textContent =
 	modules.length + ' modules loaded cold, ' + failures.length + ' failed';
 document.title = failures.length ? 'FAIL (' + failures.length + ')' : 'ALL ' + modules.length + ' OK';
+window.__harnessSettled();
 window.enyoEsmModuleTest = {total: modules.length, failures: failures};
 console.log(failures.length
 	? 'MODULE FAILURES: ' + JSON.stringify(failures.slice(0, 10), null, 1)
