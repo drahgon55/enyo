@@ -415,14 +415,25 @@ Three things it found:
   before the first render sees an empty `className` and reads as a broken
   import. Assert that effect *after* the render, which is also when it has to
   be true.
-- **A real cross-package cascade conflict.** layout ships
-  `.enyo-fittable-columns-layout.enyo-stretch > * { height: 100% }`, which
-  outranks onyx's `.onyx-checkbox { height: 32px }` on specificity — (0,2,0)
-  against (0,1,0). The row's height is `auto`, so the percentage cannot resolve
-  and an empty checkbox div collapses to nothing. Every check still passed; the
-  render showed an invisible widget. This is upstream behaviour rather than a
-  conversion defect, and it is precisely the kind of seam that only appears when
-  two packages are on the same page.
+- **A cross-package cascade conflict, with a condition.** `FittableLayout._reflow`
+  runs `addRemoveClass('enyo-stretch', !this.container.noStretch)`
+  unconditionally, so a reflowed row carries `enyo-stretch`, and layout's
+  `.enyo-fittable-columns-layout.enyo-stretch > * { height: 100% }` then matches
+  every child. It outranks onyx's `.onyx-checkbox { height: 32px }` on
+  specificity, (0,2,0) against (0,1,0) — but **specificity is only the
+  tie-break; what decides it is whether that reflow ran.** The row's own height
+  is not specified (its 32.5px is content-derived), so a percentage height on a
+  child computes to `auto`, and `auto` on an empty div is zero. Every check
+  still passed and the widget was invisible.
+
+  Reproduced deliberately with `noStretch` removed: `matches` on the stretch
+  selector is `true`, the parent carries `enyo-stretch`, the checkbox measures
+  32×0. It did **not** reproduce for the session converting onyx, whose row was
+  a rendered root rather than nested inside a `FittableRows`. So this is
+  conditional on layout state, not a trap that fires whenever the two packages
+  share a page — which is how it was first written here, on a mechanism that
+  had not been tested. The correction came from that session refusing to
+  document the claim it had been handed.
 
 And one limitation stated rather than hidden: **that body-class check cannot be
 broken from this page.** Commenting out `import 'onyx'` leaves it passing,

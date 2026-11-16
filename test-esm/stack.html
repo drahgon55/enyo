@@ -124,12 +124,26 @@ try {
 		kind: FittableRows,
 		components: [
 			{kind: OnyxToolbar, components: [{content: 'Phone stack'}]},
-			// noStretch, deliberately. Without it layout.css applies
-			// `.enyo-fittable-columns-layout.enyo-stretch > * { height: 100% }`,
-			// which outranks `.onyx-checkbox { height: 32px }` on specificity
-			// (0,2,0 against 0,1,0). The row's height is auto, so the percentage
-			// cannot resolve and the empty checkbox div collapses to zero. A real
-			// cross-package cascade interaction, and the reason this page exists.
+			// noStretch, deliberately, and the reason is worth stating exactly.
+			//
+			// FittableLayout._reflow does
+			//   this.container.addRemoveClass('enyo-stretch', !this.container.noStretch)
+			// unconditionally, so a reflowed row carries `enyo-stretch` and
+			// layout.css's `.enyo-fittable-columns-layout.enyo-stretch > *
+			// { height: 100% }` then matches every child. It outranks onyx's
+			// `.onyx-checkbox { height: 32px }` on specificity, (0,2,0) against
+			// (0,1,0) -- but specificity is only the tie-break. What decides it
+			// is whether that reflow ran at all.
+			//
+			// The row's own height is not specified (its 32.5px is content-derived),
+			// so a percentage height on a child computes to auto, and auto on an
+			// empty div is zero. Reproduced with noStretch removed: the selector
+			// matches, the parent carries enyo-stretch, and the checkbox is 32x0.
+			//
+			// This did NOT reproduce for the session that converted onyx, whose
+			// row was a rendered root rather than nested in a FittableRows app.
+			// So it depends on the reflow having happened, not on the two
+			// packages merely being present.
 			{name: 'row', kind: FittableColumns, noStretch: true, components: [
 				{name: 'btn', kind: OnyxButton, content: 'Tap me', ontap: 'tapped'},
 				{name: 'cb', kind: OnyxCheckbox, onchange: 'toggled'}
