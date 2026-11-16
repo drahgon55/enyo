@@ -344,6 +344,17 @@ for a change that is not there. That is not hypothetical — it is how the
   someone has. Then turn what you saw into an assertion, which is how
   `every rendered widget occupies a non-zero box` got written.
 
+  That assertion is a **floor, not a guarantee**, which the onyx session
+  established and this page then confirmed. `getBoundingClientRect()` includes
+  padding and border, so only a widget with neither can reach zero. Forcing
+  `.onyx-button { height: 0 !important }` leaves a 14px box — 6+6 padding, 1+1
+  border — and the check passes at 90×14 while the button renders as a crushed
+  sliver with its label clipped. It caught the checkbox because an empty div has
+  nothing holding it open; it will not catch a widget that is merely the wrong
+  size, or one that keeps its frame and loses its content. **One red run proves
+  a check can fail, not that it fails when it should** — which is the same
+  mistake as the vacuous checks, made while fixing them.
+
   There is a fourth case that needs no test at all to go wrong. While this work
   was running, a command printed `M src/glue.js` and the line directly below it
   announced that the repository was clean. The label won, and a broken loader

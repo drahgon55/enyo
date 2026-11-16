@@ -186,6 +186,16 @@ try {
 	// height 0 by a layout rule that outranked onyx's. Every check passed and
 	// the widget was invisible; only looking at the render caught it. So the
 	// looking is now an assertion.
+	//
+	// It is a FLOOR, not a guarantee, and the limit is worth knowing before
+	// anyone leans on it. getBoundingClientRect() includes padding and border,
+	// so only a widget with neither can reach zero. Measured here: forcing
+	// `.onyx-button { height: 0 !important }` leaves a 14px box -- 6+6 padding
+	// and 1+1 border -- and this check passes at 90x14 while the button renders
+	// as a crushed sliver with its label clipped. It caught the checkbox because
+	// an empty div has nothing to hold it open. It will not catch a widget that
+	// is merely the wrong size, or one that keeps its frame and loses its
+	// content. For those, the screenshot is still the only check.
 	var boxes = ['btn', 'cb', 'item'].map(function (n) {
 		var b = app.$[n].hasNode().getBoundingClientRect();
 		return {n: n, w: Math.round(b.width), h: Math.round(b.height)};
