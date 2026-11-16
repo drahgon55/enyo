@@ -124,7 +124,13 @@ try {
 		kind: FittableRows,
 		components: [
 			{kind: OnyxToolbar, components: [{content: 'Phone stack'}]},
-			{name: 'row', kind: FittableColumns, components: [
+			// noStretch, deliberately. Without it layout.css applies
+			// `.enyo-fittable-columns-layout.enyo-stretch > * { height: 100% }`,
+			// which outranks `.onyx-checkbox { height: 32px }` on specificity
+			// (0,2,0 against 0,1,0). The row's height is auto, so the percentage
+			// cannot resolve and the empty checkbox div collapses to zero. A real
+			// cross-package cascade interaction, and the reason this page exists.
+			{name: 'row', kind: FittableColumns, noStretch: true, components: [
 				{name: 'btn', kind: OnyxButton, content: 'Tap me', ontap: 'tapped'},
 				{name: 'cb', kind: OnyxCheckbox, onchange: 'toggled'}
 			]},
@@ -161,6 +167,20 @@ try {
 	check('onyx widgets render inside a layout fittable',
 		!!app.hasNode() && !!app.$.btn.hasNode() && !!app.$.cb.hasNode() && !!app.$.item.hasNode());
 
+	// hasNode() is not visibility. A node can exist, match its stylesheet and
+	// still occupy nothing -- which is what the checkbox did here, collapsed to
+	// height 0 by a layout rule that outranked onyx's. Every check passed and
+	// the widget was invisible; only looking at the render caught it. So the
+	// looking is now an assertion.
+	var boxes = ['btn', 'cb', 'item'].map(function (n) {
+		var b = app.$[n].hasNode().getBoundingClientRect();
+		return {n: n, w: Math.round(b.width), h: Math.round(b.height)};
+	});
+	var collapsed = boxes.filter(function (b) { return b.w === 0 || b.h === 0; });
+	check('every rendered widget occupies a non-zero box',
+		collapsed.length === 0,
+		boxes.map(function (b) { return b.n + ' ' + b.w + 'x' + b.h; }).join(', '));
+
 	// A computed style, not a 200. The stylesheet could load with its variables
 	// unresolved and every selector still match nothing.
 	var btnStyle = getComputedStyle(app.$.btn.hasNode());
@@ -179,6 +199,11 @@ try {
 	check('onyx widget handler fires through the layout kind',
 		taps === 1 && app.$.btn.hasNode().textContent.indexOf('Tapped 1') > -1,
 		'taps=' + taps + ' text=' + JSON.stringify(app.$.btn.hasNode().textContent));
+
+	app.$.cb.hasNode().click();
+	check('onyx checkbox toggles and reports its state',
+		checked === true && app.$.cb.hasNode().hasAttribute('checked'),
+		'checked=' + checked + ' attr=' + app.$.cb.hasNode().hasAttribute('checked'));
 
 	// enyo-ilib feeding a rendered onyx widget: data fetched at runtime, then
 	// used by a widget from a different package again

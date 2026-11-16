@@ -332,6 +332,18 @@ for a change that is not there. That is not hypothetical — it is how the
   comments and strings before counting. The same confusion inflated onyx's
   require count from 184 to 282.
 
+  There is a fifth shape, and it is not an assertion that cannot fail — it is a
+  **gap**. The harness asserts everything except the thing that is wrong, and
+  being green means nothing because nobody looked. The onyx session's svg
+  harness scored 12/12 while every shape rendered black: the checks read
+  `width`, `r`, `viewBox` and bounding boxes, all genuinely correct, and not one
+  read a colour. This page had its own version — the checkbox existed, matched
+  its stylesheet and occupied zero height, and `hasNode()` was perfectly happy.
+  The cheap defence is the one that worked both times: **take a screenshot of a
+  passing run and actually look at it.** A visual package is not verified until
+  someone has. Then turn what you saw into an assertion, which is how
+  `every rendered widget occupies a non-zero box` got written.
+
   There is a fourth case that needs no test at all to go wrong. While this work
   was running, a command printed `M src/glue.js` and the line directly below it
   announced that the repository was clean. The label won, and a broken loader
@@ -386,11 +398,11 @@ job and is now the browser's.
 `test-esm/stack.html` puts all four in one page — enyo, layout, onyx and
 enyo-ilib, four separate checkouts, one import map, no build step — and renders
 onyx widgets inside a layout fittable with a date formatted from real locale
-data. **10/10.** It asserts computed styles rather than HTTP 200s, because a
+data. **12/12.** It asserts computed styles rather than HTTP 200s, because a
 stylesheet can return 200 with its variables unresolved and every selector
 matching nothing.
 
-Two things it found immediately:
+Three things it found:
 
 - **A bare specifier needs its own import-map entry.** `"onyx/": "/onyx/"` is a
   *prefix* mapping and does not resolve `import 'onyx'`. The page failed to
@@ -403,6 +415,14 @@ Two things it found immediately:
   before the first render sees an empty `className` and reads as a broken
   import. Assert that effect *after* the render, which is also when it has to
   be true.
+- **A real cross-package cascade conflict.** layout ships
+  `.enyo-fittable-columns-layout.enyo-stretch > * { height: 100% }`, which
+  outranks onyx's `.onyx-checkbox { height: 32px }` on specificity — (0,2,0)
+  against (0,1,0). The row's height is `auto`, so the percentage cannot resolve
+  and an empty checkbox div collapses to nothing. Every check still passed; the
+  render showed an invisible widget. This is upstream behaviour rather than a
+  conversion defect, and it is precisely the kind of seam that only appears when
+  two packages are on the same page.
 
 And one limitation stated rather than hidden: **that body-class check cannot be
 broken from this page.** Commenting out `import 'onyx'` leaves it passing,
