@@ -41,7 +41,7 @@ Three kinds of specifier needed rewriting:
 | Was | Now | Why |
 | --- | --- | --- |
 | `require('./kind')` | `import kind from './kind.js'` | The browser resolver does not add extensions. |
-| `require('enyo/kind')` (66 calls) | `import kind from '../kind.js'` | `enyo/x` is a package specifier only a bundler or an import map resolves; `src/x.js` is always a sibling, so a relative path is exact. |
+| `require('enyo/kind')` (16 calls) | `import kind from '../kind.js'` | `enyo/x` is a package specifier only a bundler or an import map resolves; `src/x.js` is always a sibling, so a relative path is exact. |
 | `require('../Control')` (20 distinct, 55 calls) | `import Control from '../Control/Control.js'` | ESM has no directory resolution. Each of these pointed at a directory whose `package.json` named a `main` (e.g. `src/Control/package.json` → `Control.js`); that file is now named directly. The `package.json` files are left in place for enyo-dev. |
 
 ### How the doc examples reference the package
@@ -237,7 +237,8 @@ would tax a framework built for mobile. Measured in Chrome:
 | wrapper overhead on a method that *does* use the idiom | 1.7 ns/call |
 | what `this.inherited(arguments)` already cost per call | ~174 ns |
 
-Nothing in `src/` uses the idiom — 87 files use `kind.inherit()` instead — so
+Nothing in `src/` uses the idiom — 238 calls across 86 files use
+`kind.inherit()` instead — so
 the framework pays only the 0.8 ms. Application code that uses the documented
 form pays 1.7 ns on top of a call that was already the slow path, which is why
 `kind.inherit()` remains the faster option and is still what enyo recommends:
@@ -321,6 +322,15 @@ for a change that is not there. That is not hypothetical — it is how the
   script never executes, so nothing inside it can report. A classic (non-module)
   script now watches for that and for the suite never finishing, because
   "produced no result" and "passed" looked identical from the outside.
+
+  A related trap, in the prose rather than the code: **counting with `grep` over
+  raw lines conflates comments with executable code.** Two figures in this file
+  were wrong for that reason — `require('enyo/...')` read 66 when only 16 were
+  executable (the other 50 were the JSDoc samples, converted separately), and
+  `kind.inherit()` read 87 files when one of them mentions it only in a comment.
+  Both now come from the tokenizer in `test-esm/`'s tooling, which blanks
+  comments and strings before counting. The same confusion inflated onyx's
+  require count from 184 to 282.
 
   The pattern behind all of these, and behind the warm-registry bug above, is
   the same: **the check asserted something the harness itself guaranteed** — its
