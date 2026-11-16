@@ -28,11 +28,10 @@ var Avatar = kind({
 * position relative to the current pointer location.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	DragAvatar = require('enyo/DragAvatar');
+* import kind from 'enyo/src/kind.js';
+* import DragAvatar from 'enyo/src/DragAvatar.js';
 *
-* module.exports = kind({
+* export default kind({
 * 	name: 'App',
 * 	handlers: {
 * 		ondrag: 'drag',

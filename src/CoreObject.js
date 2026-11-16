@@ -11,7 +11,7 @@ import MixinSupport from './MixinSupport.js';
 import ObserverSupport from './ObserverSupport.js';
 import BindingSupport from './BindingSupport.js';
 
-// ComputedSupport is applied to all kinds at creation time but must be require()'d somewhere to be
+// ComputedSupport is applied to all kinds at creation time but must be imported somewhere to be
 // included in builds. This is that somewhere.
 import './ComputedSupport.js';
 
@@ -144,8 +144,8 @@ var CoreObject = kind(
 	* [joined with spaces]{@glossary Array.join}.
 	*
 	* ```javascript
-	* var kind = require('enyo/kind'),
-	*     Object = require('enyo/CoreObject');
+	* import kind from 'enyo/src/kind.js';
+	* import Object from 'enyo/src/CoreObject.js';
 	* kind({
 	*	name: 'MyObject',
 	*	kind: Object,

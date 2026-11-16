@@ -51,9 +51,8 @@ import Control from '../Control/Control.js';
 *
 * ```
 * // Take advantage of the multi-rez mode
-* var
-* 	kind = require('enyo/kind'),
-* 	Image = require('enyo/Image');
+* import kind from 'enyo/src/kind.js';
+* import Image from 'enyo/src/Image/Image.js';
 *
 * {kind: Image, src: {
 *	'hd': 'http://lorempixel.com/64/64/city/1/',

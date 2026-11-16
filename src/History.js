@@ -17,8 +17,7 @@
 * properties beyond those defined here may be included to provide additional data to the handler.
 *
 * @example
-* var
-* 	EnyoHistory = require('enyo/History');
+* import EnyoHistory from 'enyo/src/History.js';
 *
 * EnyoHistory.push({
 * 	handler: function (entry) {

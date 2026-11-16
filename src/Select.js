@@ -15,9 +15,8 @@ import Option from './Option.js';
 * {@link module:enyo/Option~Option} instances by default.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Select = require('enyo/Select');
+* import kind from 'enyo/src/kind.js';
+* import Select from 'enyo/src/Select.js';
 *
 * {kind: Select, onchange: 'selectChanged', components: [
 * 	{content: 'Descending', value: 'd'},

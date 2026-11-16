@@ -103,11 +103,10 @@ var concatenated = kind.concatenated = [];
 * and must be unique.**
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Control = require('enyo/Control');
+* import kind from 'enyo/src/kind.js';
+* import Control from 'enyo/src/Control/Control.js';
 *
-* module.exports = singleton({
+* export default singleton({
 * 	kind: Control,
 * 	name: 'app.MySingleton',
 * 	published: {

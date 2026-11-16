@@ -19,10 +19,9 @@ import Control from './Control/Control.js';
 * A media source for {@link module:enyo/Audio~Audio} or {@link module:enyo/Video~Video}.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Video = require('enyo/Video'),
-* 	MediaSource = require('enyo/MediaSource');
+* import kind from 'enyo/src/kind.js';
+* import Video from 'enyo/src/Video.js';
+* import MediaSource from 'enyo/src/MediaSource.js';
 *
 * {kind: Video, components: [
 * 	{kind: MediaSource, src: 'video.mp4', type: 'video/mp4'},

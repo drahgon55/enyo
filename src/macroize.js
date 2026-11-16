@@ -12,7 +12,7 @@ import utils from './utils.js';
 * The default macro pattern is of the form `{$name}`.
 *
 * ```javascript
-* var macroize = require('enyo/macroize');
+* import macroize from 'enyo/src/macroize.js';
 * // returns 'My name is Barney.'
 * macroize('My name is {$name}.', {name: 'Barney'});
 * ```

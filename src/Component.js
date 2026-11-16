@@ -35,7 +35,7 @@ var
 *
 * Component access via the `$` hash:
 * ```javascript
-* var Component = require('enyo/Component');
+* import Component from 'enyo/src/Component.js';
 * var c = new Component({
 *	name: 'me',
 *	components: [
@@ -75,7 +75,7 @@ var
 * have a direct name reference to the owned component.
 *
 * @example
-* var Component = require('enyo/Component');
+* import Component from 'enyo/src/Component.js';
 * var c = new Component({
 *	name: 'me',
 *	components: [
@@ -115,7 +115,7 @@ var
 *
 * ```javascript
 * // create a new component, initialize its name property to 'me'
-* var Component = require('enyo/Component');
+* import Component from 'enyo/src/Component.js';
 * var c = new Component({
 *	name: 'me'
 * });

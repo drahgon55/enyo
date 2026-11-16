@@ -50,8 +50,7 @@ if (!Function.prototype.bind) {
 * is available as the first argument to that factory function.
 *
 * ```javascript
-* var
-*	utils = require('enyo/utils');
+* import utils from 'enyo/src/utils.js';
 *
 * var factor = new utils.Extensible(function (a, b) {
 *	return a + b;
@@ -368,7 +367,7 @@ utils.asyncMethod = function (scope, method) {
 * arguments `args` ([Array]{@glossary Array}), if the object and method exist.
 *
 * @example
-* 	utils = require('enyo/utils');
+* 	import utils from 'enyo/src/utils.js';
 * 	utils.call(myWorkObject, 'doWork', [3, 'foo']);
 *
 * @param {Object} scope - The `this` context for the method.

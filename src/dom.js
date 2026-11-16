@@ -15,8 +15,7 @@ var dom = {
 	* (optional) `doc` parameter.
 	*
 	* ```javascript
-	* var
-	* 	dom = require('enyo/dom');
+	* import dom from 'enyo/src/dom.js';
 	*
 	* // find 'node' if it's a string id, or return it unchanged if it's already a node reference
 	* var domNode = dom.byId(node);
@@ -447,8 +446,7 @@ var dom = {
 	* {@link module:enyo/dom#unitToPixelFactors} object.
 	*
 	* ```javascript
-	* var
-	* 	dom = require('enyo/dom');
+	* import dom from 'enyo/src/dom.js';
 	*
 	* // Do calculations and get back the desired CSS unit.
 	* var frameWidth = 250,

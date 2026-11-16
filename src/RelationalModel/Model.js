@@ -50,11 +50,10 @@ var RelationalModel = kind(
 	* [attribute]{@link module:enyo/Model~Model#attributes}. For example:
 	*
 	* ```javascript
-	* var
-	* 	kind = require('enyo/kind'),
-	* 	RelationalModel = require('enyo/RelationalModel');
+	* import kind from 'enyo/src/kind.js';
+	* import RelationalModel from 'enyo/src/RelationalModel/index.js';
 	*
-	* module.exports = kind({
+	* export default kind({
 	* 	name: 'Person',
 	* 	kind: RelationalModel,
 	* 	relations: [

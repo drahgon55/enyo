@@ -59,9 +59,8 @@ function initContentAreas (control) {
 * via {@link module:enyo/ContentAreaSupport~ContentAreaSupport#defineContentArea}.
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	ContentAreaSupport = require('enyo/ContentAreaSupport');
+* import kind from 'enyo/src/kind.js';
+* import ContentAreaSupport from 'enyo/src/ContentAreaSupport.js';
 *
 * // Defines a new kind with a single content area rendering the value of `user`
 * // into the control named `name`. `user` can contain either a string or a

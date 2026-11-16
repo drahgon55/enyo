@@ -109,7 +109,7 @@ var viewCount = 0;
 * ViewManager manages views.
 *
 * ```
-* module.exports = kind({
+* export default kind({
 *	kind: ViewManager,
 *	classes: 'contacts',
 *

@@ -129,10 +129,9 @@ function flushQueue (obj) {
 * [observe]{@link module:enyo/ObserverSupport~ObserverSupport#observe}. For example:
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind');
+* import kind from 'enyo/src/kind.js';
 *
-* module.exports = kind({
+* export default kind({
 * 	name: 'MyKind',
 *
 * 	// some local property
@@ -153,10 +152,9 @@ function flushQueue (obj) {
 * observe any property (or properties), regardless of its `name`. For example:
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind');
+* import kind from 'enyo/src/kind.js';
 *
-* module.exports = kind({
+* export default kind({
 * 	name: 'MyKind',
 *
 * 	// some local property
@@ -194,8 +192,7 @@ function flushQueue (obj) {
 * register and unregister observers as needed. For example:
 *
 * ```javascript
-* var
-* 	Object = require('enyo/CoreObject').Object;
+* import Object from 'enyo/src/CoreObject.js';
 *
 * var object = new Object({value: true});
 * var observer = function (was, is) {

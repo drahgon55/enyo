@@ -108,9 +108,8 @@ import Job from './job.js';
 * Initialize a video [component]{@link module:enyo/Component~Component} as follows:
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Video = require('enyo/Video');
+* import kind from 'enyo/src/kind.js';
+* import Video from 'enyo/src/Video.js';
 *
 * {kind: Video, src: 'http://www.w3schools.com/html/movie.mp4'}
 * ```

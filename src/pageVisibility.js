@@ -14,11 +14,10 @@ import Signals from './Signals.js';
 * Example:
 *
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Signals = require('enyo/Signals');
+* import kind from 'enyo/src/kind.js';
+* import Signals from 'enyo/src/Signals.js';
 *
-* module.exports = kind({
+* export default kind({
 * 	name: 'App',
 * 	components: [
 * 		{kind: Signals, onvisibilitychange: 'visibilitychanged'}

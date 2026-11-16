@@ -22,9 +22,8 @@ import Component from './Component.js';
 * Fires when an item is selected.
 * 
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Selection = require('enyo/Selection');
+* import kind from 'enyo/src/kind.js';
+* import Selection from 'enyo/src/Selection.js';
 *
 * {kind: Selection, onSelect: 'selectRow', ... }
 *
@@ -46,9 +45,8 @@ import Component from './Component.js';
 * Fires when an item is deselected.
 * 
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Selection = require('enyo/Selection');
+* import kind from 'enyo/src/kind.js';
+* import Selection from 'enyo/src/Selection.js';
 *
 * {kind: Selection, onSelect: 'deselectRow', ... }
 *
@@ -84,11 +82,10 @@ import Component from './Component.js';
 * ```javascript
 * // The following code is excerpted from layout/FlyweightRepeater.
 *
-* var
-* 	kind = require('enyo/kind'),
-* 	Selection = require('enyo/Selection');
+* import kind from 'enyo/src/kind.js';
+* import Selection from 'enyo/src/Selection.js';
 *
-* module.exports = kind({
+* export default kind({
 * 	components: [
 * 		{kind: Selection, onSelect: 'selectDeselect', onDeselect: 'selectDeselect'},
 * 		...

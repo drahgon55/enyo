@@ -44,6 +44,48 @@ Three kinds of specifier needed rewriting:
 | `require('enyo/kind')` (66 calls) | `import kind from '../kind.js'` | `enyo/x` is a package specifier only a bundler or an import map resolves; `src/x.js` is always a sibling, so a relative path is exact. |
 | `require('../Control')` (20 distinct, 55 calls) | `import Control from '../Control/Control.js'` | ESM has no directory resolution. Each of these pointed at a directory whose `package.json` named a `main` (e.g. `src/Control/package.json` → `Control.js`); that file is now named directly. The `package.json` files are left in place for enyo-dev. |
 
+### How the doc examples reference the package
+
+The 58 CommonJS code samples inside JSDoc comments were converted too — they
+were the last `require()` and `module.exports` left anywhere in `src/`:
+
+```diff
+-* var
+-* 	kind = require('enyo/kind'),
+-* 	Control = require('enyo/Control');
++* import kind from 'enyo/src/kind.js';
++* import Control from 'enyo/src/Control/Control.js';
+ *
+-* module.exports = kind({
++* export default kind({
+```
+
+Each specifier was resolved against the real tree, so directory requires name
+their actual file (`enyo/Control` → `enyo/src/Control/Control.js`,
+`enyo/RelationalModel` → `enyo/src/RelationalModel/index.js`). Two examples were
+wrong before the conversion and are now correct: `enyo/floatingLayer` pointed at
+a path that does not exist (the module is `src/Control/floatingLayer.js`), and
+one example read `require('enyo/CoreObject').Object` when that module exports
+the kind directly.
+
+`enyo/src/kind.js` is a bare package specifier, so a page with no build step
+needs a one-line import map telling the browser where the checkout is:
+
+```html
+<script type="importmap">
+{ "imports": { "enyo/": "/node_modules/enyo/" } }
+</script>
+```
+
+That is a choice the examples make, not a requirement of the framework. Nothing
+in `src/` uses a bare specifier — every import inside the package is relative,
+and `test-esm/index.html` imports straight from `../src/` with no map at all.
+The examples use the package form because the alternative, `./enyo/src/kind.js`,
+bakes a directory layout into every example in the documentation.
+
+`test-esm/importmap.html` is the same framework loaded the documented way, so
+the recipe above is checked rather than asserted.
+
 ### `require('enyo')` was dropped
 
 134 files opened with a bare `require('enyo');` — no binding, just the
@@ -166,7 +208,8 @@ Static:
 
 - All 165 files parse as ES modules (`node --check` on each, renamed `.mjs`).
 - All 550 import specifiers resolve to a file that exists.
-- No `require(`, `module.exports` or bare `exports` remains in executable code.
+- No `require(` or `module.exports` remains anywhere in `src/` or `index.js` —
+  not in executable code, and not in a comment.
 
 In a browser (Chrome, served by `python3 -m http.server`, console clean — no
 errors, no warnings, every request 200):
@@ -184,6 +227,9 @@ errors, no warnings, every request 200):
 - `test-esm/all-modules.html` — imports each of the 164 modules under `src/`
   separately. 164/164 evaluate; only `touch.js` has no default export, which is
   correct (it never exported anything).
+- `test-esm/importmap.html` — imports `enyo/src/kind.js` and
+  `enyo/src/Control/Control.js` through an import map, exactly as the doc
+  comments are now written, and clicks a handler. 4/4 pass.
 
 Regenerate the module list after adding or removing a file in `src/`:
 
@@ -200,25 +246,6 @@ rewrite — before the widget set is usable from ESM. Until then this branch giv
 you the framework (kinds, Controls, layout, data, bindings) but no Onyx widgets.
 Onyx also ships `.less` files that enyo-dev compiled; without a build step those
 need compiling ahead of time or replacing with the generated CSS.
-
-**Doc-comment examples still say `require()`.** 51 code samples inside JSDoc
-blocks across 22 files show the CommonJS form:
-
-```js
-* var kind = require('enyo/kind'),
-*     Control = require('enyo/Control');
-```
-
-They are inside comments, so nothing breaks, but anyone copying them gets a hard
-error. They are left alone deliberately, and not just to keep the diff small:
-there is no specifier to replace them with that is right in general.
-`import kind from 'enyo/kind'` needs an import map; `'./enyo/src/kind.js'`
-assumes where the consumer put the checkout. Rewriting 51 examples to a
-differently-wrong form is worse than leaving a familiar one. They should be
-updated once there is a decision about how apps are expected to reference the
-package — an import map, an `exports` map in `package.json`, or a documented
-relative layout. A handful of examples also use `module.exports = kind({...})`
-to show an app's entry point, and have the same problem.
 
 **`.jshintrc` and the gulp lint task are stale.** `.jshintrc` declares `require`,
 `exports` and `module` as globals and sets `es3: true`; jshint cannot parse

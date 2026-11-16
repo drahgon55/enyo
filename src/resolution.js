@@ -34,7 +34,7 @@ var ri = {
 	* Executing this method also initializes the rest of the resolution-independence code.
 	*
 	* ```
-	* var resolution = require('enyo/resolution');
+	* import resolution from 'enyo/src/resolution.js';
 	*
 	* resolution.defineScreenTypes([
 	* 	{name: 'vga',     pxPerRem: 8,  width: 640,  height: 480,  aspectRatioName: 'standard'},
@@ -200,9 +200,8 @@ var ri = {
 	*
 	* ```
 	* // Take advantage of the multi-res mode
-	* var
-	* 	kind = require('enyo/kind'),
-	* 	Image = require('enyo/Image');
+	* import kind from 'enyo/src/kind.js';
+	* import Image from 'enyo/src/Image/Image.js';
 	*
 	* {kind: Image, src: {
 	* 	'hd': 'http://lorempixel.com/64/64/city/1/',

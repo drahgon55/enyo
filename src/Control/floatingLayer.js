@@ -14,7 +14,7 @@ export default function (Control) {
 	* singleton can be set as a control's parent to have the control float above the application, e.g.:
 	*
 	* ```
-	* var floatingLayer = require('enyo/floatingLayer');
+	* import floatingLayer from 'enyo/src/Control/floatingLayer.js';
 	* ...
 	* create: kind.inherit(function (sup) {
 	*	return function() {

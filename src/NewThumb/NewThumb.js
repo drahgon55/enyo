@@ -26,10 +26,9 @@ import Control from '../Control/Control.js';
 * control:
 *
 * ```javascript
-* 	var
-* 		kind = require('enyo/kind'),
-* 		NewThumb = require('enyo/NewThumb'),
-*       NewDataList = require('enyo/NewDataList');
+* 	import kind from 'enyo/src/kind.js';
+* 	import NewThumb from 'enyo/src/NewThumb/NewThumb.js';
+* 	import NewDataList from 'enyo/src/NewDataList.js';
 *
 * 	var MyList = kind({
 *		kind: NewDataList,

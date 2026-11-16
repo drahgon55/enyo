@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Enyo ESM — import map</title>
+<link rel="stylesheet" href="../css/enyo.css">
+<style>
+ body { font: 14px/1.5 system-ui, sans-serif; margin: 2rem; }
+ .panel { border: 1px solid #ccc; border-radius: 6px; padding: 1rem; max-width: 30rem; }
+ #log { white-space: pre-wrap; font-family: ui-monospace, monospace; color: #444; }
+</style>
+
+<!--
+	This is the one line the doc-comment examples assume. It maps the `enyo/`
+	package prefix onto wherever the checkout lives, so the specifiers printed
+	in the JSDoc samples — `enyo/src/kind.js` — resolve in a plain browser.
+
+	Nothing inside src/ needs this; every import in the package is relative.
+	index.html loads the same framework from ../src/ with no map at all.
+-->
+<script type="importmap">
+{
+	"imports": {
+		"enyo/": "/"
+	}
+}
+</script>
+</head>
+<body>
+
+<h1>Importing by package specifier</h1>
+<p>Same framework as <a href="index.html">index.html</a>, but imported the way the
+JSDoc examples are written &mdash; <code>enyo/src/kind.js</code> &mdash; resolved by the
+import map above instead of by a relative path.</p>
+
+<div id="app"></div>
+<h2>Checks</h2>
+<div id="log"></div>
+
+<script type="module">
+// Copied verbatim from the shape the doc comments now use.
+import kind    from 'enyo/src/kind.js';
+import Control from 'enyo/src/Control/Control.js';
+import ready   from 'enyo/src/ready.js';
+
+var results = [];
+function check (name, pass, detail) {
+	results.push((pass ? 'PASS  ' : 'FAIL  ') + name + (detail ? '  — ' + detail : ''));
+	document.getElementById('log').textContent = results.join('\n');
+	if (!pass) console.error('FAIL: ' + name);
+}
+
+check('bare specifier resolved via import map', typeof kind === 'function');
+check('directory specifier resolved', typeof Control === 'function');
+
+var clicks = 0;
+var Demo = kind({
+	name: 'Demo',
+	kind: Control,
+	classes: 'panel',
+	components: [
+		{tag: 'h3', content: 'Loaded through the import map'},
+		{name: 'btn', tag: 'button', content: 'Click me', ontap: 'tapped'}
+	],
+	tapped: function () {
+		clicks++;
+		this.$.btn.set('content', 'Clicked ' + clicks);
+	}
+});
+
+ready(function () {
+	var d = new Demo();
+	d.renderInto(document.getElementById('app'));
+	check('rendered', !!d.hasNode());
+	d.$.btn.hasNode().click();
+	check('handler fired through mapped modules', clicks === 1, 'clicks=' + clicks);
+
+	var failed = results.filter(function (r) { return r.indexOf('FAIL') === 0; });
+	document.title = failed.length ? 'FAIL (' + failed.length + ')' : 'ALL PASS';
+	window.enyoImportMapTest = {results: results, failed: failed.length};
+	console.log(failed.length ? 'IMPORT MAP TESTS FAILED' : 'IMPORT MAP TESTS PASSED');
+});
+</script>
+</body>
+</html>

@@ -14,7 +14,7 @@ import Media from './Media.js';
 * Initialize an audio component as follows:
 *
 * ```
-* var Audio = require('enyo/Audio');
+* import Audio from 'enyo/src/Audio.js';
 * ...
 * {kind: Audio, src: 'http://www.w3schools.com/tags/horse.mp3'}
 * ```

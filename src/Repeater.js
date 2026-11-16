@@ -85,10 +85,9 @@ var OwnerProxy = kind(
 * and are wrapped in a control that keeps the state of the item index.
 * 
 * ```javascript
-* var
-* 	kind = require('enyo/kind'),
-* 	Image = require('enyo/Image'),
-* 	Repeater = require('enyo/Repeater');
+* import kind from 'enyo/src/kind.js';
+* import Image from 'enyo/src/Image/Image.js';
+* import Repeater from 'enyo/src/Repeater.js';
 *
 * {kind: Repeater, count: 2, onSetupItem: 'setImageSource', components: [
 * 	{kind: Image}
