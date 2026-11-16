@@ -202,6 +202,41 @@ not be determined.
 (`Component.addEvent`'s `val.caller` is a plain property on a config hash, not
 `Function.prototype.caller`, and is unaffected.)
 
+### `this.inherited(arguments)` in `Scrim.js`
+
+Found later, while converting onyx: `kind.inherited` reads `originals.callee`,
+which throws the same `TypeError` under strict mode. Two places in `src/` called
+it — `Scrim#create` and `Scrim#showingChanged` — and both now use the explicit
+form the rest of `src/` already uses:
+
+```diff
+-		this.inherited(arguments);
++		Control.prototype.create.apply(this, arguments);
+```
+
+Those were the only two `this.inherited(` calls in `src/`. Without this, every
+`enyo/Popup` with `autoDismiss` or `modal` set threw as soon as it was shown,
+because `Popup#showHideScrim` constructs a `Scrim`. That is most onyx popups:
+`onyx/Menu`, `onyx/Picker`, `onyx/Tooltip` and `onyx/ContextualPopup` were all
+dead until this was fixed.
+
+**`kind.inherited` itself is still broken, and that is a real limitation.**
+`this.inherited(arguments)` is a documented public idiom in Enyo 2.x, and any
+application kind that uses it will throw. There is no way to recover the calling
+function in strict mode, so fixing it properly means changing how super-calls are
+dispatched. Enyo already ships the alternative and recommends it for speed:
+
+```js
+// instead of:  foo: function () { this.inherited(arguments); }
+foo: kind.inherit(function (sup) {
+	return function () { sup.apply(this, arguments); };
+})
+```
+
+The explicit `Base.prototype.foo.apply(this, arguments)` form works too, and is
+what `src/` uses almost everywhere. Making `this.inherited(arguments)` work again
+under ESM is a separate change and is not attempted here.
+
 ## Verification
 
 Static:
@@ -239,13 +274,16 @@ node -e "const fs=require('fs'),path=require('path');function w(d,o=[]){for(cons
 
 ## Still outstanding
 
-**Onyx is not converted.** The widget set lives in its own repository
-(`enyojs/onyx`) and is still CommonJS. It needs the same treatment — the same
-three export shapes, the same `.js` extensions, the same `enyo/x` → relative
-rewrite — before the widget set is usable from ESM. Until then this branch gives
-you the framework (kinds, Controls, layout, data, bindings) but no Onyx widgets.
-Onyx also ships `.less` files that enyo-dev compiled; without a build step those
-need compiling ahead of time or replacing with the generated CSS.
+**Onyx is converted, on its own branch.** `drahgon55/onyx` branch `esm` is the
+same treatment applied to the widget set, and its own `MIGRATION.md` covers what
+differed there (notably that `require('onyx')` could not be dropped the way
+`require('enyo')` was, and that cross-package `enyo/*` specifiers need an import
+map). Onyx's `.less` files are compiled once into a committed `css/onyx.css`.
+
+**`layout` and `enyo-ilib` are not converted.** Seven onyx modules import them
+(`TabPanels`, `TabBar`, `MoreToolbar`, `FlyweightPicker`, `DatePicker`, and the
+two under `src/i18n/`), so those stay unusable until those repositories get the
+same treatment.
 
 **`.jshintrc` and the gulp lint task are stale.** `.jshintrc` declares `require`,
 `exports` and `module` as globals and sets `es3: true`; jshint cannot parse

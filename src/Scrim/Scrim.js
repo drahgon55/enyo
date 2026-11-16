@@ -66,7 +66,7 @@ var Scrim = kind(
 	* @private
 	*/
 	create: function () {
-		this.inherited(arguments);
+		Control.prototype.create.apply(this, arguments);
 		this.zStack = [];
 		if (this.floating) {
 			this.setParent(Control.floatingLayer);
@@ -81,7 +81,7 @@ var Scrim = kind(
 		if (this.floating && this.showing && !this.hasNode()) {
 			this.render();
 		}
-		this.inherited(arguments);
+		Control.prototype.showingChanged.apply(this, arguments);
 		//this.addRemoveClass(this.showingClassName, this.showing);
 	},
 
