@@ -246,10 +246,16 @@ Static:
 - No `require(` or `module.exports` remains anywhere in `src/` or `index.js` —
   not in executable code, and not in a comment.
 
-In a browser (Chrome, served by `python3 -m http.server`, console clean — no
-errors, no warnings, every request 200):
+In a browser (Chrome, console clean — no errors, no warnings, every request
+200). **Serve with `python3 test-esm/serve.py [port]`, not `python3 -m
+http.server`:** a plain server lets the browser cache the ES modules, and a
+query string on the page URL does not bust them because the module specifiers
+are unchanged. A reload then silently re-runs the *old* code and reports a pass
+for a change that is not there. That is not hypothetical — it is how the
+`Scrim.js` fix above first appeared to need no test. `serve.py` sends
+`Cache-Control: no-store`.
 
-- `test-esm/index.html` — 28 checks, all passing. It builds a three-deep Control
+- `test-esm/index.html` — 31 checks, all passing. It builds a three-deep Control
   tree, renders it into the page, dispatches a real DOM click at a kind with an
   `ontap` handler, checks that `set('content', ...)` re-rendered, and drives a
   `bindings:` declaration end to end (initial delivery plus propagation of an
@@ -258,7 +264,11 @@ errors, no warnings, every request 200):
   that `macroize('hi {$who}', ...)` expands, that `Binding.DIRTY_FROM` and
   `Binding.defaultBindingKind === Binding` survived, that
   `PriorityQueue.Priorities === Priorities`, and so on. Evaluating cleanly is not
-  the same as being wired correctly, so these are checked separately.
+  the same as being wired correctly, so these are checked separately. Three
+  checks cover the `Scrim` regression above: a floating `enyo/Popup` with a
+  scrim is shown, and the scrim node must appear. Reverting `Scrim.js` makes
+  those fail with the `callee` `TypeError`, which is how they were confirmed to
+  be worth having.
 - `test-esm/all-modules.html` — imports each of the 164 modules under `src/`
   separately. 164/164 evaluate; only `touch.js` has no default export, which is
   correct (it never exported anything).

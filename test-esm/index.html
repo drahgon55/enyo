@@ -56,6 +56,7 @@ import Application   from '../src/Application.js';
 import PriorityQueue, { Priorities } from '../src/PriorityQueue.js';
 import LocalStorageSource from '../src/LocalStorageSource.js';
 import Blob          from '../src/Blob.js';
+import Popup         from '../src/Popup/Popup.js';
 import FormData      from '../src/FormData.js';
 
 var results = [];
@@ -188,6 +189,26 @@ ready(function () {
 	check('binding propagated an update',
 		bound.$.out.hasNode().textContent === 'updated',
 		JSON.stringify(bound.$.out.hasNode().textContent));
+
+	// A floating popup with a scrim. This is the path that reaches Scrim#create,
+	// which called this.inherited(arguments) and so threw under strict mode until
+	// 603e5430 — it killed every autoDismiss/modal popup, and nothing else here
+	// touched it.
+	var popupError = null, pop = null;
+	try {
+		pop = new Popup({floating: true, scrim: true, autoDismiss: true, content: 'Popup'});
+		pop.show();
+		pop.render();
+	} catch (e) {
+		popupError = e;
+	}
+	check('floating popup with scrim shows without throwing',
+		!popupError, popupError && String(popupError));
+	check('popup rendered a node', !!(pop && pop.hasNode()));
+	check('scrim was created and rendered',
+		!!document.querySelector('.enyo-scrim'),
+		'enyo-scrim nodes: ' + document.querySelectorAll('.enyo-scrim').length);
+	if (pop) pop.hide();
 
 	// Expose for manual poking in the console.
 	window.testApp = panel;
