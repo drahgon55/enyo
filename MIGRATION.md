@@ -171,10 +171,16 @@ Static:
 In a browser (Chrome, served by `python3 -m http.server`, console clean — no
 errors, no warnings, every request 200):
 
-- `test-esm/index.html` — imports `kind`, `Control`, `ready`, `utils` and the
-  package root from `../src/`, builds a three-deep Control tree, renders it into
-  the page, dispatches a real DOM click at a kind with an `ontap` handler, and
-  checks that the handler ran and that `set('content', ...)` re-rendered. 10/10 pass.
+- `test-esm/index.html` — 28 checks, all passing. It builds a three-deep Control
+  tree, renders it into the page, dispatches a real DOM click at a kind with an
+  `ontap` handler, checks that `set('content', ...)` re-rendered, and drives a
+  `bindings:` declaration end to end (initial delivery plus propagation of an
+  update). It also asserts the wiring of every module whose exports object was
+  rebuilt by hand — that `job` is callable and still carries `.stop`/`.throttle`,
+  that `macroize('hi {$who}', ...)` expands, that `Binding.DIRTY_FROM` and
+  `Binding.defaultBindingKind === Binding` survived, that
+  `PriorityQueue.Priorities === Priorities`, and so on. Evaluating cleanly is not
+  the same as being wired correctly, so these are checked separately.
 - `test-esm/all-modules.html` — imports each of the 164 modules under `src/`
   separately. 164/164 evaluate; only `touch.js` has no default export, which is
   correct (it never exported anything).
@@ -203,11 +209,16 @@ blocks across 22 files show the CommonJS form:
 *     Control = require('enyo/Control');
 ```
 
-They are inside comments, so nothing breaks, but anyone copying them gets a
-hard error. Left alone deliberately: rewriting them is pure documentation churn
-in a diff that is meant to stay reviewable against upstream, and the indentation
-and wrapping vary enough that it is not a safe one-pass substitution. Worth a
-separate commit.
+They are inside comments, so nothing breaks, but anyone copying them gets a hard
+error. They are left alone deliberately, and not just to keep the diff small:
+there is no specifier to replace them with that is right in general.
+`import kind from 'enyo/kind'` needs an import map; `'./enyo/src/kind.js'`
+assumes where the consumer put the checkout. Rewriting 51 examples to a
+differently-wrong form is worse than leaving a familiar one. They should be
+updated once there is a decision about how apps are expected to reference the
+package — an import map, an `exports` map in `package.json`, or a documented
+relative layout. A handful of examples also use `module.exports = kind({...})`
+to show an app's entry point, and have the same problem.
 
 **`.jshintrc` and the gulp lint task are stale.** `.jshintrc` declares `require`,
 `exports` and `module` as globals and sets `es3: true`; jshint cannot parse

@@ -24,6 +24,7 @@
 <code>../src/</code> by the browser.</p>
 
 <div id="app"></div>
+<div id="app2"></div>
 
 <h2>Checks</h2>
 <div id="log"></div>
@@ -37,6 +38,26 @@ import ready    from '../src/ready.js';
 import utils    from '../src/utils.js';
 import enyo     from '../index.js';
 
+// The modules whose exports object was rebuilt by hand during the conversion.
+import dom           from '../src/dom.js';
+import logger        from '../src/logger.js';
+import platform      from '../src/platform.js';
+import job           from '../src/job.js';
+import macroize      from '../src/macroize.js';
+import animation     from '../src/animation.js';
+import i18n          from '../src/i18n.js';
+import roots         from '../src/roots.js';
+import dev           from '../src/dev.js';
+import cookie        from '../src/cookie.js';
+import gesture       from '../src/gesture/gesture.js';
+import Binding       from '../src/Binding.js';
+import Collection    from '../src/Collection.js';
+import Application   from '../src/Application.js';
+import PriorityQueue, { Priorities } from '../src/PriorityQueue.js';
+import LocalStorageSource from '../src/LocalStorageSource.js';
+import Blob          from '../src/Blob.js';
+import FormData      from '../src/FormData.js';
+
 var results = [];
 function check (name, pass, detail) {
 	results.push((pass ? 'PASS  ' : 'FAIL  ') + name + (detail ? '  — ' + detail : ''));
@@ -45,8 +66,56 @@ function check (name, pass, detail) {
 }
 
 check('enyo version is 2.7.0', enyo.version === '2.7.0', 'got ' + enyo.version);
-check('kind is a function', typeof kind === 'function');
-check('utils.mixin is a function', typeof utils.mixin === 'function');
+
+// Every module below had its exports object rebuilt by hand. These check that
+// the properties are still hanging off the right thing.
+check('kind is callable and carries its statics',
+	typeof kind === 'function' && typeof kind.singleton === 'function' &&
+	typeof kind.constructorForKind === 'function' && Array.isArray(kind.concatenated));
+check('utils namespace intact',
+	typeof utils.mixin === 'function' && typeof utils.getPath === 'function' &&
+	typeof utils.perfNow === 'function' && utils.where === utils.find);
+check('job is callable and carries .stop/.throttle',
+	typeof job === 'function' && typeof job.stop === 'function' &&
+	typeof job.throttle === 'function');
+check('macroize is callable and expands',
+	typeof macroize === 'function' && macroize.pattern instanceof RegExp &&
+	macroize('hi {$who}', {who: 'there'}) === 'hi there' &&
+	typeof macroize.quickReplace === 'function');
+check('logger namespace intact',
+	typeof logger.log === 'function' && typeof logger.setLogLevel === 'function' &&
+	typeof logger.warn === 'function' && typeof logger.level === 'number');
+check('platform namespace intact',
+	typeof platform === 'object' && 'touch' in platform && 'gesture' in platform);
+check('dom namespace intact',
+	typeof dom.getComputedStyle === 'function' && typeof dom.addClass === 'function');
+check('animation namespace intact',
+	typeof animation.requestAnimationFrame === 'function' &&
+	typeof animation.easing === 'object' && typeof animation.easedLerp === 'function');
+check('roots namespace intact (array renamed internally)',
+	Array.isArray(roots.roots) && typeof roots.rendered === 'function' &&
+	typeof roots.addToRoots === 'function');
+check('i18n namespace intact',
+	typeof i18n.$L === 'function' && typeof i18n.updateLocale === 'function');
+check('cookie namespace intact',
+	typeof cookie.getCookie === 'function' && typeof cookie.setCookie === 'function');
+check('dev namespace intact',
+	typeof dev === 'object' && typeof dev.Benchmark === 'function');
+check('gesture namespace intact',
+	typeof gesture.down === 'function' && typeof gesture.events === 'object' &&
+	typeof gesture.events.mousedown === 'function');
+check('Binding is a kind with its statics',
+	typeof Binding === 'function' && Binding.DIRTY_FROM === 0x01 &&
+	Binding.DIRTY_TO === 0x02 && Array.isArray(Binding.bindings) &&
+	Binding.defaultBindingKind === Binding && typeof Binding.find === 'function');
+check('Collection.concat preserved', typeof Collection.concat === 'function');
+check('Application.applications preserved', typeof Application.applications === 'object');
+check('PriorityQueue default + named Priorities agree',
+	typeof PriorityQueue === 'function' && Priorities &&
+	PriorityQueue.Priorities === Priorities && 'SOMETIME' in Priorities);
+check('conditional exports resolved',
+	typeof Blob === 'function' && typeof FormData === 'function' &&
+	typeof LocalStorageSource !== 'undefined');
 
 // A plain Control, created and rendered.
 // A kind with a click/tap handler.
@@ -97,6 +166,28 @@ ready(function () {
 	check('set() re-rendered content',
 		panel.$.clicker.hasNode().textContent === 'Clicked 1 time',
 		JSON.stringify(panel.$.clicker.hasNode().textContent));
+
+	// Bindings exercise Binding.js, which had its exports object rebuilt.
+	var Bound = kind({
+		name: 'Bound',
+		kind: Control,
+		classes: 'panel',
+		published: {label: 'initial'},
+		components: [
+			{tag: 'h3', content: 'A binding'},
+			{name: 'out'}
+		],
+		bindings: [{from: 'label', to: '$.out.content'}]
+	});
+	var bound = new Bound();
+	bound.renderInto(document.getElementById('app2'));
+	check('binding delivered initial value',
+		bound.$.out.get('content') === 'initial',
+		JSON.stringify(bound.$.out.get('content')));
+	bound.set('label', 'updated');
+	check('binding propagated an update',
+		bound.$.out.hasNode().textContent === 'updated',
+		JSON.stringify(bound.$.out.hasNode().textContent));
 
 	// Expose for manual poking in the console.
 	window.testApp = panel;
