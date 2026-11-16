@@ -1,5 +1,3 @@
-require('enyo');
-
 // we need to register appropriately to know when
 // the document is officially ready, to ensure that
 // client code is only going to execute at the

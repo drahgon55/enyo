@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Style~Style} kind.
 * @module enyo/Style
 */
 
-var
-	kind = require('./kind');
-var
-	Control = require('./Control');
+import kind from './kind.js';
+import Control from './Control/Control.js';
 
 /**
 * {@link module:enyo/Style~Style} is a wrapper for a [&lt;style&gt;]{@glossary style} tag;

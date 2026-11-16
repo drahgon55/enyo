@@ -1,18 +1,14 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Select~Select} kind.
 * @module enyo/Select
 */
 
-var
-	kind = require('./kind'),
-	platform = require('./platform');
-var
-	Control = require('./Control'),
-	/*jshint -W079*/
-	Option = require('./Option');
-	/*jshint +W079*/
+import kind from './kind.js';
+import platform from './platform.js';
+import Control from './Control/Control.js';
+/*jshint -W079*/
+import Option from './Option.js';
+/*jshint +W079*/
 
 /**
 * {@link module:enyo/Select~Select} implements an HTML [selection]{@glossary select} widget, using

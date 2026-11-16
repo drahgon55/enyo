@@ -1,19 +1,15 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/LocalStorageSource~LocalStorageSource} kind.
 * @module enyo/LocalStorageSource
 */
 
-var
-	kind = require('./kind'),
-	json = require('./json'),
-	utils = require('./utils');
+import kind from './kind.js';
+import json from './json.js';
+import utils from './utils.js';
 
-var
-	Source = require('./Source'),
-	Collection = require('./Collection'),
-	Model = require('./Model');
+import Source from './Source.js';
+import Collection from './Collection.js';
+import Model from './Model.js';
 
 if (typeof localStorage != 'undefined') {
 		

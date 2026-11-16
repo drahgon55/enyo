@@ -1,6 +1,5 @@
-var
-	dispatcher = require('../dispatcher'),
-	utils = require('../utils');
+import dispatcher from '../dispatcher.js';
+import utils from '../utils.js';
 
 /**
 * The extended {@glossary event} [object]{@glossary Object} that is provided when we

@@ -1,5 +1,3 @@
-
-
 var PathResolverFactory = module.exports = function() {
 	this.paths = {};
 	this.pathNames = [];

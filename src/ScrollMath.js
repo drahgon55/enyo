@@ -1,18 +1,14 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ScrollMath~ScrollMath} kind.
 * @module enyo/ScrollMath
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	platform = require('./platform'),
-	animation = require('./animation');
+import kind from './kind.js';
+import utils from './utils.js';
+import platform from './platform.js';
+import animation from './animation.js';
 
-var
-	Component = require('./Component');
+import Component from './Component.js';
 
 /**
 * Fires when a scrolling action starts.

@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * An internally-used module for XHR-related methods and wrappers.
 *
@@ -7,10 +5,9 @@ require('enyo');
 * @private
 */
 
-var
-	utils = require('./utils'),
-	platform = require('./platform'),
-	path = require('./pathResolver');
+import utils from './utils.js';
+import platform from './platform.js';
+import path from './pathResolver.js';
 
 /**
 * Parameters and options for the [enyo/xhr.request()]{@link module:enyo/xhr#request} method.

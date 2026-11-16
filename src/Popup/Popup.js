@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Popup~Popup} kind.
 * @module enyo/Popup
@@ -7,15 +5,13 @@ require('enyo');
 
 
 
-var
-	kind = require('../kind'),
-	utils = require('../utils'),
-	dispatcher = require('../dispatcher');
-var
-	Control = require('../Control'),
-	Signals = require('../Signals'),
-	Scrim = require('../Scrim'),
-	Dom = require('../dom');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import dispatcher from '../dispatcher.js';
+import Control from '../Control/Control.js';
+import Signals from '../Signals.js';
+import Scrim from '../Scrim/Scrim.js';
+import Dom from '../dom.js';
 
 /**
 * Fires after the [popup]{@link module:enyo/Popup~Popup} is shown.

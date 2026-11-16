@@ -1,25 +1,20 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Ajax~Ajax} kind.
 * @module enyo/Ajax
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	json = require('./json'),
-	logger = require('./logger');
+import kind from './kind.js';
+import utils from './utils.js';
+import json from './json.js';
+import logger from './logger.js';
 
-var
-	AjaxProperties = require('./AjaxProperties'),
-	Async = require('./Async'),
-	/*jshint -W079*/
-	// this defaults to providing the native FormData if it exists
-	FormData = require('./FormData'),
-	/*jshint +W079*/
-	Xhr = require('./xhr');
-	
+import AjaxProperties from './AjaxProperties.js';
+import Async from './Async.js';
+/*jshint -W079*/
+// this defaults to providing the native FormData if it exists
+import FormData from './FormData.js';
+/*jshint +W079*/
+import Xhr from './xhr.js';
 
 /**
 * A cache of response properties set on the {@link module:enyo/Ajax~Ajax} instance once it has completed

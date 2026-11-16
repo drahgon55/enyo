@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/DataRepeater~DataRepeater} kind.
 * @module enyo/DataRepeater
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
-var
-	Control = require('./Control'),
-	RepeaterChildSupport = require('./RepeaterChildSupport');
+import kind from './kind.js';
+import utils from './utils.js';
+import Control from './Control/Control.js';
+import RepeaterChildSupport from './RepeaterChildSupport.js';
 
 function at (idx) {
 	return this[idx];

@@ -2,12 +2,10 @@
 * Contains methods for working with DOM
 * @module enyo/dom
 */
-require('enyo');
 
-var
-	roots = require('./roots'),
-	utils = require('./utils'),
-	platform = require('./platform');
+import roots from './roots.js';
+import utils from './utils.js';
+import platform from './platform.js';
 
 var dom = module.exports = {
 

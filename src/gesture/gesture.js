@@ -3,16 +3,14 @@
 */
 
 
-var
-	dispatcher = require('../dispatcher'),
-	dom = require('../dom'),
-	platform = require('../platform'),
-	utils = require('../utils');
+import dispatcher from '../dispatcher.js';
+import dom from '../dom.js';
+import platform from '../platform.js';
+import utils from '../utils.js';
 
-var
-	drag = require('./drag'),
-	touchGestures = require('./touchGestures'),
-	gestureUtil = require('./util');
+import drag from './drag.js';
+import touchGestures from './touchGestures.js';
+import gestureUtil from './util.js';
 
 /**
 * Enyo supports a set of normalized events that work similarly across all supported platforms.

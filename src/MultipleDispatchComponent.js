@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/MultipleDispatchComponent~MultipleDispatchComponent} kind.
 * @module enyo/MultipleDispatchComponent
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Component = require('./Component'),
-	MultipleDispatchSupport = require('./MultipleDispatchSupport');
+import Component from './Component.js';
+import MultipleDispatchSupport from './MultipleDispatchSupport.js';
 
 /**
 * {@link module:enyo/MultipleDispatchComponent~MultipleDispatchComponent} is a purely abstract

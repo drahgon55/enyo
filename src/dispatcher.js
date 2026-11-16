@@ -3,15 +3,12 @@
 * @module enyo/dispatcher
 * @private
 */
-require('enyo');
 
-var
-	logger = require('./logger'),
-	master = require('./master'),
-	utils = require('./utils');
+import logger from './logger.js';
+import master from './master.js';
+import utils from './utils.js';
 
-var
-	Dom = require('./dom');
+import Dom from './dom.js';
 
 /**
  * An [object]{@glossary Object} describing the the last known coordinates of the cursor or

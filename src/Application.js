@@ -1,18 +1,14 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Application~Application} kind.
 * @module enyo/Application
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	master = require('./master');
+import kind from './kind.js';
+import utils from './utils.js';
+import master from './master.js';
 
-var 
-	ViewController = require('./ViewController'),
-	Controller = require('./Controller');
+import ViewController from './ViewController.js';
+import Controller from './Controller.js';
 
 var 
 	applications = {};

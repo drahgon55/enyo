@@ -1,19 +1,15 @@
-require('enyo');
-
 /**
 * Returns the BackgroundTaskManager singleton.
 * @wip
 * @module enyo/BackgroundTaskManager
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	CoreObject = require('./CoreObject'),
-	SystemMonitor = require('./SystemMonitor'),
-	Loop = require('./Loop'),
-	Priorities = require('./PriorityQueue').Priorities;
+import CoreObject from './CoreObject.js';
+import SystemMonitor from './SystemMonitor.js';
+import Loop from './Loop.js';
+import { Priorities } from './PriorityQueue.js';
 
 module.exports = kind.singleton(
 	/** @lends module:enyo/BackgroundTaskManager */ {

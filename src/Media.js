@@ -1,19 +1,15 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Media~Media} kind.
 * @module enyo/Media
 */
 
-var
-	kind = require('./kind'),
-	dispatcher = require('./dispatcher'),
-	utils = require('./utils'),
-	platform = require('./platform'),
-	path = require('./path');
-var
-	Control = require('./Control'),
-	Job = require('./job');
+import kind from './kind.js';
+import dispatcher from './dispatcher.js';
+import utils from './utils.js';
+import platform from './platform.js';
+import path from './path.js';
+import Control from './Control/Control.js';
+import Job from './job.js';
 
 /**
 * Fires when element stops fetching [media]{@link module:enyo/Media~Media} data before it is

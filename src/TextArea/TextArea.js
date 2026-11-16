@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/TextArea~TextArea} kind.
 * @module enyo/TextArea
 */
 
-var
-	kind = require('../kind');
-var
-	Input = require('../Input');
+import kind from '../kind.js';
+import Input from '../Input/Input.js';
 
 /**
 * {@link module:enyo/TextArea~TextArea} implements an HTML [&lt;textarea&gt;]{@glossary textarea}

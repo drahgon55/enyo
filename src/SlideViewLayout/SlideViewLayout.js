@@ -5,12 +5,10 @@
 * @wip
 */
 
-var
-	dom = require('enyo/dom'),
-	kind = require('enyo/kind');
+import dom from '../dom.js';
+import kind from '../kind.js';
 
-var
-	TransitionViewLayout = require('../TransitionViewLayout');
+import TransitionViewLayout from '../TransitionViewLayout.js';
 
 /**
 * Slides views in from the right or top and out the left or bottom.

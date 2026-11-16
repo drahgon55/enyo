@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Group~Group} kind.
 * @module enyo/Group
 */
 
-var
-	kind = require('../kind');
-var
-	Control = require('../Control');
+import kind from '../kind.js';
+import Control from '../Control/Control.js';
 
 /**
 * The extended {@glossary event} [object]{@glossary Object} that is provided when the

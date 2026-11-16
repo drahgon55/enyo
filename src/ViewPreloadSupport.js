@@ -3,13 +3,11 @@
 * @wip
 * @module enyo/ViewPreloadSupport
 */
-var
-	dom = require('./dom'),
-	kind = require('./kind'),
-	utils = require('./utils');
+import dom from './dom.js';
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	Control = require('./Control');
+import Control from './Control/Control.js';
 
 /**
 * A {@glossary mixin} used for preloading views.

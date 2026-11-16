@@ -5,15 +5,12 @@
 * @module enyo/NewAnimator
 */
 
-require('enyo');
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	CoreObject = require('./CoreObject'),
-	Loop = require('./Loop');
+import CoreObject from './CoreObject.js';
+import Loop from './Loop.js';
 
 /**
 * {@link module:enyo/NewAnimator~NewAnimator} is a work-in-progress

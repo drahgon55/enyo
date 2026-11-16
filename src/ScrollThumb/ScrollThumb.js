@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ScrollThumb~ScrollThumb} kind.
 * @module enyo/ScrollThumb
 */
 
-var
-	kind = require('../kind');
+import kind from '../kind.js';
 
-var
-	Control = require('../Control'),
-	Dom = require('../dom');
+import Control from '../Control/Control.js';
+import Dom from '../dom.js';
 
 /**
 * {@link module:enyo/ScrollThumb~ScrollThumb} is a helper [kind]{@glossary kind} used by 

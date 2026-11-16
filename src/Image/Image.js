@@ -1,17 +1,13 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Image~Image} kind.
 * @module enyo/Image
 */
 
-var
-	kind = require('../kind'),
-	ri = require('../resolution'),
-	dispatcher = require('../dispatcher'),
-	path = require('../pathResolver');
-var
-	Control = require('../Control');
+import kind from '../kind.js';
+import ri from '../resolution.js';
+import dispatcher from '../dispatcher.js';
+import path from '../pathResolver.js';
+import Control from '../Control/Control.js';
 
 /**
 * Fires when the [image]{@link module:enyo/Image~Image} has loaded.

@@ -5,8 +5,8 @@
 * @module enyo/ShowingTransitionSupport
 */
 
-var kind = require('enyo/kind'),
-	utils = require('enyo/utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
 /**
 * The {@link module:enyo/ShowingTransitionSupport~ShowingTransitionSupport} [mixin]{@glossary mixin}

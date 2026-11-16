@@ -1,6 +1,5 @@
-var
-	utils = require('./utils'),
-	Signals = require('./Signals');
+import utils from './utils.js';
+import Signals from './Signals.js';
 
 /**
 * Support for the W3C Page Visibility API - http://www.w3.org/TR/page-visibility

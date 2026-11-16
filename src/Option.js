@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Option~Option} kind.
 * @module enyo/Option
 */
 
-var
-	kind = require('./kind');
-var
-	Control = require('./Control');
+import kind from './kind.js';
+import Control from './Control/Control.js';
 
 /**
 * {@link module:enyo/Option~Option} implements the [options]{@glossary option} in an

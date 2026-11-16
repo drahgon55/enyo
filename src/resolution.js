@@ -1,7 +1,4 @@
-require('enyo');
-
-var
-	Dom = require('./dom');
+import Dom from './dom.js';
 
 var _baseScreenType = 'standard',
 	_riRatio,

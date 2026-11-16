@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Shared values for various [kinds]{@glossary kind} used to indicate a state or
 * (multiple, simultaneous) states. These flags are binary values represented by

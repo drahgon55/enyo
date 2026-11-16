@@ -3,13 +3,11 @@
 * @module enyo/MixinSupport
 */
 
-require('enyo');
 
 
-var
-	utils = require('./utils'),
-	kind = require('./kind'),
-	logger = require('./logger');
+import utils from './utils.js';
+import kind from './kind.js';
+import logger from './logger.js';
 
 kind.concatenated.push('mixins');
 

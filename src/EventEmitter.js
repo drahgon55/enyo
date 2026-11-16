@@ -3,11 +3,9 @@
 * @module enyo/EventEmitter
 */
 
-require('enyo');
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
 var
 	eventTable = {};

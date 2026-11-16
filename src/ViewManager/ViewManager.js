@@ -93,17 +93,15 @@
 * @public
 */
 
-var
-	animation = require('../animation'),
-	kind = require('../kind'),
-	utils = require('../utils'),
-	Control = require('../Control'),
-	EventEmitter = require('../EventEmitter'),
-	SlideViewLayout = require('../SlideViewLayout'),
-	rAF = animation.requestAnimationFrame;
+import animation from '../animation.js';
+import kind from '../kind.js';
+import utils from '../utils.js';
+import Control from '../Control/Control.js';
+import EventEmitter from '../EventEmitter.js';
+import SlideViewLayout from '../SlideViewLayout/SlideViewLayout.js';
+var rAF = animation.requestAnimationFrame;
 
-var
-	ScrimSupport = require('./ScrimSupport');
+import ScrimSupport from './ScrimSupport.js';
 
 var viewCount = 0;
 

@@ -5,15 +5,12 @@
 * @module enyo/NewDrawer
 */
 
-require('enyo');
 
-var
-	kind = require('../kind'),
-	dom = require('../dom');
+import kind from '../kind.js';
+import dom from '../dom.js';
 
-var
-	Control = require('../Control'),
-	NewAnimator = require('../NewAnimator');
+import Control from '../Control/Control.js';
+import NewAnimator from '../NewAnimator.js';
 
 /**
 * {@link module:enyo/NewDrawer~NewDrawer} is an experimental

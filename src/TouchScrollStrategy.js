@@ -1,22 +1,19 @@
-require('enyo');
-require('./touch');
+import './touch.js';
 
 /**
 * Contains the declaration for the {@link module:enyo/TouchScrollStrategy~TouchScrollStrategy} kind.
 * @module enyo/TouchScrollStrategy
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	dispatcher = require('./dispatcher'),
-	platform = require('./platform');
+import kind from './kind.js';
+import utils from './utils.js';
+import dispatcher from './dispatcher.js';
+import platform from './platform.js';
 
-var
-	ScrollMath = require('./ScrollMath'),
-	ScrollStrategy = require('./ScrollStrategy'),
-	ScrollThumb = require('./ScrollThumb'),
-	Dom = require('./dom');
+import ScrollMath from './ScrollMath.js';
+import ScrollStrategy from './ScrollStrategy.js';
+import ScrollThumb from './ScrollThumb/ScrollThumb.js';
+import Dom from './dom.js';
 
 /**
 * Fires when dragging has started, allowing drags to propagate to parent

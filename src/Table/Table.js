@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Table~Table} kind.
 * @module enyo/Table
 */
 
-var
-	kind = require('../kind');
-var
-	Control = require('../Control'),
-	TableRow = require('../TableRow');
+import kind from '../kind.js';
+import Control from '../Control/Control.js';
+import TableRow from '../TableRow/TableRow.js';
 
 /*
 * TODO: Should facade certain useful table functionality (specific set TBD).

@@ -3,14 +3,11 @@
 * @module enyo/BindingSupport
 */
 
-require('enyo');
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	Binding = require('./Binding');
+import Binding from './Binding.js';
 
 kind.concatenated.push('bindings');
 

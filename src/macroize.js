@@ -2,10 +2,8 @@
 * Exports methods useful for templating strings
 * @module enyo/macroize
 */
-require('enyo');
 
-var
-	utils = require('./utils');
+import utils from './utils.js';
 
 /**
 * Populates a {@glossary String} template with values from an {@glossary Object}.

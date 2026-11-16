@@ -3,9 +3,8 @@
 * @module enyo/Control/floatingLayer
 */
 
-var
-	kind = require('../kind'),
-	platform = require('../platform');
+import kind from '../kind.js';
+import platform from '../platform.js';
 
 module.exports = function (Control) {
 	/**

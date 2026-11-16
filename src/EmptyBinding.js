@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/EmptyBinding~EmptyBinding} kind.
 * @module enyo/EmptyBinding
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Binding = require('./Binding');
+import Binding from './Binding.js';
 
 /**
 * An {@link module:enyo/Binding~Binding} that checks for empty values. Will be `true` if there is some

@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Scrim~Scrim} kind.
 * @module enyo/Scrim
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils');
+import kind from '../kind.js';
+import utils from '../utils.js';
 
-var
-	Control = require('../Control');
+import Control from '../Control/Control.js';
 
 /**
 * {@link module:enyo/Scrim~Scrim} provides an overlay that will prevent taps from propagating

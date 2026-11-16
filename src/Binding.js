@@ -1,13 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Binding~Binding} kind.
 * @module enyo/Binding
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
 var bindings = [];
 

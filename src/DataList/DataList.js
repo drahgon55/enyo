@@ -1,19 +1,15 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/DataList~DataList} kind.
 * @module enyo/DataList
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils');
-var
-	DataRepeater = require('../DataRepeater'),
-	EventEmitter = require('../EventEmitter'),
-	VerticalDelegate = require('../VerticalDelegate'),
-	HorizontalDelegate = require('../HorizontalDelegate'),
-	Scroller = require('../Scroller');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import DataRepeater from '../DataRepeater.js';
+import EventEmitter from '../EventEmitter.js';
+import VerticalDelegate from '../VerticalDelegate.js';
+import HorizontalDelegate from '../HorizontalDelegate.js';
+import Scroller from '../Scroller/Scroller.js';
 
 /**
 * The {@glossary event} [object]{@glossary Object} that is provided when the

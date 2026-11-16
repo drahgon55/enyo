@@ -1,15 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Filter~Filter} kind.
 * @module enyo/Filter
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var Collection = require('./Collection');
+import Collection from './Collection.js';
 
 /**
 * Used internally (re-use) for filters that do not have a valid filter. This means they will

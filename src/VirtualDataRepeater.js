@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/VirtualDataRepeater~VirtualDataRepeater} kind.
 *
@@ -8,11 +6,9 @@ require('enyo');
 * @module enyo/VirtualDataRepeater
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	DataRepeater = require('./DataRepeater');
+import DataRepeater from './DataRepeater.js';
 
 /**
 * Like {@link module:enyo/DataRepeater~DataRepeater},

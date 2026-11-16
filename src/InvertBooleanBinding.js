@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/InvertBooleanBinding~InvertBooleanBinding} kind.
 * @module enyo/InvertBooleanBinding
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Binding = require('./Binding');
+import Binding from './Binding.js';
 
 /**
 * An {@link module:enyo/Binding~Binding} designed to invert a {@glossary Boolean} value.

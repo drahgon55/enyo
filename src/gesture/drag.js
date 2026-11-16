@@ -1,9 +1,7 @@
-var
-	dispatcher = require('../dispatcher'),
-	utils = require('../utils');
+import dispatcher from '../dispatcher.js';
+import utils from '../utils.js';
 
-var
-	gestureUtil = require('./util');
+import gestureUtil from './util.js';
 
 /**
 * Enyo supports a cross-platform set of drag [events]{@glossary event}. These

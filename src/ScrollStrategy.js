@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ScrollStrategy~ScrollStrategy} kind.
 * @module enyo/ScrollStrategy
 */
 
-var
-	kind = require('./kind'),
-	dispatcher = require('./dispatcher');
+import kind from './kind.js';
+import dispatcher from './dispatcher.js';
 
-var
-	Control = require('./Control');
+import Control from './Control/Control.js';
 
 /**
 * {@link module:enyo/ScrollStrategy~ScrollStrategy} is a helper [kind]{@glossary kind} that implements a default 

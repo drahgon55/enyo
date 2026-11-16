@@ -1,12 +1,9 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Layout~Layout} kind.
 * @module enyo/Layout
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
 /**
 * {@link module:enyo/Layout~Layout} is the base [kind]{@glossary kind} for layout

@@ -3,7 +3,6 @@
 * @module enyo/cookie
 */
 
-require('enyo');
 
 /**
 * Available additional attributes that may be set with a [cookie]{@glossary cookie}.

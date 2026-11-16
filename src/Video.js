@@ -1,20 +1,16 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Video~Video} kind.
 * @module enyo/Video
 */
 
-var
-	kind = require('./kind'),
-	dispatcher = require('./dispatcher'),
-	path = require('./path'),
-	platform = require('./platform'),
-	utils = require('./utils');
-var
-	Control = require('./Control'),
-	MediaSource = require('./MediaSource'),
-	Job = require('./job');
+import kind from './kind.js';
+import dispatcher from './dispatcher.js';
+import path from './path.js';
+import platform from './platform.js';
+import utils from './utils.js';
+import Control from './Control/Control.js';
+import MediaSource from './MediaSource.js';
+import Job from './job.js';
 
 /**
 * Fires when [playbackRate]{@link module:enyo/Video~Video#playbackRate} is changed to an integer greater than `1`.

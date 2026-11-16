@@ -5,10 +5,9 @@
 * @module enyo/ContentAreaSupport
 */
 
-var
-	kind = require('enyo/kind'),
-	utils = require('enyo/utils'),
-	Control = require('enyo/Control');
+import kind from './kind.js';
+import utils from './utils.js';
+import Control from './Control/Control.js';
 
 /**
 * Populates a content area either initially or in response to a change to either the content or

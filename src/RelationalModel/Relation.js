@@ -1,17 +1,13 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/RelationalModel~Relation} kind.
 * @module enyo/RelationalModel/Relation
 * @private
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils');
+import kind from '../kind.js';
+import utils from '../utils.js';
 
-var
-	Store = require('../Store');
+import Store from '../Store.js';
 
 /**
 * The default options for [relations]{@link module:enyo/RelationalModel~RelationalModel#relations}.

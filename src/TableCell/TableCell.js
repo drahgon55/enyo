@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/TableCell~TableCell} kind.
 * @module enyo/TableCell
 */
 
-var
-	kind = require('../kind');
-var
-	Control = require('../Control');
+import kind from '../kind.js';
+import Control from '../Control/Control.js';
 
 /**
 * {@link module:enyo/TableCell~TableCell} implements an HTML [&lt;td&gt;]{@glossary td} element.

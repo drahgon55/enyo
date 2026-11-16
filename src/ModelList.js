@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ModelList~ModelList} Object.
 * @module enyo/ModelList

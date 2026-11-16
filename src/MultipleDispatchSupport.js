@@ -3,11 +3,9 @@
 * @module enyo/MultipleDispatchSupport
 */
 
-require('enyo');
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
 /**
 * A collection of methods to allow a single {@link module:enyo/Component~Component} to

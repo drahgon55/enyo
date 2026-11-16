@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/DataTable~DataTable} kind.
 * @module enyo/DataTable
 */
 
-var
-	kind = require('./kind');
-var
-	DataRepeater = require('./DataRepeater'),
-	Table = require('./Table'),
-	TableRow = require('./TableRow');
+import kind from './kind.js';
+import DataRepeater from './DataRepeater.js';
+import Table from './Table/Table.js';
+import TableRow from './TableRow/TableRow.js';
 
 /**
 * {@link module:enyo/DataTable~DataTable} enables the creation of data-driven tables.

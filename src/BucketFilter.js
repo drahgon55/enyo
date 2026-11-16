@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/BucketFilter~BucketFilter} kind.
 * @module enyo/BucketFilter
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Filter = require('./Filter');
+import Filter from './Filter.js';
 
 /**
 * A [filter]{@link module:enyo/Filter~Filter} designed to maintain multiple filtered sets based on one

@@ -1,20 +1,18 @@
-require('enyo');
-
 /**
 * Returns the SystemMonitor singleton
 * @wip
 * @module enyo/SystemMonitor
 */
 
-var
-	kind = require('./kind'),
-	dispatcher = require('./dispatcher'),
-	perfNow = require('./utils').perfNow;
+import kind from './kind.js';
+import dispatcher from './dispatcher.js';
+import utils from './utils.js';
 
-var
-	EventEmitter = require('./EventEmitter'),
-	CoreObject = require('./CoreObject'),
-	Loop = require('./Loop');
+var perfNow = utils.perfNow;
+
+import EventEmitter from './EventEmitter.js';
+import CoreObject from './CoreObject.js';
+import Loop from './Loop.js';
 
 module.exports = kind.singleton(
 	/** @lends module:enyo/SystemMonitor */ {

@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * A polyfill for IE < 10. Returns the Browser's implementation of Blob, if available.
 *
@@ -7,8 +5,7 @@ require('enyo');
 * @public
 */
 
-var
-	utils = require('./utils');
+import utils from './utils.js';
 
 exports = null;
 

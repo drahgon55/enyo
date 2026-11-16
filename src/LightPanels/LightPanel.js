@@ -8,13 +8,10 @@
 * @module enyo/LightPanels
 */
 
-require('enyo');
 
-var
-	kind = require('../kind');
+import kind from '../kind.js';
 
-var
-	Control = require('../Control');
+import Control from '../Control/Control.js';
 
 /**
 * @enum {Number}

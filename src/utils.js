@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * A collection of utilities
 * @module enyo/utils

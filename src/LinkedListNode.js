@@ -1,13 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/LinkedListNode~LinkedListNode} kind.
 * @module enyo/LinkedListNode
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
 /**
 * An abstract linked-list node.

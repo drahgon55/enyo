@@ -1,18 +1,14 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Animator~Animator} kind.
 * @module enyo/Animator
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	animation = require('./animation');
+import kind from './kind.js';
+import utils from './utils.js';
+import animation from './animation.js';
 
-var
-	Component = require('./Component'),
-	Jobs = require('./jobs');
+import Component from './Component.js';
+import Jobs from './jobs.js';
 
 /**
 * Fires when an animation step occurs.

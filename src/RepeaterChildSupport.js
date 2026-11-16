@@ -3,14 +3,11 @@
 * @module enyo/RepeaterChildSupport
 */
 
-require('enyo');
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	Binding = require('./Binding');
+import Binding from './Binding.js';
 
 /**
 * The {@link module:enyo/RepeaterChildSupport~RepeaterChildSupport} [mixin]{@glossary mixin} contains methods and

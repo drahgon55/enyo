@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * This module returns the Loop singleton
 * @wip
 * @module enyo/Loop
 */
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	CoreObject = require('./CoreObject'),
-	animation = require('./animation');
+import CoreObject from './CoreObject.js';
+import animation from './animation.js';
 
 module.exports = kind.singleton({
 	/** @lends module:enyo/Loop */

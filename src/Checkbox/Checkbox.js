@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Checkbox~Checkbox} kind.
 * @module enyo/Checkbox
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils');
-var
-	Input = require('../Input');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import Input from '../Input/Input.js';
 
 /**
 * Fires when checkbox is tapped.

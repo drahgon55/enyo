@@ -3,11 +3,9 @@
 * @wip
 */
 
-var
-	kind = require('enyo/kind');
+import kind from './kind.js';
 
-var
-	ViewLayout = require('./ViewLayout');
+import ViewLayout from './ViewLayout/ViewLayout.js';
 
 
 /**

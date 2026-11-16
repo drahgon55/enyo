@@ -1,20 +1,16 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Component~Component} kind.
 * @module enyo/Component
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	logger = require('./logger');
+import kind from './kind.js';
+import utils from './utils.js';
+import logger from './logger.js';
 
-var
-	CoreObject = require('./CoreObject'),
-	ApplicationSupport = require('./ApplicationSupport'),
-	ComponentBindingSupport = require('./ComponentBindingSupport'),
-	Jobs = require('./jobs');
+import CoreObject from './CoreObject.js';
+import ApplicationSupport from './ApplicationSupport.js';
+import ComponentBindingSupport from './ComponentBindingSupport.js';
+import Jobs from './jobs.js';
 
 var
 	kindPrefix = {},

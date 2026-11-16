@@ -1,23 +1,19 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/CoreObject~Object} kind.
 * @module enyo/CoreObject
 */
 
-var
-	kind = require('./kind'),
-	logger = require('./logger'),
-	utils = require('./utils');
+import kind from './kind.js';
+import logger from './logger.js';
+import utils from './utils.js';
 
-var
-	MixinSupport = require('./MixinSupport'),
-	ObserverSupport = require('./ObserverSupport'),
-	BindingSupport = require('./BindingSupport');
+import MixinSupport from './MixinSupport.js';
+import ObserverSupport from './ObserverSupport.js';
+import BindingSupport from './BindingSupport.js';
 
 // ComputedSupport is applied to all kinds at creation time but must be require()'d somewhere to be
 // included in builds. This is that somewhere.
-require('./ComputedSupport');
+import './ComputedSupport.js';
 
 /**
 * Used by all [objects]{@link module:enyo/CoreObject~Object} and [subkinds]{@glossary subkind} when using the

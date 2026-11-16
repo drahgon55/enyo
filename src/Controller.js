@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Controller~Controller} kind.
 * @module enyo/Controller
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	MultipleDispatchComponent = require('./MultipleDispatchComponent');
+import MultipleDispatchComponent from './MultipleDispatchComponent.js';
 
 /**
 * {@link module:enyo/Controller~Controller} is the base [kind]{@glossary kind} for all

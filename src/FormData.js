@@ -1,7 +1,4 @@
-require('enyo');
-
-var
-	utils = require('./utils');
+import utils from './utils.js';
 
 /**
 * An [XHR2]{@linkplain http://www.w3.org/TR/XMLHttpRequest/} FormData implementation.

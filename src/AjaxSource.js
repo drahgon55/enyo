@@ -1,18 +1,14 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/AjaxSource~AjaxSource} kind.
 * @module enyo/AjaxSource
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	XhrSource = require('./XhrSource'),
-	Ajax = require('./Ajax'),
-	States = require('./States'),
-	AjaxProperties = require('./AjaxProperties');
+import XhrSource from './XhrSource.js';
+import Ajax from './Ajax.js';
+import States from './States.js';
+import AjaxProperties from './AjaxProperties.js';
 
 /**
 * An all-purpose [Ajax]{@glossary ajax} [source]{@link module:enyo/Source~Source} designed to communicate

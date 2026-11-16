@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Drawer~Drawer} kind.
 * @module enyo/Drawer
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Animator = require('enyo/Animator'),
-	Control = require('./Control');
+import Animator from './Animator.js';
+import Control from './Control/Control.js';
 
 /**
 * Fires when the [drawer]{@link module:enyo/Drawer~Drawer} has been opened or closed. The handler can

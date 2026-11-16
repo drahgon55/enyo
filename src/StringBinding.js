@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/StringBinding~StringBinding} kind.
 * @module enyo/StringBinding
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Binding = require('./Binding');
+import Binding from './Binding.js';
 
 /**
 * A {@link module:enyo/Binding~Binding} designed to only propagate a {@glossary String}. If it is not the

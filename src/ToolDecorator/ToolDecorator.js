@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ToolDecorator~ToolDecorator} kind.
 * @module enyo/ToolDecorator
@@ -7,10 +5,8 @@ require('enyo');
 
 
 
-var
-	kind = require('../kind');
-var
-	GroupItem = require('../GroupItem');
+import kind from '../kind.js';
+import GroupItem from '../GroupItem.js';
 
 /**
 * {@link module:enyo/ToolDecorator~ToolDecorator} lines up [components]{@link module:enyo/Component~Component} in a row,

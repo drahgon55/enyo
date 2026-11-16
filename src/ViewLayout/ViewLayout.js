@@ -5,13 +5,12 @@
 * @wip
 */
 
-var
-	animation = require('../animation'),
-	kind = require('../kind'),
-	utils = require('../utils'),
-	EventEmitter = require('../EventEmitter'),
-	Layout = require('../Layout'),
-	rAF = animation.requestAnimationFrame;
+import animation from '../animation.js';
+import kind from '../kind.js';
+import utils from '../utils.js';
+import EventEmitter from '../EventEmitter.js';
+import Layout from '../Layout.js';
+var rAF = animation.requestAnimationFrame;
 
 // In order to handle DOM events (e.g. ontransitionend), we need to inject ViewLayout into the event
 // dispatch chain. Since we can't guarantee the usual event flow would pass through this, we

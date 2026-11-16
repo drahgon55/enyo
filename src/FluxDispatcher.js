@@ -5,9 +5,8 @@
 */
 
 
-var
-	kind = require('./kind'),
-	CoreObject = require('./CoreObject');
+import kind from './kind.js';
+import CoreObject from './CoreObject.js';
 
 module.exports = kind.singleton({
 	/** @lends module:enyo/FluxDispatcher */

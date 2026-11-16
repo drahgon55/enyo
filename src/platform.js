@@ -1,6 +1,4 @@
-require('enyo');
-
-var utils = require('./utils');
+import utils from './utils.js';
 
 /**
 * Determines OS versions of platforms that need special treatment. Can have one of the following

@@ -2,14 +2,11 @@
 * Exports the {@link module:enyo/ObserverSupport~ObserverSupport} mixin
 * @module enyo/ObserverSupport
 */
-require('enyo');
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	ObserverChain = require('./ObserverChain');
+import ObserverChain from './ObserverChain.js';
 
 var observerTable = {};
 	

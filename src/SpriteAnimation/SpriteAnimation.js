@@ -1,18 +1,14 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/SpriteAnimation~SpriteAnimation} kind.
 * @module enyo/SpriteAnimation
 */
 
-var
-	kind = require('../kind'),
-	scope = window || global;
+import kind from '../kind.js';
+var scope = window || global;
 
-var
-	Control = require('../Control'),
-	EnyoImage = require('../Image'),
-	StylesheetSupport = require('../StylesheetSupport');
+import Control from '../Control/Control.js';
+import EnyoImage from '../Image/Image.js';
+import StylesheetSupport from '../StylesheetSupport.js';
 
 /**
 * {@link module:enyo/SpriteAnimation~SpriteAnimation} is a basic animation [component]{@link module:enyo/Component~Component}.

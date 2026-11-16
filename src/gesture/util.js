@@ -1,7 +1,6 @@
-var
-	dom = require('../dom'),
-	platform = require('../platform'),
-	utils = require('../utils');
+import dom from '../dom.js';
+import platform from '../platform.js';
+import utils from '../utils.js';
 
 /**
 * Used internally by {@link module:enyo/gesture}

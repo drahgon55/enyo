@@ -1,18 +1,14 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/TransitionScrollStrategy~TransitionScrollStrategy} kind.
 * @wip
 * @module enyo/TransitionScrollStrategy
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	ScrollThumb = require('./ScrollThumb'),
-	TouchScrollStrategy = require('./TouchScrollStrategy'),
-	Dom = require('./dom');
+import ScrollThumb from './ScrollThumb/ScrollThumb.js';
+import TouchScrollStrategy from './TouchScrollStrategy.js';
+import Dom from './dom.js';
 
 /**
 * Fires when a scrolling action starts.

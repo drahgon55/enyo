@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/DragAvatar~DragAvatar} kind.
 * @module enyo/DragAvatar
 */
 
-var
-	kind = require('./kind');
-var
-	Control = require('./Control'),
-	Component = require('./Component');
+import kind from './kind.js';
+import Control from './Control/Control.js';
+import Component from './Component.js';
 
 /**
 * @private

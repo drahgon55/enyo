@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/DataGridList~DataGridList} kind.
 * @module enyo/DataGridList
 */
 
-var
-	kind = require('../kind');
-var
-	DataList = require('../DataList'),
-	VerticalGridDelegate = require('../VerticalGridDelegate');
+import kind from '../kind.js';
+import DataList from '../DataList/DataList.js';
+import VerticalGridDelegate from '../VerticalGridDelegate.js';
 
 /**
 * {@link module:enyo/DataGridList~DataGridList} is a paginated {@link module:enyo/DataList~DataList} designed to lay out

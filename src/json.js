@@ -1,6 +1,3 @@
-require('enyo');
-
-
 /**
 * [JSON]{@glossary JSON} related methods and wrappers.
 *

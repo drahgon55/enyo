@@ -1,19 +1,15 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/WebService~WebService} kind.
 * @module enyo/WebService
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	Component = require('./Component'),
-	JsonpRequest = require('./Jsonp'),
-	AjaxProperties = require('./AjaxProperties'),
-	Ajax = require('./Ajax');
+import Component from './Component.js';
+import JsonpRequest from './Jsonp.js';
+import AjaxProperties from './AjaxProperties.js';
+import Ajax from './Ajax.js';
 
 /**
 * Fires when a response is received.

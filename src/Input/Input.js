@@ -1,17 +1,13 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Input~Input} kind.
 * @module enyo/Input
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils'),
-	dispatcher = require('../dispatcher'),
-	platform = require('../platform');
-var
-	Control = require('../Control');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import dispatcher from '../dispatcher.js';
+import platform from '../platform.js';
+import Control from '../Control/Control.js';
 
 /**
 * Fires immediately when the text changes.

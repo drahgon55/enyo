@@ -1,17 +1,13 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/UiComponent~UiComponent} kind.
 * @module enyo/UiComponent
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	master = require('./master');
+import kind from './kind.js';
+import utils from './utils.js';
+import master from './master.js';
 
-var
-	Component = require('./Component');
+import Component from './Component.js';
 
 /**
 * The configurable options used by {@link module:enyo/UiComponent~UiComponent} when updating

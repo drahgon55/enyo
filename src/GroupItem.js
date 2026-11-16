@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/GroupItem~GroupItem} kind.
 * @module enyo/GroupItem
 */
 
-var
-	kind = require('./kind');
-var
-	Control = require('./Control');
+import kind from './kind.js';
+import Control from './Control/Control.js';
 
 /**
 * Fires when the [active state]{@link module:enyo/GroupItem~GroupItem#active} has changed.

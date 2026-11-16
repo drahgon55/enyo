@@ -1,10 +1,6 @@
-require('enyo');
-
-var
-	kind = require('./kind'),
-	utils = require('./utils');
-var
-	VerticalDelegate = require('./VerticalDelegate');
+import kind from './kind.js';
+import utils from './utils.js';
+import VerticalDelegate from './VerticalDelegate.js';
 
 /**
 * This is a {@glossary delegate} (strategy) used by {@link module:enyo/DataGridList~DataGridList}

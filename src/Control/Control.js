@@ -1,31 +1,26 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Control~Control} kind.
 * @module enyo/Control
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils'),
-	platform = require('../platform'),
-	dispatcher = require('../dispatcher'),
-	options = require('../options'),
-	roots = require('../roots');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import platform from '../platform.js';
+import dispatcher from '../dispatcher.js';
+import options from '../options.js';
+import roots from '../roots.js';
 
-var
-	AccessibilitySupport = require('../AccessibilitySupport'),
-	UiComponent = require('../UiComponent'),
-	HTMLStringDelegate = require('../HTMLStringDelegate'),
-	Dom = require('../dom');
+import AccessibilitySupport from '../AccessibilitySupport/AccessibilitySupport.js';
+import UiComponent from '../UiComponent.js';
+import HTMLStringDelegate from '../HTMLStringDelegate.js';
+import Dom from '../dom.js';
 
-var
-	fullscreen = require('./fullscreen'),
-	FloatingLayer = require('./floatingLayer');
+import fullscreen from './fullscreen.js';
+import FloatingLayer from './floatingLayer.js';
 
 // While the namespace isn't needed here, gesture is required for ontap events for which Control
 // has a handler. Bringing them all in now for the time being.
-require('../gesture');
+import '../gesture/gesture.js';
 
 var nodePurgatory;
 

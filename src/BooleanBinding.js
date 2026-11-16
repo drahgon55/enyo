@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/BooleanBinding~BooleanBinding} kind.
 * @module enyo/BooleanBinding
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Binding = require('./Binding');
+import Binding from './Binding.js';
 
 /**
 * An {@link module:enyo/Binding~Binding} that coerces any value passing through it to be a {@glossary Boolean}

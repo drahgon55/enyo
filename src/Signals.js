@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Signals~Signals} kind.
 * @module enyo/Signals
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	Component = require('./Component');
+import Component from './Component.js';
 
 /**
 * {@link module:enyo/Signals~Signals} is a [component]{@link module:enyo/Component~Component} used to listen

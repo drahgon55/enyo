@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Contains methods for dealing with jobs.
 * @module enyo/job

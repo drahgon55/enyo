@@ -3,12 +3,10 @@
 *
 * @module enyo/i18n
 */
-require('enyo');
 
-var
-	dispatcher = require('./dispatcher'),
-	utils = require('./utils'),
-	Signals = require('./Signals');
+import dispatcher from './dispatcher.js';
+import utils from './utils.js';
+import Signals from './Signals.js';
 
 /**
 * Provides a stub function for i18n string translation. This allows strings to

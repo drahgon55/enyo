@@ -4,16 +4,13 @@
 * @module enyo/TaskManagerSupport
 */
 
-require('enyo');
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	EventEmitter = require('./EventEmitter'),
-	PriorityQueue = require('./PriorityQueue'),
-	Priorities = PriorityQueue.Priorities,
-	BackgroundTaskManager = require('./BackgroundTaskManager');
+import EventEmitter from './EventEmitter.js';
+import PriorityQueue from './PriorityQueue.js';
+import BackgroundTaskManager from './BackgroundTaskManager.js';
+var Priorities = PriorityQueue.Priorities;
 
 /**
 * @mixin

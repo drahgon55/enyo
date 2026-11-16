@@ -1,25 +1,20 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/LightPanels~LightPanels} kind.
 * @wip
 * @module enyo/LightPanels
 */
 
-var
-	kind = require('../kind'),
-	dom = require('../dom'),
-	animation = require('../animation'),
-	utils = require('../utils');
+import kind from '../kind.js';
+import dom from '../dom.js';
+import animation from '../animation.js';
+import utils from '../utils.js';
 
-var
-	Control = require('../Control'),
-	ViewPreloadSupport = require('../ViewPreloadSupport'),
-	TaskManagerSupport = require('../TaskManagerSupport');
+import Control from '../Control/Control.js';
+import ViewPreloadSupport from '../ViewPreloadSupport.js';
+import TaskManagerSupport from '../TaskManagerSupport.js';
 
-var
-	LightPanel = require('./LightPanel'),
-	States = LightPanel.States;
+import LightPanel from './LightPanel.js';
+var States = LightPanel.States;
 
 var
 	trans, wTrans;

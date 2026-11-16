@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/XhrSource~XhrSource} kind.
 * @module enyo/XhrSource
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
-var
-	Source = require('./Source');
+import kind from './kind.js';
+import utils from './utils.js';
+import Source from './Source.js';
 
 /**
 * An abstract [kind]{@glossary kind} of [source]{@link module:enyo/Source~Source} to be used for general

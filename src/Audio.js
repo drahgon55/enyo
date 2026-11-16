@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Audio~Audio} kind.
 * @module enyo/Audio
 */
 
-var
-	kind = require('./kind');
-var
-	Media = require('./Media');
+import kind from './kind.js';
+import Media from './Media.js';
 
 /**
 * {@link module:enyo/Audio~Audio} extends {@link module:enyo/Media~Media} to implement an

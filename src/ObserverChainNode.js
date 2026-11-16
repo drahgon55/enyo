@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ObserverChainNode~ObserverChainNode} kind.
 * @module enyo/ObserverChainNode
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	LinkedListNode = require('./LinkedListNode');
+import LinkedListNode from './LinkedListNode.js';
 
 function get (base, prop) {
 	return base && /*isObject(base)*/ (typeof base == 'object')? (

@@ -1,10 +1,6 @@
-require('enyo');
-
-var
-	utils = require('./utils'),
-	logger = require('./logger');
-var
-	Dom = require('./dom');
+import utils from './utils.js';
+import logger from './logger.js';
+import Dom from './dom.js';
 
 /**
 * This is a {@glossary delegate} (strategy) used by {@link module:enyo/DataList~DataList}

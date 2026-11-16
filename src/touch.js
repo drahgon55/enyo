@@ -4,17 +4,14 @@
 * @private
 * @module enyo/touch
 */
-require('enyo');
 
-var
-	utils = require('./utils'),
-	gesture = require('./gesture'),
-	dispatcher = require('./dispatcher'),
-	platform = require('./platform');
+import utils from './utils.js';
+import gesture from './gesture/gesture.js';
+import dispatcher from './dispatcher.js';
+import platform from './platform.js';
 
-var
-	Dom = require('./dom'),
-	Job = require('./job');
+import Dom from './dom.js';
+import Job from './job.js';
 
 function dispatch (e) {
 	return dispatcher.dispatch(e);

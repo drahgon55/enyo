@@ -3,9 +3,8 @@
 * @module enyo/ApplicationSupport
 */
 
-require('enyo');
 
-var kind = require('./kind');
+import kind from './kind.js';
 
 /**
 * An internally-used support {@glossary mixin} that is applied to all

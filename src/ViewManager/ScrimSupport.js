@@ -1,6 +1,5 @@
-var
-	kind = require('../kind'),
-	utils = require('enyo/utils');
+import kind from '../kind.js';
+import utils from '../utils.js';
 
 
 /** 

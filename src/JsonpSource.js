@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/JsonpSource~JsonpSource} kind.
 * @module enyo/JsonpSource
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	XhrSource = require('./XhrSource'),
-	JsonpRequest = require('./Jsonp');
+import XhrSource from './XhrSource.js';
+import JsonpRequest from './Jsonp.js';
 
 /**
 * An all-purpose [Ajax]{@glossary ajax} [source]{@link module:enyo/Source~Source} designed to communicate

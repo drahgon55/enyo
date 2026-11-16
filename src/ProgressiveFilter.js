@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ProgressiveFilter~ProgressiveFilter} kind.
 * @module enyo/ProgressiveFilter
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Filter = require('./Filter'),
-	ModelList = require('./ModelList');
+import Filter from './Filter.js';
+import ModelList from './ModelList.js';
 
 /**
 * A primarily abstract {@glossary kind} of {@link module:enyo/Filter~Filter}. It serves the simple purpose

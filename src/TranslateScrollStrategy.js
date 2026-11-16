@@ -1,17 +1,13 @@
-require('enyo');
-
 /**
  * Contains the declaration for the {@link module:enyo/TranslateScrollStrategy~TranslateScrollStrategy} kind.
  * @module enyo/TranslateScrollStrategy
  */
 
-var
-	kind = require('./kind'),
-	dispatcher = require('./dispatcher');
+import kind from './kind.js';
+import dispatcher from './dispatcher.js';
 
-var
-	TouchScrollStrategy = require('./TouchScrollStrategy'),
-	Dom = require('./dom');
+import TouchScrollStrategy from './TouchScrollStrategy.js';
+import Dom from './dom.js';
 
 /**
 * {@link module:enyo/TranslateScrollStrategy~TranslateScrollStrategy} is a helper [kind]{@glossary kind} that extends

@@ -1,16 +1,12 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Async~Async} kind.
 * @module enyo/Async
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	CoreObject = require('./CoreObject');
+import CoreObject from './CoreObject.js';
 
 /**
 * An abstract [kind]{@glossary kind} designed to aid in handling asynchronous operations.

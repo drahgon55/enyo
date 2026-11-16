@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Button~Button} kind.
 * @module enyo/Button
 */
 
-var
-	kind = require('../kind');
-var
-	ToolDecorator = require('../ToolDecorator');
+import kind from '../kind.js';
+import ToolDecorator from '../ToolDecorator/ToolDecorator.js';
 
 /**
 * {@link module:enyo/Button~Button} implements an HTML [button]{@glossary button}, with support

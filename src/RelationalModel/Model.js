@@ -7,14 +7,12 @@
 * @private
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils');
+import kind from '../kind.js';
+import utils from '../utils.js';
 
-var
-	Model = require('../Model'),
-	Store = require('../Store'),
-	Relation = require('./Relation');
+import Model from '../Model.js';
+import Store from '../Store.js';
+import Relation from './Relation.js';
 
 var
 	defaultRelationType;

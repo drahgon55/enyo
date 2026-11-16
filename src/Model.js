@@ -1,24 +1,20 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Model~Model} kind.
 * @module enyo/Model
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	ObserverSupport = require('./ObserverSupport'),
-	ComputedSupport = require('./ComputedSupport'),
-	BindingSupport = require('./BindingSupport'),
-	EventEmitter = require('./EventEmitter'),
-	StateSupport = require('./StateSupport'),
-	ModelList = require('./ModelList'),
-	Source = require('./Source'),
-	States = require('./States'),
-	Store = require('./Store');
+import ObserverSupport from './ObserverSupport.js';
+import ComputedSupport from './ComputedSupport.js';
+import BindingSupport from './BindingSupport.js';
+import EventEmitter from './EventEmitter.js';
+import StateSupport from './StateSupport.js';
+import ModelList from './ModelList.js';
+import Source from './Source.js';
+import States from './States.js';
+import Store from './Store.js';
 
 /**
 * This is only necessary because of the order in which mixins are applied.

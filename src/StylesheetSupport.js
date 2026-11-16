@@ -3,13 +3,10 @@
 * @module enyo/StylesheetSupport
 */
 
-require('enyo');
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var 
-	Style = require('./Style');
+import Style from './Style.js';
 
 /**
 * The {@link module:enyo/StylesheetSupport~StylesheetSupport} {@glossary mixin} is used to add a

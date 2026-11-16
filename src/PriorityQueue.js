@@ -1,17 +1,13 @@
-require('enyo');
-
 /**
 * Exports Priority options used by {@link module:enyo/BackgroundTaskManager}.
 * @wip
 * @module enyo/PriorityQueue
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	CoreObject = require('./CoreObject');
+import CoreObject from './CoreObject.js';
 
 /**
 * @enum {Number}

@@ -3,11 +3,9 @@
 * @module enyo/animation
 */
 
-require('enyo');
 
-var
-	platform = require('./platform'),
-	utils = require('./utils');
+import platform from './platform.js';
+import utils from './utils.js';
 
 var ms = Math.round(1000/60),
 	prefix = ['', 'webkit', 'moz', 'ms', 'o'],

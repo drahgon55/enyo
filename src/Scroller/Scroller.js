@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Scroller~Scroller} kind.
 * @module enyo/Scroller
@@ -7,15 +5,13 @@ require('enyo');
 
 
 
-var
-	kind = require('../kind'),
-	platform = require('../platform');
+import kind from '../kind.js';
+import platform from '../platform.js';
 
-var
-	Control = require('../Control'),
-	ScrollStrategy = require('../ScrollStrategy'),
-	TouchScrollStrategy = require('../TouchScrollStrategy'),
-	TranslateScrollStrategy = require('../TranslateScrollStrategy');
+import Control from '../Control/Control.js';
+import ScrollStrategy from '../ScrollStrategy.js';
+import TouchScrollStrategy from '../TouchScrollStrategy.js';
+import TranslateScrollStrategy from '../TranslateScrollStrategy.js';
 
 /**
 * An [object]{@glossary Object} representing the scroll boundaries.

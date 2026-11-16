@@ -4,14 +4,12 @@
 * @private
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils'),
-	Model = require('../Model'),
-	Store = require('../Store');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import Model from '../Model.js';
+import Store from '../Store.js';
 
-var
-	Relation = require('./Relation');
+import Relation from './Relation.js';
 
 /**
 * Represents a relationship of data from one [model]{@link module:enyo/Model~Model} to another

@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * @module enyo/roots
 */

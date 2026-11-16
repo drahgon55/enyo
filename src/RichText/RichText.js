@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/RichText~RichText} kind.
 * @module enyo/RichText
@@ -7,14 +5,12 @@ require('enyo');
 
 
 
-var
-	kind = require('../kind'),
-	utils = require('../utils'),
-	platform = require('../platform');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import platform from '../platform.js';
 
-var
-	Control = require('../Control'),
-	Input = require('../Input');
+import Control from '../Control/Control.js';
+import Input from '../Input/Input.js';
 
 /**
 * The type of change to apply. Possible values are `'move'` and `'extend'`.

@@ -1,19 +1,15 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Router~Router} kind.
 * @module enyo/Router
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	ready = require('./ready'),
-	dispatcher = require('./dispatcher');
+import kind from './kind.js';
+import utils from './utils.js';
+import ready from './ready.js';
+import dispatcher from './dispatcher.js';
 
-var
-	Controller = require('./Controller'),
-	EnyoHistory = require('./History');
+import Controller from './Controller.js';
+import EnyoHistory from './History.js';
 
 /**
 * Any instance of a router will be referenced here for the global hash change handler.

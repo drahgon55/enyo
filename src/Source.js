@@ -1,14 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Source~Source} kind.
 * @module enyo/Source
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils'),
-	logger = require('./logger');
+import kind from './kind.js';
+import utils from './utils.js';
+import logger from './logger.js';
 
 var sources = {};
 

@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Anchor~Anchor} kind.
 * @module enyo/Anchor
 */
 
-var
-	kind = require('./kind');
-var
-	Control = require('./Control');
+import kind from './kind.js';
+import Control from './Control/Control.js';
 
 /**
 * {@link module:enyo/Anchor~Anchor} implements an HTML [anchor]{@glossary Anchor} (&lt;a&gt;) tag.

@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * The available options used by {@link module:enyo/Ajax~Ajax} and {@link module:enyo/WebService~WebService}. You will not
 * generally want to access this module directly.

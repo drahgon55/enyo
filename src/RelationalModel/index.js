@@ -1,17 +1,14 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/RelationalModel~RelationalModel} and
 * {@link module:enyo/RelationalModel~Collection} kinds.
 * @module enyo/RelationalModel
 */
 
-var
-	Model = require('./Model'),
-	Relation = require('./Relation'),
-	toOne = require('./toOne'),
-	toMany = require('./toMany'),
-	manyToMany = require('./manyToMany');
+import Model from './Model.js';
+import Relation from './Relation.js';
+import toOne from './toOne.js';
+import toMany from './toMany.js';
+import manyToMany from './manyToMany.js';
 
 Model.defineRelationType('toOne', toOne, true);
 Model.defineRelationType('toMany', toMany);

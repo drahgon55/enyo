@@ -1,10 +1,7 @@
-require('enyo');
-
-var
-	utils = require('./utils'),
-	kind = require('./kind');
+import utils from './utils.js';
+import kind from './kind.js';
 	
-var CoreObject = require('./CoreObject');
+import CoreObject from './CoreObject.js';
 
 /**
 * The {@link module:enyo/jobs} singleton provides a mechanism for queueing tasks

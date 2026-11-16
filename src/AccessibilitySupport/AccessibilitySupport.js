@@ -4,11 +4,10 @@
 * @module enyo/AccessibilitySupport
 */
 
-var
-	dispatcher = require('../dispatcher'),
-	kind = require('../kind'),
-	platform = require('../platform'),
-	utils = require('../utils');
+import dispatcher from '../dispatcher.js';
+import kind from '../kind.js';
+import platform from '../platform.js';
+import utils from '../utils.js';
 
 var defaultObservers = [
 	{from: 'accessibilityDisabled', method: function () {

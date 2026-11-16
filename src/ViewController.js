@@ -1,23 +1,18 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ViewController~ViewController} kind.
 * @module enyo/ViewController
 */
 
 // needed so that the default kind is Control instead of Component, if it isn't required elsewhere
-require('./Control');
+import './Control/Control.js';
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	Controller = require('./Controller'),
-	UiComponent = require('./UiComponent');
+import Controller from './Controller.js';
+import UiComponent from './UiComponent.js';
 
-var
-	Dom = require('./dom');
+import Dom from './dom.js';
 
 /**
 * {@link module:enyo/ViewController~ViewController} is designed to manage the lifecycle of a particular view

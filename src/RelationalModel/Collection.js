@@ -4,12 +4,10 @@
 * @private
 */
 
-var
-	kind = require('../kind'),
-	Collection = require('../Collection');
+import kind from '../kind.js';
+import Collection from '../Collection.js';
 
-var
-	Model = require('./Model');
+import Model from './Model.js';
 
 /**
 * Private class for a collection with a default model kind of

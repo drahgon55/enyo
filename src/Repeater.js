@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Repeater~Repeater} kind.
 * @module enyo/Repeater
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
-var
-	Control = require('./Control');
+import kind from './kind.js';
+import utils from './utils.js';
+import Control from './Control/Control.js';
 
 /**
 * The extended {@glossary event} [object]{@glossary Object} that is provided

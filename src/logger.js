@@ -1,9 +1,6 @@
-require('enyo');
-
-var
-	json = require('./json'),
-	utils = require('./utils'),
-	platform = require('./platform');
+import json from './json.js';
+import utils from './utils.js';
+import platform from './platform.js';
 
 /**
 * These platforms only allow one argument for [console.log()]{@glossary console.log}:

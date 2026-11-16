@@ -3,10 +3,8 @@
 * @module enyo/StateSupport
 */
 
-require('enyo');
 
-var
-	States = require('./States');
+import States from './States.js';
 
 /**
 * Provides generic API methods related to using {@link module:enyo/States}.

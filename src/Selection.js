@@ -1,14 +1,10 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Selection~Selection} kind.
 * @module enyo/Selection
 */
 
-var
-	kind = require('./kind');
-var
-	Component = require('./Component');
+import kind from './kind.js';
+import Component from './Component.js';
 
 /**
 * The extended {@glossary event} [object]{@glossary Object} that is provided

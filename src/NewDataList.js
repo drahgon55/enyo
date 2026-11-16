@@ -6,15 +6,12 @@
 * @module enyo/NewDataList
 */
 
-require('enyo');
 
-var
-	kind = require('./kind'),
-	dom = require('./dom');
+import kind from './kind.js';
+import dom from './dom.js';
 
-var
-	Scrollable = require('./Scrollable'),
-	VirtualDataRepeater = require('./VirtualDataRepeater');
+import Scrollable from './Scrollable/Scrollable.js';
+import VirtualDataRepeater from './VirtualDataRepeater.js';
 
 /**
 * {@link module:enyo/NewDataList~NewDataList} is new virtual list implementation.

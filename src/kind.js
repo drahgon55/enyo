@@ -1,8 +1,5 @@
-require('enyo');
-
-var
-	logger = require('./logger'),
-	utils = require('./utils');
+import logger from './logger.js';
+import utils from './utils.js';
 
 var defaultCtor = null;
 

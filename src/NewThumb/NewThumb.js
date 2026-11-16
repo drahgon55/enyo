@@ -1,5 +1,3 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/NewThumb~NewThumb} kind.
 * @wip
@@ -7,13 +5,11 @@ require('enyo');
 * @module enyo/NewThumb
 */
 
-var
-	kind = require('../kind'),
-	ri = require('../resolution'),
-	dom = require('../dom');
+import kind from '../kind.js';
+import ri from '../resolution.js';
+import dom from '../dom.js';
 
-var
-	Control = require('../Control');
+import Control from '../Control/Control.js';
 
 /**
 * {@link module:enyo/NewThumb~NewThumb} is a simple scroll thumb designed to be

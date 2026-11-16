@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/MediaSource~MediaSource} kind.
 * @module enyo/MediaSource
 */
 
-var
-	kind = require('./kind'),
-	path = require('./pathResolver');
-var
-	Control = require('./Control');
+import kind from './kind.js';
+import path from './pathResolver.js';
+import Control from './Control/Control.js';
 
 /**
 * Fires when the `src` or `type` of the {@link module:enyo/MediaSource~MediaSource} changes.

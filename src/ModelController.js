@@ -1,20 +1,16 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/ModelController~ModelController} kind.
 * @module enyo/ModelController
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	ProxyObject = require('./ProxyObject'),
-	Component = require('./Component'),
-	ComputedSupport = require('./ComputedSupport'),
-	EventEmitter = require('./EventEmitter'),
-	CoreObject = require('./CoreObject');
+import ProxyObject from './ProxyObject.js';
+import Component from './Component.js';
+import ComputedSupport from './ComputedSupport.js';
+import EventEmitter from './EventEmitter.js';
+import CoreObject from './CoreObject.js';
 
 /**
 * Only necessary because of the order in which mixins are applied.

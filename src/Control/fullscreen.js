@@ -1,8 +1,7 @@
-var
-	dispatcher = require('../dispatcher'),
-	utils = require('../utils'),
-	ready = require('../ready'),
-	Signals = require('../Signals');
+import dispatcher from '../dispatcher.js';
+import utils from '../utils.js';
+import ready from '../ready.js';
+import Signals from '../Signals.js';
 
 /**
 * Normalizes and provides fullscreen support for [controls]{@link module:enyo/Control~Control},

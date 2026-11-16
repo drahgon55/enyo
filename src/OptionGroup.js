@@ -1,17 +1,13 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/OptionGroup~OptionGroup} kind.
 * @module enyo/OptionGroup
 */
 
-var
-	kind = require('./kind');
-var
-	Control = require('./Control'),
-	/*jshint -W079*/
-	Option = require('./Option');
-	/*jshint +W079*/
+import kind from './kind.js';
+import Control from './Control/Control.js';
+/*jshint -W079*/
+import Option from './Option.js';
+/*jshint +W079*/
 
 /**
 * {@link module:enyo/OptionGroup~OptionGroup} allows for the [grouping]{@glossary optgroup} of

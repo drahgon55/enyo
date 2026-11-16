@@ -1,7 +1,4 @@
-require('enyo');
-
-var
-	utils = require('./utils');
+import utils from './utils.js';
 
 /**
 * A {@glossary mixin} designed to abstract interaction of the

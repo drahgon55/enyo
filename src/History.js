@@ -35,12 +35,11 @@
 * 	the displayed URL. Must be within the same origin.
 */
 
-var
-	dispatcher = require('enyo/dispatcher'),
-	kind = require('enyo/kind'),
-	utils = require('enyo/utils'),
-	Component = require('enyo/Component'),
-	Signals = require('enyo/Signals');
+import dispatcher from './dispatcher.js';
+import kind from './kind.js';
+import utils from './utils.js';
+import Component from './Component.js';
+import Signals from './Signals.js';
 
 var
 	// App history, ordered from oldest to newest.

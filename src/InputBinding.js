@@ -1,15 +1,11 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/InputBinding~InputBinding} kind.
 * @module enyo/InputBinding
 */
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
-var
-	Binding = require('./Binding');
+import Binding from './Binding.js';
 
 /**
 * An {@link module:enyo/Binding~Binding} designed to have its [source]{@link module:enyo/Binding~Binding#source}

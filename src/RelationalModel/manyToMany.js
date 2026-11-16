@@ -4,11 +4,9 @@
 * @private
 */
 
-var
-	kind = require('../kind');
+import kind from '../kind.js';
 
-var
-	toMany = require('./toMany');
+import toMany from './toMany.js';
 
 /**
 * Represents a relationship of data from many [models]{@link module:enyo/Model~Model} to many

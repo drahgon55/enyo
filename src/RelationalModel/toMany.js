@@ -4,16 +4,14 @@
  * @private
  */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils'),
-	Collection = require('../Collection'),
-	Store = require('../Store');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import Collection from '../Collection.js';
+import Store from '../Store.js';
 
-var
-	Relation = require('./Relation'),
-	RelationalCollection = require('./Collection'),
-	toOne = require('./toOne');
+import Relation from './Relation.js';
+import RelationalCollection from './Collection.js';
+import toOne from './toOne.js';
 
 /**
 * Represents a relationship of data from one [model]{@link module:enyo/Model~Model} to many

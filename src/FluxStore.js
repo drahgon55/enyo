@@ -4,15 +4,14 @@
 * @module enyo/FluxStore
 */
 
-var
-	kind = require('./kind'),
-	utils = require('enyo/utils'),
-	bindSafely = utils.bindSafely,
-	CoreObject = require('./CoreObject'),
-	EventEmitter = require('./EventEmitter'),
-	FluxDispatcher = require('./FluxDispatcher'),
-	Source = require('./Source'),
-	StateSupport = require('./StateSupport');
+import kind from './kind.js';
+import utils from './utils.js';
+import CoreObject from './CoreObject.js';
+import EventEmitter from './EventEmitter.js';
+import FluxDispatcher from './FluxDispatcher.js';
+import Source from './Source.js';
+import StateSupport from './StateSupport.js';
+var bindSafely = utils.bindSafely;
 
 
 function update (node, src) {

@@ -6,16 +6,14 @@
 * @module enyo/Scrollable
 */
 
-var
-	kind = require('../kind'),
-	utils = require('../utils'),
-	dom = require('../dom'),
-	dispatcher = require('../dispatcher');
+import kind from '../kind.js';
+import utils from '../utils.js';
+import dom from '../dom.js';
+import dispatcher from '../dispatcher.js';
 
-var
-	Control = require('../Control'),
-	EventEmitter = require('../EventEmitter'),
-	ScrollMath = require('../ScrollMath');
+import Control from '../Control/Control.js';
+import EventEmitter from '../EventEmitter.js';
+import ScrollMath from '../ScrollMath.js';
 
 var blockOptions = {
 	start: true,

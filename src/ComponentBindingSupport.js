@@ -3,10 +3,8 @@
 * @module enyo/ComponentBindingSupport
 */
 
-require('enyo');
 
-var
-	kind = require('./kind');
+import kind from './kind.js';
 
 /**
 * An internally-used {@glossary mixin} applied to {@link module:enyo/Component~Component}

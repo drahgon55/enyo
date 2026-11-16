@@ -1,10 +1,6 @@
-require('enyo');
-
-var
-	utils = require('./utils');
-var
-	Component = require('./Component'),
-	Signals = require('./Signals');
+import utils from './utils.js';
+import Component from './Component.js';
+import Signals from './Signals.js';
 
 /**
 * Default owner assigned to ownerless [UiComponents]{@link module:enyo/UiComponent~UiComponent},

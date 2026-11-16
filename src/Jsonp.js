@@ -1,17 +1,13 @@
-require('enyo');
-
 /**
 * Contains the declaration for the {@link module:enyo/Jsonp~JsonpRequest} kind.
 * @module enyo/Jsonp
 */
 
-var
-	kind = require('./kind'),
-	utils = require('./utils');
+import kind from './kind.js';
+import utils from './utils.js';
 
-var
-	Async = require('./Async'),
-	Ajax = require('./Ajax');
+import Async from './Async.js';
+import Ajax from './Ajax.js';
 
 /**
 * {@link module:enyo/Jsonp~JsonpRequest} is an [Async]{@link module:enyo/Async~Async} task specifically designed
