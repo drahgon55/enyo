@@ -8,42 +8,63 @@
  h1 { font-family: system-ui, sans-serif; }
  .ok { color: #137333; } .bad { color: #c5221f; font-weight: bold; }
  #summary { font: 600 16px/1.5 system-ui, sans-serif; margin: 1rem 0; }
+ iframe { display: none; }
 </style>
 </head>
 <body>
-<h1>Every module under <code>src/</code></h1>
-<p>Each module is imported on its own, to check that it evaluates without a
-bundler. Failures here are usually circular-import TDZ errors or top-level
-code that assumes a bundler shim.</p>
+<h1>Every module under <code>src/</code>, loaded cold</h1>
+<p>Each module is imported <em>in a document of its own</em>, so it and its whole
+subgraph are evaluated from scratch. That is what makes this a real test for
+circular-import errors: importing everything into one page shares the module
+registry, and after the first import the graph is already warm, so a cycle that
+breaks a cold load passes silently.</p>
 <div id="summary">running…</div>
 <div id="out"></div>
+<iframe id="frame"></iframe>
 
 <script type="module">
 import modules from './modules.js';
 
-var out = document.getElementById('out');
-var failures = [];
+const out = document.getElementById('out');
+const frame = document.getElementById('frame');
+const failures = [];
+
+function loadOne (spec) {
+	return new Promise(function (resolve) {
+		function onMessage (e) {
+			if (!e.data || e.data.spec !== spec) return;
+			window.removeEventListener('message', onMessage);
+			clearTimeout(timer);
+			resolve(e.data);
+		}
+		const timer = setTimeout(function () {
+			window.removeEventListener('message', onMessage);
+			resolve({spec: spec, ok: false, error: 'timed out'});
+		}, 20000);
+		window.addEventListener('message', onMessage);
+		frame.src = 'load-one.html?m=' + encodeURIComponent(spec);
+	});
+}
 
 for (const m of modules) {
-	let line;
-	try {
-		const ns = await import(m);
-		const hasDefault = Object.prototype.hasOwnProperty.call(ns, 'default');
-		line = '<div class="ok">ok    ' + m + (hasDefault ? '' : '   (no default export)') + '</div>';
-	} catch (e) {
-		failures.push([m, String(e)]);
-		line = '<div class="bad">FAIL  ' + m + '   ' + String(e).replace(/</g,'&lt;') + '</div>';
+	const r = await loadOne(m);
+	if (r.ok) {
+		out.insertAdjacentHTML('beforeend',
+			'<div class="ok">ok    ' + m + (r.hasDefault ? '' : '   (no default export)') + '</div>');
+	} else {
+		failures.push([m, r.error]);
+		out.insertAdjacentHTML('beforeend',
+			'<div class="bad">FAIL  ' + m + '   ' + r.error.replace(/</g, '&lt;') + '</div>');
 	}
-	out.insertAdjacentHTML('beforeend', line);
 }
 
 document.getElementById('summary').textContent =
-	modules.length + ' modules, ' + failures.length + ' failed';
+	modules.length + ' modules loaded cold, ' + failures.length + ' failed';
 document.title = failures.length ? 'FAIL (' + failures.length + ')' : 'ALL ' + modules.length + ' OK';
 window.enyoEsmModuleTest = {total: modules.length, failures: failures};
 console.log(failures.length
-	? 'MODULE FAILURES: ' + JSON.stringify(failures, null, 1)
-	: 'ALL ' + modules.length + ' MODULES EVALUATED CLEANLY');
+	? 'MODULE FAILURES: ' + JSON.stringify(failures.slice(0, 10), null, 1)
+	: 'ALL ' + modules.length + ' MODULES EVALUATED CLEANLY (cold)');
 </script>
 </body>
 </html>

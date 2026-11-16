@@ -114,9 +114,13 @@ check('Application.applications preserved', typeof Application.applications === 
 check('PriorityQueue default + named Priorities agree',
 	typeof PriorityQueue === 'function' && Priorities &&
 	PriorityQueue.Priorities === Priorities && 'SOMETIME' in Priorities);
+// `typeof LocalStorageSource !== 'undefined'` would have been vacuous — an
+// import binding is always defined if the module resolved at all. In a browser
+// the feature test inside the module passes, so it must be a real kind.
 check('conditional exports resolved',
 	typeof Blob === 'function' && typeof FormData === 'function' &&
-	typeof LocalStorageSource !== 'undefined');
+	typeof LocalStorageSource === (typeof localStorage !== 'undefined' ? 'function' : 'object'),
+	'LocalStorageSource is ' + typeof LocalStorageSource);
 
 // A plain Control, created and rendered.
 // A kind with a click/tap handler.
@@ -149,7 +153,18 @@ var Panel = kind({
 	]
 });
 
+function report () {
+	var failed = results.filter(function (r) { return r.indexOf('FAIL') === 0; });
+	document.title = failed.length ? 'FAIL (' + failed.length + ')' : 'ALL PASS';
+	window.enyoEsmTest = {results: results, failed: failed.length};
+	console.log(failed.length ? 'TESTS FAILED: ' + failed.length : 'ALL TESTS PASSED');
+}
+
 ready(function () {
+  // Without this, a throw part-way through leaves window.enyoEsmTest undefined
+  // and the title unchanged, so an automated reader gets "no result" rather
+  // than a failure. Reverting the Scrim fix did exactly that.
+  try {
 	var panel = new Panel();
 	panel.renderInto(document.getElementById('app'));
 
@@ -213,10 +228,11 @@ ready(function () {
 	// Expose for manual poking in the console.
 	window.testApp = panel;
 
-	var failed = results.filter(function (r) { return r.indexOf('FAIL') === 0; });
-	document.title = failed.length ? 'FAIL (' + failed.length + ')' : 'ALL PASS';
-	window.enyoEsmTest = {results: results, failed: failed.length};
-	console.log(failed.length ? 'TESTS FAILED: ' + failed.length : 'ALL TESTS PASSED');
+	check('harness ran to completion', true);
+  } catch (e) {
+	check('harness ran to completion', false, String(e && e.stack || e));
+  }
+  report();
 });
 </script>
 </body>

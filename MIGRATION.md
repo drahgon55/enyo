@@ -268,10 +268,29 @@ for a change that is not there. That is not hypothetical — it is how the
   checks cover the `Scrim` regression above: a floating `enyo/Popup` with a
   scrim is shown, and the scrim node must appear. Reverting `Scrim.js` makes
   those fail with the `callee` `TypeError`, which is how they were confirmed to
-  be worth having.
-- `test-esm/all-modules.html` — imports each of the 164 modules under `src/`
-  separately. 164/164 evaluate; only `touch.js` has no default export, which is
-  correct (it never exported anything).
+  be worth having. One clause asserted
+  `typeof LocalStorageSource !== 'undefined'`, which could never fail — an
+  import binding is always defined if the module resolved — and now asserts it
+  is a real kind. A throw part-way through the suite is also reported as a
+  failed check rather than leaving no result at all.
+- `test-esm/all-modules.html` — loads each of the 164 modules under `src/`
+  **in a document of its own**, via an iframe, so the module and its whole
+  subgraph evaluate cold. 164/164, in about three seconds; only `touch.js` has
+  no default export, which is correct (it never exported anything).
+
+  It originally imported everything into one page, and that version was
+  worthless as a cycle canary. A shared module registry means that after the
+  first import most of the graph is already evaluated, so a later import cannot
+  reproduce a first-load error. Injecting a real `utils` ↔ `kind` cycle, it
+  still reported 164/164 OK; the cold-load version reports `FAIL (120)` with
+  `Cannot access 'kind' before initialization`. Both numbers came from the same
+  broken tree.
+- `test-esm/check-cycles.mjs` — a static check of the same thing, and the one to
+  trust. `node test-esm/check-cycles.mjs` builds the import graph and runs
+  Tarjan over it, exiting non-zero on a cycle. Whether a cycle *throws* depends
+  on evaluation order, so a browser check can miss one that happens to
+  initialize workably from one entry point; the graph either has a cycle or it
+  does not. Currently: 165 modules, 550 static imports, no cycles.
 - `test-esm/importmap.html` — imports `enyo/src/kind.js` and
   `enyo/src/Control/Control.js` through an import map, exactly as the doc
   comments are now written, and clicks a handler. 4/4 pass.
