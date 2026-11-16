@@ -171,6 +171,53 @@ kind.makeCtor = function () {
 kind.features = [];
 
 /**
+* `this.inherited(arguments)` has to know which function is currently executing.
+* That used to come from `arguments.callee`, which is a `TypeError` in strict
+* mode -- and ES modules are always strict.
+*
+* So methods that use the idiom record themselves instead. `extendMethods`
+* wraps them at kind-creation time, and only them: a method whose source does
+* not mention `.inherited(` is left exactly as it was. Nearly all of enyo uses
+* the faster `kind.inherit()` form, so in practice almost nothing is wrapped.
+*
+* @private
+*/
+var _inheritedCaller = null;
+
+/**
+* @private
+*/
+function usesInherited (fn) {
+	if (fn._inheritedWrapped) return false;
+	var src;
+	try {
+		src = Function.prototype.toString.call(fn);
+	} catch (e) {
+		return false;
+	}
+	return /\.inherited\s*\(/.test(src);
+}
+
+/**
+* @private
+*/
+function wrapForInherited (fn) {
+	var wrapper = function () {
+		var prev = _inheritedCaller;
+		_inheritedCaller = wrapper;
+		try {
+			return fn.apply(this, arguments);
+		} finally {
+			// restored rather than cleared, so a method that calls another
+			// method which also uses the idiom still resolves correctly
+			_inheritedCaller = prev;
+		}
+	};
+	wrapper._inheritedWrapped = fn;
+	return wrapper;
+}
+
+/**
 * Used internally by several mechanisms to allow safe and normalized handling for extending a
 * [kind's]{@glossary kind} super-methods. It can take a
 * [constructor]{@glossary constructor}, a [prototype]{@glossary Object.prototype}, or an
@@ -206,6 +253,8 @@ kind.extendMethods = function (ctor, props, add) {
 			}
 		}
 		if (utils.isFunction(p)) {
+			// only methods that actually use this.inherited() pay for it
+			if (usesInherited(p)) p = proto[n] = wrapForInherited(p);
 			if (add) {
 				proto[n] = p;
 				p.displayName = n + '()';
@@ -233,8 +282,8 @@ kind.features.push(kind.extendMethods);
 */
 kind.inherited = function (originals, replacements) {
 	// one-off methods are the fast track
-	var target = originals.callee;
-	var fn = target._inherited;
+	var target = _inheritedCaller;
+	var fn = target && target._inherited;
 
 	// regardless of how we got here, just ensure we actually
 	// have a function to call or else we throw a console
@@ -258,7 +307,8 @@ kind.inherited = function (originals, replacements) {
 		return fn.apply(this, args);
 	} else {
 		logger.warn('enyo.kind.inherited: unable to find requested ' +
-			'super-method from -> ' + originals.callee.displayName + ' in ' + this.kindName);
+			'super-method from -> ' + (target ? target.displayName : '(unknown method)') +
+			' in ' + this.kindName);
 	}
 };
 

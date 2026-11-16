@@ -220,22 +220,42 @@ because `Popup#showHideScrim` constructs a `Scrim`. That is most onyx popups:
 `onyx/Menu`, `onyx/Picker`, `onyx/Tooltip` and `onyx/ContextualPopup` were all
 dead until this was fixed.
 
-**`kind.inherited` itself is still broken, and that is a real limitation.**
-`this.inherited(arguments)` is a documented public idiom in Enyo 2.x, and any
-application kind that uses it will throw. There is no way to recover the calling
-function in strict mode, so fixing it properly means changing how super-calls are
-dispatched. Enyo already ships the alternative and recommends it for speed:
+**`kind.inherited` is fixed.** It needed to know which function was executing,
+which it got from `arguments.callee`. Methods that use the idiom now record
+themselves instead: `kind.extendMethods` wraps them at kind-creation time, and
+`kind.inherited` reads the recorded method rather than `arguments.callee`.
+
+Only methods whose source mentions `.inherited(` are wrapped, decided once per
+kind with `Function.prototype.toString()`. That matters, because the obvious
+implementation — wrapping every method so every method knows its own identity —
+would tax a framework built for mobile. Measured in Chrome:
+
+| | |
+| --- | --- |
+| one-time scan of all 2128 methods enyo defines | 0.8 ms |
+| methods wrapped in enyo's own `src/` | 0 |
+| wrapper overhead on a method that *does* use the idiom | 1.7 ns/call |
+| what `this.inherited(arguments)` already cost per call | ~174 ns |
+
+Nothing in `src/` uses the idiom — 87 files use `kind.inherit()` instead — so
+the framework pays only the 0.8 ms. Application code that uses the documented
+form pays 1.7 ns on top of a call that was already the slow path, which is why
+`kind.inherit()` remains the faster option and is still what enyo recommends:
 
 ```js
-// instead of:  foo: function () { this.inherited(arguments); }
+// still the fast path
 foo: kind.inherit(function (sup) {
 	return function () { sup.apply(this, arguments); };
 })
 ```
 
-The explicit `Base.prototype.foo.apply(this, arguments)` form works too, and is
-what `src/` uses almost everywhere. Making `this.inherited(arguments)` work again
-under ESM is a separate change and is not attempted here.
+The nesting is handled: the recorded method is saved and restored around each
+call, so a method that calls another method which also uses the idiom resolves
+correctly, and a super that itself calls `this.inherited(arguments)` walks the
+chain as before. Replacement arguments (`this.inherited(arguments, [...])`)
+work unchanged. `test-esm/index.html` covers a three-deep chain, replacement
+arguments, the missing-super warning, and that methods not using the idiom are
+left unwrapped; reverting `kind.js` turns those red.
 
 ## Verification
 
@@ -246,8 +266,9 @@ Static:
 - No `require(` or `module.exports` remains anywhere in `src/` or `index.js` —
   not in executable code, and not in a comment.
 
-In a browser (Chrome, console clean — no errors, no warnings, every request
-200). **Serve with `python3 test-esm/serve.py [port]`, not `python3 -m
+In a browser (Chrome, console clean — no errors, every request 200; the suite
+deliberately emits one `kind.inherited` warning, from the check that a missing
+super-method warns rather than throwing). **Serve with `python3 test-esm/serve.py [port]`, not `python3 -m
 http.server`:** a plain server lets the browser cache the ES modules, and a
 query string on the page URL does not bust them because the module specifiers
 are unchanged. A reload then silently re-runs the *old* code and reports a pass

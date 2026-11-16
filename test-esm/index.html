@@ -57,6 +57,7 @@ import PriorityQueue, { Priorities } from '../src/PriorityQueue.js';
 import LocalStorageSource from '../src/LocalStorageSource.js';
 import Blob          from '../src/Blob.js';
 import Popup         from '../src/Popup/Popup.js';
+import CoreObject    from '../src/CoreObject.js';
 import FormData      from '../src/FormData.js';
 
 var results = [];
@@ -227,6 +228,69 @@ ready(function () {
 
 	// Expose for manual poking in the console.
 	window.testApp = panel;
+
+	// --- this.inherited(arguments) -------------------------------------
+	// The documented Enyo 2.x super-call idiom. It reads arguments.callee,
+	// which is a TypeError under strict mode, so kind.js records the
+	// executing method instead. These checks fail without that.
+	var trace = [];
+
+	var Base = kind({
+		name: 'InhBase',
+		kind: CoreObject,
+		greet: function (who) { trace.push('Base:' + who); return 'base(' + who + ')'; },
+		orphan: function () { return this.inherited(arguments); }
+	});
+	var Middle = kind({
+		name: 'InhMiddle',
+		kind: Base,
+		greet: function (who) {
+			trace.push('Middle:' + who);
+			return 'middle[' + this.inherited(arguments) + ']';
+		}
+	});
+	var Leaf = kind({
+		name: 'InhLeaf',
+		kind: Middle,
+		greet: function (who) {
+			trace.push('Leaf:' + who);
+			return 'leaf[' + this.inherited(arguments) + ']';
+		}
+	});
+	// kind.inherited's second argument replaces the leading arguments passed up
+	var Swapper = kind({
+		name: 'InhSwapper',
+		kind: Leaf,
+		greet: function (who) { return this.inherited(arguments, ['swapped']); }
+	});
+
+	var leaf = new Leaf();
+	var out = leaf.greet('x');
+	check('this.inherited() walks a three-deep chain',
+		out === 'leaf[middle[base(x)]]', JSON.stringify(out));
+	check('each level ran exactly once, deepest last',
+		trace.join(',') === 'Leaf:x,Middle:x,Base:x', trace.join(','));
+
+	trace.length = 0;
+	var swapped = new Swapper().greet('original');
+	check('replacement arguments reach the super',
+		swapped === 'leaf[middle[base(swapped)]]' && trace.join(',') === 'Leaf:swapped,Middle:swapped,Base:swapped',
+		JSON.stringify(swapped) + ' / ' + trace.join(','));
+
+	// a method that does NOT use the idiom must be left completely alone
+	check('methods not using the idiom are not wrapped',
+		!Base.prototype.greet._inheritedWrapped &&
+		!!Middle.prototype.greet._inheritedWrapped,
+		'Base.greet wrapped=' + !!Base.prototype.greet._inheritedWrapped +
+		' Middle.greet wrapped=' + !!Middle.prototype.greet._inheritedWrapped);
+
+	// Calling up from a method with no super warns rather than throwing. This
+	// deliberately logs one warning to the console -- it is expected.
+	var orphanThrew = null, orphanResult;
+	try { orphanResult = new Base().orphan(); }
+	catch (e) { orphanThrew = String(e); }
+	check('missing super warns instead of throwing',
+		!orphanThrew && orphanResult === undefined, orphanThrew || 'returned ' + orphanResult);
 
 	check('harness ran to completion', true);
   } catch (e) {
