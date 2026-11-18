@@ -1306,8 +1306,15 @@ export default kind(
 		this.playbackRate = rate = String(rate);
 		pbNumber = this.calcNumberValueOfPlaybackRate(rate);
 
-		// Set native playback rate
-		node.playbackRate = pbNumber;
+		// Set native playback rate. A negative rate is not merely ignored by
+		// browsers that do not implement reverse playback: assigning one throws
+		// `NotSupportedError`, which would take `rewind()` down before it could
+		// reach the fallback immediately below -- the fallback whose whole
+		// purpose is this case. So only the platforms that accept a negative
+		// rate are given one.
+		if (pbNumber >= 0 || platform.webos || globalThis.PalmSystem) {
+			node.playbackRate = pbNumber;
+		}
 
 		if (!(platform.webos || globalThis.PalmSystem)) {
 			// For supporting cross browser behavior
