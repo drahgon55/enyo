@@ -175,9 +175,26 @@ var dom = {
 	_bodyScaleFactorY: 1,
 	_bodyScaleFactorX: 1,
 	updateScaleFactor: function() {
-		var bodyBounds = this.getBounds(document.body);
-		this._bodyScaleFactorY = bodyBounds.height / this.getWindowHeight();
-		this._bodyScaleFactorX = bodyBounds.width / this.getWindowWidth();
+		var bodyBounds = this.getBounds(document.body),
+			y = bodyBounds.height / this.getWindowHeight(),
+			x = bodyBounds.width / this.getWindowWidth();
+
+		// Refuse a zero or non-finite factor. A 0 is never a meaningful scale,
+		// and storing one is fatal rather than merely wrong:
+		// `gesture/util.makeEvent()` multiplies the `clientX`/`clientY` of every
+		// `down`, `move`, `up`, `enter` and `leave` event by these, so a 0 holds
+		// the drag deltas at 0 and no `ondragstart`/`ondrag` is ever dispatched
+		// again -- taps keep working, dragging silently stops, and nothing is
+		// logged. The body really can measure 0 here: a page that renders an
+		// `enyo-fit` control into `document.body` has only an absolutely
+		// positioned child, so the body's own size comes from `enyo-body-fit` in
+		// `css/enyo.css`, which may not have applied at the instant
+		// `Control.renderInto()` calls this. And `renderInto()` is the only
+		// caller, so a page that lost that race would stay undraggable for its
+		// whole life. Keeping the previous factor (1, unless a good measurement
+		// replaced it) is always closer to the truth than 0.
+		if (y > 0 && isFinite(y)) this._bodyScaleFactorY = y;
+		if (x > 0 && isFinite(x)) this._bodyScaleFactorX = x;
 	},
 
 	/**
