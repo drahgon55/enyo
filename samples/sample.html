@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>Enyo Sample</title>
+
+<!-- The 2.5 originals pulled in enyo.js plus the layout and onyx package.js
+     files and let them gather their own stylesheets. There is no loader here,
+     so the sheets are listed by hand. layout and onyx are complete compiled
+     sheets committed to those forks; enyo ships only its base, and every
+     module these samples reach for brings its own -- so each of those is
+     named below. A sample's own stylesheet is not here: it is loaded per
+     sample, further down. -->
+<link rel="stylesheet" href="/enyo/css/enyo.css">
+<link rel="stylesheet" href="/enyo/src/Button/Button.css">
+<link rel="stylesheet" href="/enyo/src/DataGridList/DataGridList.css">
+<link rel="stylesheet" href="/enyo/src/DataList/DataList.css">
+<link rel="stylesheet" href="/enyo/src/Image/Image.css">
+<link rel="stylesheet" href="/enyo/src/Popup/Popup.css">
+<link rel="stylesheet" href="/enyo/src/RichText/RichText.css">
+<link rel="stylesheet" href="/enyo/src/Scrim/Scrim.css">
+<link rel="stylesheet" href="/enyo/src/Scroller/Scroller.css">
+<link rel="stylesheet" href="/enyo/src/ScrollThumb/ScrollThumb.css">
+<link rel="stylesheet" href="/enyo/src/SpriteAnimation/SpriteAnimation.css">
+<link rel="stylesheet" href="/layout/css/layout.css">
+<link rel="stylesheet" href="/onyx/css/onyx.css">
+
+<!--
+	This single page hosts any one sample: `sample.html?s=ButtonSample`. The
+	alternative was 33 copies of this importmap and this list of stylesheets,
+	which is what upstream had (its pages cost four <script> tags each, so the
+	duplication was nearly free; here it would not be).
+
+	No bundler and no build step: the browser resolves the bare specifiers
+	through the map below, which wants the `enyo`, `layout` and `onyx`
+	checkouts side by side under the served root. So serve their common
+	parent:
+
+		python3 ../../layout/test-layout/serve.py 8000 /path/containing/them
+
+	then open http://localhost:8000/enyo/samples/index.html
+
+	Use serve.py rather than `python3 -m http.server`: the latter lets the
+	browser cache ES modules, so a reload can re-run stale code.
+
+	The samples import enyo itself by relative path (`../src/kind.js`), the way
+	everything else in this repository does; the map is only needed for the
+	sibling libraries. `enyo/` is in it anyway because onyx and layout import
+	enyo that way, and both spellings have to resolve to the same URL or the
+	framework would be instantiated twice.
+-->
+<script type="importmap">
+{ "imports": {
+  "enyo":    "/enyo/index.js",
+  "enyo/":   "/enyo/",
+  "layout":  "/layout/index.js",
+  "layout/": "/layout/",
+  "onyx":    "/onyx/index.js",
+  "onyx/":   "/onyx/"
+} }
+</script>
+
+<style>
+ /* Only for the failure notice below -- the sample itself is rendered into a
+    bare body, exactly as upstream's own pages did, so nothing here can shift
+    its layout. */
+ .sample-error {
+   font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+   color: #c5221f; background: #fff; margin: 0; padding: 16px; white-space: pre-wrap;
+ }
+ .sample-error a { color: #1879CD; }
+</style>
+</head>
+<!-- Upstream's sample pages were <body class="onyx">: several of these samples
+     use onyx controls, and onyx's rules all hang off that class. Loading
+     `onyx/index.js` would add it too, but nothing here imports onyx's index --
+     the samples import the individual controls. -->
+<body class="onyx">
+
+<!-- A module that fails to LINK never runs, so the module script below could
+     not report its own failure and the page would sit there blank. -->
+<script>
+window.addEventListener('error', function (e) {
+	document.title = 'FAIL (load)';
+	document.body.insertAdjacentHTML('afterbegin',
+		'<pre class="sample-error">the page did not load: ' +
+		String(e.message).replace(/</g, '&lt;') +
+		'\n\n<a href="index.html">back to the sample list</a></pre>');
+});
+</script>
+
+<script type="module">
+import ready from '../src/ready.js';
+import samples from './samples.js';
+
+function fail (msg) {
+	document.title = 'FAIL';
+	document.body.insertAdjacentHTML('afterbegin',
+		'<pre class="sample-error">' + String(msg).replace(/</g, '&lt;') +
+		'\n\n<a href="index.html">back to the sample list</a></pre>');
+}
+
+/**
+* Upstream gave each sample its own page and its own <link>. Keeping the 29
+* stylesheets per sample rather than concatenating them is not just fidelity:
+* several of them define the same unscoped selector -- `.popup` is in
+* AudioSample.css, PopupSample.css and VideoSample.css, with different colours
+* -- so one combined sheet would have samples restyling each other.
+*
+* Resolves either way: a sample whose sheet 404s is still worth rendering.
+*/
+function loadStylesheet (href) {
+	return new Promise(function (resolve) {
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.href = href;
+		link.onload = link.onerror = resolve;
+		document.head.appendChild(link);
+	});
+}
+
+const wanted = new URLSearchParams(location.search).get('s');
+// Checked against the manifest rather than interpolated straight into the
+// import: `?s=` comes from the URL bar, and this keeps it to a known name.
+const entry = samples.filter(s => s.name === wanted)[0];
+
+if (!entry) {
+	fail(wanted
+		? 'No such sample: ' + wanted
+		: 'No sample asked for. Add ?s=ButtonSample to the URL.');
+} else {
+	document.title = entry.label + ' Sample';
+	try {
+		const Sample = (await import('./' + entry.name + '.js')).default;
+		// Rendering before the sample's own stylesheet has applied would mean
+		// measuring the wrong box: several of these are enyo-fit and lay
+		// themselves out from what they measure at render time.
+		if (entry.css !== false) await loadStylesheet(entry.name + '.css');
+		ready(function () {
+			// Upstream's own pages rendered with exactly this.
+			new Sample().renderInto(document.body);
+		});
+	} catch (e) {
+		fail(entry.name + ' failed to load:\n\n' + (e && e.stack || e));
+	}
+}
+</script>
+</body>
+</html>
